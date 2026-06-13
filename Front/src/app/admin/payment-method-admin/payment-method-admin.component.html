@@ -1,0 +1,132 @@
+<div class="payment-method-admin">
+  <div class="header">
+    <h2>💳 مدیریت روش‌های پرداخت</h2>
+    <div class="header-buttons">
+      <button class="btn-seed" (click)="seedDefaultMethods()">📋 افزودن روش‌های پیش‌فرض</button>
+      <button class="btn-add" (click)="addMethod()">➕ افزودن روش جدید</button>
+    </div>
+  </div>
+
+  <!-- فرم افزودن/ویرایش -->
+  <div class="form-modal" *ngIf="showForm && editingMethod">
+    <div class="form-content">
+      <h3>{{ isEditing ? 'ویرایش روش پرداخت' : 'روش پرداخت جدید' }}</h3>
+      
+      <div class="form-group">
+        <label>نام داخلی:</label>
+        <input type="text" [(ngModel)]="editingMethod.name" placeholder="مثلاً: Cash, Pos, Online">
+        <small class="help-text">این نام برای شناسایی در کد استفاده می‌شود</small>
+      </div>
+
+      <div class="form-group">
+        <label>عنوان نمایشی:</label>
+        <input type="text" [(ngModel)]="editingMethod.title" placeholder="مثلاً: پرداخت نقدی">
+      </div>
+
+      <div class="form-group">
+        <label>آیکون:</label>
+        <select [(ngModel)]="editingMethod.icon">
+          <option *ngFor="let icon of iconOptions" [value]="icon.value">{{icon.label}}</option>
+        </select>
+        <div class="icon-preview">پیش‌نمایش: <span class="preview-icon">{{editingMethod.icon}}</span></div>
+      </div>
+
+      <div class="form-group">
+        <label>توضیحات:</label>
+        <textarea [(ngModel)]="editingMethod.description" rows="2" placeholder="توضیحات روش پرداخت"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>ترتیب نمایش:</label>
+        <input type="number" [(ngModel)]="editingMethod.sortOrder" placeholder="0">
+      </div>
+
+      <div class="form-group checkbox-group">
+        <label>
+          <input type="checkbox" [(ngModel)]="editingMethod.isActive">
+          فعال
+        </label>
+        <label>
+          <input type="checkbox" [(ngModel)]="editingMethod.requiresPosDevice">
+          نیاز به دستگاه POS
+        </label>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn-save" (click)="saveMethod()">💾 ذخیره</button>
+        <button class="btn-cancel" (click)="cancelForm()">❌ انصراف</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- لیست روش‌های پرداخت -->
+  <div class="methods-list">
+    <div class="list-header">
+      <div class="col-icon">آیکون</div>
+      <div class="col-title">عنوان</div>
+      <div class="col-name">نام داخلی</div>
+      <div class="col-desc">توضیحات</div>
+      <div class="col-sort">ترتیب</div>
+      <div class="col-pos">نیاز به POS</div>
+      <div class="col-status">وضعیت</div>
+      <div class="col-actions">عملیات</div>
+    </div>
+
+    <div class="loading-state" *ngIf="isLoading">
+      <div class="spinner"></div>
+      <p>در حال بارگذاری...</p>
+    </div>
+
+    <div class="method-item" *ngFor="let method of paymentMethods">
+      <div class="col-icon">
+        <span class="method-icon">{{method.icon}}</span>
+      </div>
+      <div class="col-title">
+        <span class="method-title">{{method.title}}</span>
+      </div>
+      <div class="col-name">
+        <code class="method-name">{{method.name}}</code>
+      </div>
+      <div class="col-desc">
+        <span class="method-desc">{{method.description}}</span>
+      </div>
+      <div class="col-sort">
+        <span class="method-sort">{{method.sortOrder}}</span>
+      </div>
+      <div class="col-pos">
+        <span class="pos-badge" [class.required]="method.requiresPosDevice">
+          {{method.requiresPosDevice ? '✅ نیاز دارد' : '❌ نیاز ندارد'}}
+        </span>
+      </div>
+      <div class="col-status">
+        <button class="status-toggle" 
+                [class.active]="method.isActive" 
+                [class.inactive]="!method.isActive"
+                (click)="toggleStatus(method)">
+          {{method.isActive ? 'فعال' : 'غیرفعال'}}
+        </button>
+      </div>
+      <div class="col-actions">
+        <button class="btn-edit" (click)="editMethod(method)" title="ویرایش">✏️</button>
+        <button class="btn-delete" (click)="deleteMethod(method.id)" title="حذف">🗑️</button>
+      </div>
+    </div>
+
+    <div class="empty-state" *ngIf="!isLoading && paymentMethods.length === 0">
+      <div class="empty-icon">💳</div>
+      <p>هیچ روش پرداختی یافت نشد</p>
+      <button class="btn-add-empty" (click)="addMethod()">➕ افزودن روش جدید</button>
+    </div>
+  </div>
+
+  <!-- راهنما -->
+  <div class="info-box">
+    <h4>📖 راهنما</h4>
+    <ul>
+      <li><strong>نام داخلی:</strong> برای شناسایی در کد استفاده می‌شود (Cash, Pos, Online)</li>
+      <li><strong>عنوان نمایشی:</strong> متنی که به کاربر نشان داده می‌شود</li>
+      <li><strong>نیاز به دستگاه POS:</strong> اگر فعال باشد، این روش پرداخت فقط زمانی نمایش داده می‌شود که دستگاه POS متصل باشد</li>
+      <li><strong>ترتیب نمایش:</strong> روش‌ها بر اساس این عدد از کوچک به بزرگ مرتب می‌شوند</li>
+    </ul>
+  </div>
+</div>

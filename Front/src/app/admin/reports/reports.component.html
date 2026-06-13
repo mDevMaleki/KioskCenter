@@ -1,0 +1,212 @@
+<div class="reports">
+  <h2>📊 گزارش فروش</h2>
+
+  <!-- بخش فیلترها -->
+  <div class="filters-section">
+    <div class="filter-group">
+      <label>نوع گزارش:</label>
+      <select [(ngModel)]="filterType" (change)="onFilterTypeChange()">
+        <option value="daily">📅 روزانه</option>
+        <option value="weekly">📆 هفتگی</option>
+        <option value="monthly">📆 ماهانه</option>
+        <option value="yearly">📅 سالانه</option>
+        <option value="custom">⚙️ دلخواه</option>
+      </select>
+    </div>
+
+    <!-- فیلتر روزانه -->
+    <div class="filter-group" *ngIf="filterType === 'daily'">
+  <label>تاریخ شمسی:</label>
+  <div class="date-navigation">
+    <button type="button" class="nav-btn" (click)="previousDay()" title="روز قبل">
+      ◀
+    </button>
+    <input type="text" 
+           [(ngModel)]="selectedDate" 
+           (change)="onDateChange()"
+           placeholder="1403/01/15"
+           class="date-input">
+    <button type="button" class="nav-btn" (click)="nextDay()" title="روز بعد">
+      ▶
+    </button>
+    <button type="button" class="today-btn" (click)="goToToday()" title="امروز">
+      📅 امروز
+    </button>
+  </div>
+</div>
+
+   <!-- فیلتر هفتگی با ناوبری -->
+<div class="filter-group" *ngIf="filterType === 'weekly'">
+  <div class="weekly-navigation">
+    <div class="year-select">
+      <label>سال:</label>
+      <input type="number" [(ngModel)]="selectedYearForWeek" (change)="onYearChange()" class="year-input">
+    </div>
+    
+    <div class="week-controls">
+      <button type="button" class="nav-btn" (click)="previousWeek()" title="هفته قبل">
+        ◀
+      </button>
+      
+      <div class="week-select">
+        <label>هفته:</label>
+        <select [(ngModel)]="selectedWeek" (change)="onWeekChange()" class="week-select-input">
+          <option *ngFor="let week of weeks" [value]="week.value">{{week.name}}</option>
+        </select>
+      </div>
+      
+      <button type="button" class="nav-btn" (click)="nextWeek()" title="هفته بعد">
+        ▶
+      </button>
+      
+      <button type="button" class="today-btn" (click)="goToCurrentWeek()" title="هفته جاری">
+        📅 هفته جاری
+      </button>
+    </div>
+  </div>
+  
+  <!-- نمایش بازه تاریخ هفته -->
+  <div class="week-range-info" *ngIf="weekTitle">
+    <span class="range-badge">📆 {{weekTitle}}</span>
+  </div>
+</div>
+
+    <!-- فیلتر ماهانه -->
+    <div class="filter-group" *ngIf="filterType === 'monthly'">
+      <label>سال:</label>
+      <input type="number" [(ngModel)]="selectedYearForMonth" (change)="onYearChange()">
+      <label>ماه:</label>
+      <select [(ngModel)]="selectedMonth" (change)="onMonthChange()">
+        <option *ngFor="let month of months" [value]="month.value">{{month.name}}</option>
+      </select>
+    </div>
+
+    <!-- فیلتر سالانه -->
+    <div class="filter-group" *ngIf="filterType === 'yearly'">
+      <label>سال:</label>
+      <input type="number" [(ngModel)]="selectedYear" (change)="onYearChange()">
+    </div>
+
+    <!-- فیلتر دلخواه -->
+    <div class="filter-group" *ngIf="filterType === 'custom'">
+      <label>از تاریخ:</label>
+      <input type="text" [(ngModel)]="startDate" (change)="onCustomRangeChange()" class="date-input">
+      <label>تا تاریخ:</label>
+      <input type="text" [(ngModel)]="endDate" (change)="onCustomRangeChange()" class="date-input">
+    </div>
+
+    <div class="filter-group">
+  <button class="btn-print-report" (click)="printReport()">🖨️ چاپ گزارش</button>
+  <button class="btn-print" (click)="printReport()">📄 پرینت</button>
+  <button class="btn-export" (click)="exportToExcel()">📊 خروجی اکسل</button>
+</div>
+
+  <!-- آمار اصلی -->
+  <div class="stats">
+    <div class="card">
+      <h3>تعداد سفارش</h3>
+      <p>{{totalOrders | number}}</p>
+    </div>
+    <div class="card">
+      <h3>مجموع فروش</h3>
+      <p>{{totalSales | number}} تومان</p>
+    </div>
+    <div class="card">
+      <h3>میانگین هر سفارش</h3>
+      <p>{{averageOrderValue | number:'1.0-0'}} تومان</p>
+    </div>
+    <div class="card">
+      <h3>مجموع مالیات</h3>
+      <p>{{totalTax | number}} تومان</p>
+    </div>
+  </div>
+
+  <!-- آمار پیشرفته -->
+  <div class="advanced-stats">
+    <div class="stat-card">
+      <h3>🍽️ نوع سفارش</h3>
+      <div class="stat-detail">
+        <span>حضوری: {{stats.eatInOrders}}</span>
+        <span>بیرون بر: {{stats.takeAwayOrders}}</span>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <h3>🏆 محصولات پرفروش</h3>
+      <div class="top-products">
+        <div *ngFor="let product of stats.topProducts; let i = index" class="product-item">
+          <span class="rank">{{i+1}}</span>
+          <span class="name">{{product.name}}</span>
+          <span class="quantity">{{product.quantity}} عدد</span>
+          <span class="total">{{product.total | number}} تومان</span>
+        </div>
+        <div *ngIf="stats.topProducts.length === 0" class="no-data">
+          محصولی یافت نشد
+        </div>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <h3>⏰ توزیع ساعتی فروش</h3>
+      <div class="hourly-distribution">
+        <div *ngFor="let item of hourlyDistributionArray" class="hour-item">
+          <span>{{item.hour}}:00</span>
+          <div class="progress-bar">
+            <div class="progress" [style.width.%]="getPercentage(item.value, totalSales)"></div>
+          </div>
+          <span>{{item.value | number}} تومان</span>
+        </div>
+        <div *ngIf="hourlyDistributionArray.length === 0" class="no-data">
+          داده‌ای موجود نیست
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- لیست سفارشات -->
+  <h3>📋 لیست سفارشات</h3>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>شماره فاکتور</th>
+          <th>مشتری</th>
+          <th>تاریخ شمسی</th>
+          <th>نوع سفارش</th>
+          <th>مبلغ</th>
+          <th>مالیات</th>
+          <th>وضعیت</th>
+          <th>عملیات</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of filteredOrders; let i = index">
+          <td>{{i+1}}</td>
+          <td>{{order.orderNumber}}</td>
+          <td>{{order.customerName || 'مهمان'}}</td>
+          <td>{{order.orderDate | jalaliDate:true}}</td>
+          <td>{{order.orderType === 'EatIn' ? 'حضوری' : 'بیرون بر'}}</td>
+          <td>{{order.totalAmount | number}} تومان</td>
+          <td>{{order.taxAmount | number}} تومان</td>
+          <td>
+            <span class="status-badge" [class.success]="order.paymentStatus === 'موفق'"
+                  [class.pending]="order.paymentStatus !== 'موفق'">
+              {{order.paymentStatus}}
+            </span>
+           </td>
+           <td>
+  <button class="btn-print" (click)="printOrder(order.id)" title="پرینت فیش">
+    🖨️ پرینت
+  </button>
+</td>
+         </tr>
+        <tr *ngIf="filteredOrders.length === 0">
+          <td colspan="8" class="no-data">❌ هیچ سفارشی یافت نشد</td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+</div>

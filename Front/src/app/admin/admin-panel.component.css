@@ -1,0 +1,18 @@
+.admin-menu{
+  display:flex;
+  gap:10px;
+  margin-bottom:20px;
+}
+
+.admin-menu button{
+  padding:10px 20px;
+  border:none;
+  background:#eee;
+  cursor:pointer;
+  border-radius:8px;
+}
+
+.admin-menu button.active{
+  background:#5a3e2b;
+  color:white;
+}

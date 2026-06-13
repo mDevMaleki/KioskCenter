@@ -1,0 +1,85 @@
+<div class="printer-admin">
+  <div class="header">
+    <h2>مدیریت پرینترها</h2>
+    <button class="btn-add" (click)="addPrinter()">➕ اضافه کردن پرینتر جدید</button>
+  </div>
+
+  <!-- فرم افزودن/ویرایش پرینتر -->
+  <div class="form-modal" *ngIf="showForm && editingPrinter">
+    <div class="form-content">
+      <h3>{{ isEditing ? 'ویرایش پرینتر' : 'پرینتر جدید' }}</h3>
+      
+      <div class="form-group">
+        <label>نام پرینتر (نمایشی):</label>
+        <input type="text" [(ngModel)]="editingPrinter.name" placeholder="مثلاً: آشپزخانه">
+      </div>
+
+      <div class="form-group">
+        <label>نام واقعی پرینتر:</label>
+        <select [(ngModel)]="editingPrinter.printerName">
+          <option value="">انتخاب کنید...</option>
+          <option *ngFor="let p of installedPrinters" [value]="p">{{p}}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>نوع پرینتر:</label>
+        <select [(ngModel)]="editingPrinter.printerType">
+          <option *ngFor="let t of printerTypes" [value]="t.value">{{t.label}}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>اولویت:</label>
+        <input type="number" [(ngModel)]="editingPrinter.priority">
+      </div>
+
+      <div class="form-group">
+        <label>
+          <input type="checkbox" [(ngModel)]="editingPrinter.isActive">
+          فعال
+        </label>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn-save" (click)="savePrinter()">💾 ذخیره</button>
+        <button class="btn-cancel" (click)="cancelForm()">❌ انصراف</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- لیست پرینترها -->
+  <table class="printers-table">
+    <thead>
+      <tr>
+        <th>نام</th>
+        <th>پرینتر واقعی</th>
+        <th>نوع</th>
+        <th>اولویت</th>
+        <th>وضعیت</th>
+        <th>عملیات</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let printer of printers">
+        <td>{{printer.name}}</td>
+        <td>{{printer.printerName}}</td>
+        <td>{{printer.printerType === 'Receipt' ? 'فیش' : printer.printerType === 'Kitchen' ? 'آشپزخانه' : 'برچسب'}}</td>
+        <td>{{printer.priority}}</td>
+        <td>>
+          <span class="status" [class.active]="printer.isActive" [class.inactive]="!printer.isActive">
+            {{printer.isActive ? 'فعال' : 'غیرفعال'}}
+          </span>
+        </td>
+        <td>>
+          <button class="btn-edit" (click)="editPrinter(printer)">✏️</button>
+          <button class="btn-test" (click)="testPrinter(printer.id)">🖨️ تست</button>
+          <button class="btn-delete" (click)="deletePrinter(printer.id)">🗑️</button>
+         </td>
+       </tr>
+      <tr *ngIf="printers.length === 0">
+        <td colspan="6" class="no-data">هیچ پرینتری یافت نشد</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

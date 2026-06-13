@@ -1,0 +1,75 @@
+.category-container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+  font-family: 'YekanBakh', Tahoma, sans-serif;
+  color: #2c3e50;
+}
+
+.category-box {
+  background: rgba(255,255,255,0.9);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  margin-bottom: 25px;
+}
+
+.category-box h2 {
+  margin-bottom: 12px;
+}
+
+.category-box input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background: #f9f9f9;
+  margin-bottom: 10px;
+  font-family: inherit;
+}
+
+.category-box button {
+ background: #5a3e2b;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: 'YekanBakh', Tahoma, sans-serif;
+  font-size: 14px;
+}
+
+button {
+  background: #5a3e2b;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: 'YekanBakh', Tahoma, sans-serif;
+  font-size: 14px;
+}
+
+.category-list {
+  margin-top: 15px;
+}
+
+.category-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255,255,255,0.9);
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.category-card .name {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.category-card .buttons button {
+  margin-left: 5px;
+}

@@ -1,0 +1,157 @@
+<div class="payment-container">
+  <!-- هدر -->
+  <div class="payment-header">
+    <div class="header-right">
+      <button class="back-btn" (click)="goBack()">
+        <span class="back-icon">↩</span> بازگشت
+      </button>
+    </div>
+    <div class="header-center">
+      <h2>💳 صفحه پرداخت</h2>
+      <p class="subtitle">لطفاً روش پرداخت خود را انتخاب کنید</p>
+    </div>
+    <div class="header-left"></div>
+  </div>
+
+  <!-- خلاصه سفارش -->
+  <div class="order-summary">
+    <div class="summary-header">
+      <h3>🧾 خلاصه سفارش</h3>
+      <span class="order-type">{{orderType}}</span>
+    </div>
+
+    <!-- اطلاعات مشتری -->
+    <div class="customer-info">
+      <input 
+        type="text" 
+        [value]="customerName"
+        (input)="onCustomerNameInput($event)"
+        (blur)="updateCustomerName()"
+        placeholder="نام مشتری (اختیاری)"
+        class="customer-input">
+    </div>
+
+    <!-- لیست محصولات -->
+    <div class="order-items">
+      <div *ngFor="let item of cart" class="order-item">
+        <div class="item-info">
+          <span class="item-name">{{item.productName}}</span>
+          <span class="item-quantity">x {{item.quantity}}</span>
+        </div>
+        <div class="item-price">{{formatPrice(item.totalPrice)}}</div>
+      </div>
+    </div>
+
+   <!-- جمع کل -->
+<div class="order-totals">
+  <div class="total-line">
+    <span>جمع کل:</span>
+    <span>{{formatPrice(subtotal)}}</span>
+  </div>
+  <div class="total-line grand-total">
+    <span>قابل پرداخت:</span>
+    <span class="total-amount">{{formatPrice(total)}}</span>
+  </div>
+</div>
+
+  <!-- روش‌های پرداخت -->
+  <div class="payment-methods">
+    <h3>🎯 انتخاب روش پرداخت</h3>
+    <div class="methods-list">
+      <div *ngFor="let method of paymentMethods" 
+           class="payment-option"
+           [class.selected]="selectedPaymentMethod?.id === method.id"
+           [class.disabled]="!isPaymentMethodAvailable(method)"
+           (click)="selectPaymentMethod(method)">
+        <div class="option-icon">{{method.icon}}</div>
+        <div class="option-info">
+          <div class="option-title">
+            {{method.title}}
+            <span *ngIf="method.requiresPosDevice && !isPaymentMethodAvailable(method)" class="warning-badge">
+              ⚠️ نیاز به POS
+            </span>
+            <span *ngIf="isCheckingPos && method.name === 'Pos'" class="loading-badge">
+              ⏳ در حال بررسی...
+            </span>
+          </div>
+          <div class="option-desc">{{method.description}}</div>
+          <div *ngIf="method.name === 'Pos' && !isCheckingPos && hasActivePosDevice" class="pos-status-detail">
+            <span *ngIf="posDeviceConnected" class="connected-text">✅ دستگاه متصل است</span>
+            <span *ngIf="!posDeviceConnected" class="disconnected-text">❌ دستگاه متصل نیست</span>
+          </div>
+        </div>
+        <div class="option-check" *ngIf="selectedPaymentMethod?.id === method.id && isPaymentMethodAvailable(method)">✓</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- دکمه پرداخت -->
+  <div class="payment-action">
+    <button class="pay-btn" 
+            (click)="processPayment()" 
+            [disabled]="processing || !selectedPaymentMethod || !isPaymentMethodAvailable(selectedPaymentMethod)">
+      <span class="btn-icon">💳</span>
+      {{processing ? 'در حال پرداخت...' : 'پرداخت نهایی'}}
+    </button>
+  </div>
+
+  <!-- پیام خطا -->
+  <div class="error-message" *ngIf="errorMessage">
+    <span class="error-icon">⚠️</span>
+    {{errorMessage}}
+  </div>
+
+  <!-- مودال پرداخت موفق -->
+  <div class="success-modal" *ngIf="paymentSuccess">
+    <div class="success-content">
+      <div class="success-icon">✅</div>
+      <h3>پرداخت موفق</h3>
+      <p>سفارش شما با موفقیت ثبت شد</p>
+      <div class="order-number">شماره سفارش: {{orderNumber}}</div>
+      <button class="new-order-btn" (click)="newOrder()">سفارش جدید</button>
+    </div>
+  </div>
+
+  <!-- مودال QR کد برای پرداخت آنلاین -->
+  <div class="qr-modal" *ngIf="showQrModal">
+    <div class="modal-overlay" (click)="closeQrModal()"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>پرداخت آنلاین</h3>
+        <button class="close-btn" (click)="closeQrModal()">✕</button>
+      </div>
+      
+      <div class="modal-body">
+        <div class="qr-wrapper" *ngIf="!isGeneratingQr && qrCodeUrl">
+          <img [src]="qrCodeUrl" alt="QR Code" class="qr-image">
+          <p class="qr-instruction">لطفاً با گوشی خود QR کد را اسکن کنید</p>
+        </div>
+        
+        <div class="qr-loading" *ngIf="isGeneratingQr">
+          <div class="spinner"></div>
+          <p>در حال ایجاد QR کد...</p>
+        </div>
+        
+        <div class="payment-status" *ngIf="paymentVerified">
+          <div class="status-success">
+            <span class="success-icon">✅</span>
+            <p>پرداخت شما با موفقیت انجام شد!</p>
+          </div>
+        </div>
+        
+        <div class="modal-actions">
+          <button class="refresh-btn" (click)="refreshQrCode()" [disabled]="isGeneratingQr" *ngIf="!paymentVerified">
+            🔄 دریافت مجدد QR
+          </button>
+          <button class="check-btn" (click)="checkPaymentManually()" [disabled]="isCheckingPayment || paymentVerified">
+            🔍 بررسی وضعیت پرداخت
+          </button>
+        </div>
+        
+        <div class="manual-check" *ngIf="!paymentVerified">
+          <p class="manual-text">پس از اسکن QR و پرداخت، روی دکمه "بررسی وضعیت" کلیک کنید</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

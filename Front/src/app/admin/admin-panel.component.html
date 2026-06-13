@@ -1,0 +1,58 @@
+<div class="admin-panel">
+  <div class="admin-menu">
+    <button 
+      [class.active]="activeTab === 'products'"
+      (click)="setTab('products')">
+      مدیریت محصولات
+    </button>
+    <button 
+      [class.active]="activeTab === 'categories'"
+      (click)="setTab('categories')">
+      مدیریت دسته بندی
+    </button>
+    <button 
+      [class.active]="activeTab === 'order-type'"
+      (click)="setTab('order-type')">
+      📋 مدیریت انواع سفارش
+    </button>
+    <button 
+      [class.active]="activeTab === 'printers'"
+      (click)="setTab('printers')">
+      مدیریت پرینترها
+    </button>
+    <button 
+      [class.active]="activeTab === 'pos-devices'"
+      (click)="setTab('pos-devices')">
+      مدیریت دستگاه‌های POS
+    </button>
+    <button 
+      [class.active]="activeTab === 'payment-methods'"
+      (click)="setTab('payment-methods')">
+      💳 مدیریت روش‌های پرداخت
+    </button>
+    <button 
+      [class.active]="activeTab === 'style'"
+      (click)="setTab('style')">
+      🎨 مدیریت استایل
+    </button>
+    <button 
+      [class.active]="activeTab === 'reports'"
+      (click)="setTab('reports')">
+      گزارشات
+    </button>
+    <button class="btn-back-to-menu" (click)="goBack()">
+      🍽️ بازگشت
+    </button>
+  </div>
+
+  <div class="admin-content">
+    <app-product-admin *ngIf="activeTab === 'products'"></app-product-admin>
+    <app-category-admin *ngIf="activeTab === 'categories'"></app-category-admin>
+    <app-order-type-config *ngIf="activeTab === 'order-type'"></app-order-type-config>
+    <app-printer-admin *ngIf="activeTab === 'printers'"></app-printer-admin>
+    <app-pos-device-admin *ngIf="activeTab === 'pos-devices'"></app-pos-device-admin>
+    <app-payment-method-admin *ngIf="activeTab === 'payment-methods'"></app-payment-method-admin>
+    <app-style-admin *ngIf="activeTab === 'style'"></app-style-admin>
+    <app-reports *ngIf="activeTab === 'reports'"></app-reports>
+  </div>
+</div>

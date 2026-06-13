@@ -1,0 +1,43 @@
+:root {
+  --primary-color: #5C2E15;
+  --secondary-color: #d4b896;
+  --text-color: #ffffff;
+  --button-color: #28a745;
+  --button-hover-color: #1e7e34;
+  --font-family: 'YekanBakh', Tahoma, sans-serif;
+}
+
+body {
+  font-family: var(--font-family);
+  background: linear-gradient(135deg, #d4b896 0%, #c9a882 100%);
+  min-height: 100vh;
+  direction: rtl;
+  margin: 0;
+  padding: 0;
+}
+/* styles.css - اضافه کنید */
+
+/* اطمینان از اعمال گوشه‌ها به همه المان‌ها */
+* {
+  --card-radius: 20px;
+  --button-radius: 8px;
+}
+
+/* کلاس‌های عمومی برای گوشه‌ها */
+.rounded-card {
+  border-radius: var(--card-radius) !important;
+}
+
+.rounded-button {
+  border-radius: var(--button-radius) !important;
+}
+
+/* اعمال گوشه‌ها به المان‌های خاص */
+.card, .product-card, .cart-item, .modal-content {
+  border-radius: var(--card-radius) !important;
+  overflow: hidden;
+}
+
+button, .btn, input, select, textarea {
+  border-radius: var(--button-radius) !important;
+}

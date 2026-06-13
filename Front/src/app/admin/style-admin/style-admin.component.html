@@ -1,0 +1,361 @@
+<div class="style-admin">
+  <div class="header">
+    <h2>🎨 مدیریت کامل استایل و برندینگ</h2>
+    <button class="btn-save" (click)="saveStyle()" [disabled]="isLoading">
+      💾 ذخیره همه تغییرات
+    </button>
+  </div>
+
+  <div class="form-container" *ngIf="style">
+    
+    <!-- بخش 1: اطلاعات رستوران -->
+    <div class="section">
+      <h3>🏪 اطلاعات رستوران</h3>
+      <div class="form-group">
+        <label>نام رستوران:</label>
+        <input type="text" [(ngModel)]="style.restaurantName" placeholder="نام رستوران">
+      </div>
+      
+      <div class="form-group">
+        <label>لوگو:</label>
+        <div class="logo-section">
+          <img [src]="style.logoUrl" class="logo-preview" (error)="style.logoUrl='/images/logo.png'">
+          <input type="file" (change)="onFileSelected($event)" accept="image/*">
+          <button class="btn-upload" (click)="uploadLogo()" [disabled]="!selectedFile">آپلود لوگو</button>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label>تصویر بک‌گراند:</label>
+        <div class="logo-section">
+          <input type="file" (change)="onBackgroundSelected($event)" accept="image/*">
+          <button class="btn-upload" (click)="uploadBackground()" [disabled]="!selectedBackgroundFile">آپلود بک‌گراند</button>
+          <button *ngIf="style.backgroundImage" class="btn-remove" (click)="removeBackground()">❌ حذف</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- بخش 2: رنگ‌های اصلی -->
+    <div class="section">
+      <h3>🎨 رنگ‌های اصلی</h3>
+      <div class="color-grid">
+        <div class="color-item">
+          <label>رنگ اصلی:</label>
+          <div class="color-box" [style.backgroundColor]="style.primaryColor" (click)="openColorPicker('primaryColor')">
+            {{style.primaryColor}}
+          </div>
+        </div>
+        <div class="color-item">
+          <label>رنگ ثانویه:</label>
+          <div class="color-box" [style.backgroundColor]="style.secondaryColor" (click)="openColorPicker('secondaryColor')">
+            {{style.secondaryColor}}
+          </div>
+        </div>
+        <div class="color-item">
+          <label>رنگ تاکیدی:</label>
+          <div class="color-box" [style.backgroundColor]="style.accentColor" (click)="openColorPicker('accentColor')">
+            {{style.accentColor}}
+          </div>
+        </div>
+        <div class="color-item">
+          <label>رنگ متن اصلی:</label>
+          <div class="color-box" [style.backgroundColor]="style.textColor" (click)="openColorPicker('textColor')">
+            {{style.textColor}}
+          </div>
+        </div>
+        <div class="color-item">
+          <label>رنگ متن ثانویه:</label>
+          <div class="color-box" [style.backgroundColor]="style.textSecondaryColor" (click)="openColorPicker('textSecondaryColor')">
+            {{style.textSecondaryColor}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- بخش 3: کارت‌های محصول -->
+    <div class="section">
+      <h3>🃏 کارت‌های محصول</h3>
+      <div class="color-grid">
+        <div class="color-item">
+          <label>رنگ پس‌زمینه کارت:</label>
+          <div class="color-box" [style.backgroundColor]="style.productCardBgColor" (click)="openColorPicker('productCardBgColor')">
+            {{style.productCardBgColor}}
+          </div>
+        </div>
+        <div class="color-item">
+          <label>رنگ کارت در حالت هاور:</label>
+          <div class="color-box" [style.backgroundColor]="style.productCardHoverColor" (click)="openColorPicker('productCardHoverColor')">
+            {{style.productCardHoverColor}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label>گوشه‌های کارت (px):</label>
+          <input type="range" [(ngModel)]="style.cardBorderRadius" min="0" max="50" step="2">
+          <span>{{style.cardBorderRadius}}px</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- بخش 4: سایدبار سبد خرید -->
+    <div class="section">
+      <h3>🛒 سایدبار سبد خرید</h3>
+      <div class="color-grid">
+        <div class="color-item">
+          <label>رنگ پس‌زمینه سایدبار:</label>
+          <div class="color-box" [style.backgroundColor]="style.sidebarBgColor" (click)="openColorPicker('sidebarBgColor')">
+            {{style.sidebarBgColor}}
+          </div>
+        </div>
+        <div class="color-item">
+          <label>رنگ هدر سایدبار:</label>
+          <div class="color-box" [style.backgroundColor]="style.sidebarHeaderBgColor" (click)="openColorPicker('sidebarHeaderBgColor')">
+            {{style.sidebarHeaderBgColor}}
+          </div>
+        </div>
+        <div class="color-item">
+          <label>رنگ آیتم‌های سایدبار:</label>
+          <div class="color-box" [style.backgroundColor]="style.sidebarItemBgColor" (click)="openColorPicker('sidebarItemBgColor')">
+            {{style.sidebarItemBgColor}}
+          </div>
+        </div>
+        <div class="color-item">
+          <label>رنگ هاور آیتم‌ها:</label>
+          <div class="color-box" [style.backgroundColor]="style.sidebarItemHoverColor" (click)="openColorPicker('sidebarItemHoverColor')">
+            {{style.sidebarItemHoverColor}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- بخش 5: دکمه‌ها -->
+    <div class="section">
+      <h3>🔘 دکمه‌ها</h3>
+      <div class="color-grid">
+        <div class="color-item">
+          <label>رنگ دکمه:</label>
+          <div class="color-box" [style.backgroundColor]="style.buttonColor" (click)="openColorPicker('buttonColor')">
+            {{style.buttonColor}}
+          </div>
+        </div>
+        <div class="color-item">
+          <label>رنگ دکمه (هاور):</label>
+          <div class="color-box" [style.backgroundColor]="style.buttonHoverColor" (click)="openColorPicker('buttonHoverColor')">
+            {{style.buttonHoverColor}}
+          </div>
+        </div>
+        <div class="color-item">
+          <label>رنگ متن دکمه:</label>
+          <div class="color-box" [style.backgroundColor]="style.buttonTextColor" (click)="openColorPicker('buttonTextColor')">
+            {{style.buttonTextColor}}
+          </div>
+        </div>
+        <div class="form-group">
+          <label>گوشه‌های دکمه (px):</label>
+          <input type="range" [(ngModel)]="style.buttonBorderRadius" min="0" max="50" step="2">
+          <span>{{style.buttonBorderRadius}}px</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- بخش 6: دسته‌بندی‌ها -->
+    <div class="section">
+      <h3>📂 دسته‌بندی‌ها</h3>
+      <div class="color-grid">
+        <div class="color-item">
+          <label>رنگ دکمه دسته‌بندی:</label>
+          <div class="color-box" [style.backgroundColor]="style.categoryBtnBgColor" (click)="openColorPicker('categoryBtnBgColor')">
+            {{style.categoryBtnBgColor}}
+          </div>
+        </div>
+        <div class="color-item">
+          <label>رنگ دکمه فعال:</label>
+          <div class="color-box" [style.backgroundColor]="style.categoryBtnActiveBgColor" (click)="openColorPicker('categoryBtnActiveBgColor')">
+            {{style.categoryBtnActiveBgColor}}
+          </div>
+        </div>
+        <div class="color-item">
+          <label>رنگ متن دکمه:</label>
+          <div class="color-box" [style.backgroundColor]="style.categoryBtnTextColor" (click)="openColorPicker('categoryBtnTextColor')">
+            {{style.categoryBtnTextColor}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- بخش 7: کارت‌های نوع سفارش -->
+    <div class="section">
+      <h3>📋 کارت‌های نوع سفارش</h3>
+      <div class="color-grid">
+        <div class="color-item">
+          <label>رنگ کارت:</label>
+          <div class="color-box" [style.backgroundColor]="style.orderTypeCardBgColor" (click)="openColorPicker('orderTypeCardBgColor')">
+            {{style.orderTypeCardBgColor}}
+          </div>
+        </div>
+        <div class="color-item">
+          <label>رنگ هاور کارت:</label>
+          <div class="color-box" [style.backgroundColor]="style.orderTypeCardHoverColor" (click)="openColorPicker('orderTypeCardHoverColor')">
+            {{style.orderTypeCardHoverColor}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- بخش 8: فونت و تایپوگرافی -->
+    <div class="section">
+      <h3>🔤 فونت و تایپوگرافی</h3>
+      
+      <div class="form-group">
+        <label>نام فونت سفارشی:</label>
+        <input type="text" [(ngModel)]="style.fontName" placeholder="مثلاً: Vazir, IranSans">
+      </div>
+
+      <div class="form-group">
+        <label>فونت پیش‌فرض (fallback):</label>
+        <select [(ngModel)]="style.fontFamily">
+          <option value="YekanBakh, Tahoma, sans-serif">YekanBakh</option>
+          <option value="Vazir, Tahoma, sans-serif">Vazir</option>
+          <option value="IranSans, Tahoma, sans-serif">IranSans</option>
+          <option value="Tahoma, sans-serif">Tahoma</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>ضخامت فونت:</label>
+        <select [(ngModel)]="style.fontWeight">
+          <option value="100">نازک (Thin)</option>
+          <option value="300">سبک (Light)</option>
+          <option value="500">متوسط (Regular)</option>
+          <option value="700">پررنگ (Bold)</option>
+          <option value="900">سیاه (Black)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>اندازه فونت پایه:</label>
+        <select [(ngModel)]="style.fontSizeBase">
+          <option value="12px">کوچک (12px)</option>
+          <option value="14px">معمولی (14px)</option>
+          <option value="16px">متوسط (16px)</option>
+          <option value="18px">بزرگ (18px)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>آپلود فونت سفارشی:</label>
+        <div class="font-upload-section">
+          <input type="file" (change)="onFontSelected($event)" accept=".ttf,.otf,.woff,.woff2">
+          <button class="btn-upload" (click)="uploadFont()" [disabled]="!selectedFontFile">📁 آپلود فونت</button>
+        </div>
+        <div *ngIf="style.customFontUrl" class="font-preview">
+          <span>✅ فونت فعلی: {{style.fontName}}</span>
+          <button class="btn-remove-font" (click)="removeFont()">❌ حذف</button>
+        </div>
+      </div>
+
+      <div class="font-preview-sample" [style.fontFamily]="getFontFamilyValue()">
+        <p>نمونه متن: این یک متن تست است</p>
+        <p>نمایش اعداد: ۱۲۳۴۵۶۷۸۹۰</p>
+      </div>
+    </div>
+
+    <!-- بخش 9: انیمیشن‌ها -->
+    <div class="section">
+      <h3>✨ انیمیشن‌ها</h3>
+      <div class="form-group">
+        <label class="checkbox-label">
+          <input type="checkbox" [(ngModel)]="style.enableAnimations">
+          فعال کردن انیمیشن‌ها
+        </label>
+      </div>
+      <div class="form-group" *ngIf="style.enableAnimations">
+        <label>مدت زمان انیمیشن:</label>
+        <select [(ngModel)]="style.animationDuration">
+          <option value="0.2s">سریع (0.2s)</option>
+          <option value="0.3s">معمولی (0.3s)</option>
+          <option value="0.5s">آهسته (0.5s)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- بخش 10: اطلاعات تماس و فوتر -->
+    <div class="section">
+      <h3>📞 اطلاعات تماس و فوتر</h3>
+      <div class="form-group">
+        <label>متن فوتر:</label>
+        <textarea [(ngModel)]="style.footerText" rows="2" placeholder="متن پایین صفحه"></textarea>
+      </div>
+      <div class="color-grid">
+        <div class="color-item">
+          <label>رنگ پس‌زمینه فوتر:</label>
+          <div class="color-box" [style.backgroundColor]="style.footerBgColor" (click)="openColorPicker('footerBgColor')">
+            {{style.footerBgColor}}
+          </div>
+        </div>
+        <div class="color-item">
+          <label>رنگ متن فوتر:</label>
+          <div class="color-box" [style.backgroundColor]="style.footerTextColor" (click)="openColorPicker('footerTextColor')">
+            {{style.footerTextColor}}
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>آدرس:</label>
+        <textarea [(ngModel)]="style.address" rows="2" placeholder="آدرس رستوران"></textarea>
+      </div>
+      <div class="form-group">
+        <label>تلفن:</label>
+        <input type="text" [(ngModel)]="style.phone" placeholder="تلفن">
+      </div>
+      <div class="form-group">
+        <label>اینستاگرام:</label>
+        <input type="text" [(ngModel)]="style.instagram" placeholder="اینستاگرام">
+      </div>
+      <div class="form-group">
+        <label>ساعات کاری:</label>
+        <input type="text" [(ngModel)]="style.workingHours" placeholder="ساعات کاری">
+      </div>
+    </div>
+
+    <!-- بخش 11: پیش‌نمایش زنده -->
+    <div class="section preview-section">
+      <h3>👁️ پیش‌نمایش زنده</h3>
+      <div class="preview-container">
+        <div class="preview-card" [style.backgroundColor]="style.primaryColor">
+          <span [style.color]="style.textColor">نمونه متن</span>
+          <button class="preview-btn" 
+                  [style.backgroundColor]="style.buttonColor"
+                  (mouseenter)="onPreviewButtonHover($event, true)"
+                  (mouseleave)="onPreviewButtonHover($event, false)">
+            دکمه نمونه
+          </button>
+        </div>
+        <div class="preview-category" [style.backgroundColor]="style.categoryBtnBgColor">
+          دکمه دسته‌بندی
+        </div>
+        <div class="preview-product" [style.backgroundColor]="style.productCardBgColor">
+          کارت محصول نمونه
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- رنگ‌Picker مودال -->
+  <div class="color-modal" *ngIf="showColorPicker" (click)="showColorPicker=false">
+    <div class="color-palette" (click)="$event.stopPropagation()">
+      <h4>انتخاب رنگ</h4>
+      <div class="colors">
+        <div *ngFor="let color of colorOptions" 
+             class="color-option" 
+             [style.backgroundColor]="color"
+             (click)="selectColor(color)"></div>
+      </div>
+      <input type="color" #colorInput (change)="selectColor(colorInput.value)">
+      <button class="close-picker" (click)="showColorPicker=false">بستن</button>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn-reset" (click)="resetToDefault()">↺ بازنشانی به تنظیمات پیش‌فرض</button>
+  </div>
+</div>

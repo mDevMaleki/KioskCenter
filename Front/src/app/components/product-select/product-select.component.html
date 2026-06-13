@@ -1,0 +1,128 @@
+<div class="kiosk-layout">
+  <!-- Sidebar Cart -->
+  <div class="cart-sidebar">
+    <div class="cart-header">
+      <h2>سبد خرید</h2>
+      <div *ngIf="orderType === 'TakeAway'" class="order-type-badge">
+        🛍️ بیرون بر
+      </div>
+      <div *ngIf="orderType === 'EatIn'" class="order-type-badge">
+        🏠 داخل سالن
+      </div>
+    </div>
+
+    <div class="cart-items">
+      <div *ngIf="cart.length === 0" class="empty-cart">
+        <p>سبد خرید شما خالی است</p>
+      </div>
+      <div *ngFor="let item of cart" class="cart-item">
+        <div class="item-info">
+          <h3>{{ item.productName }}</h3>
+          <div class="item-price">
+            <span class="price">{{ formatPrice(item.price) }} تومان</span>
+          </div>
+        </div>
+        
+        <div class="quantity-controls">
+     <button 
+  type="button"
+  class="btn-minus" 
+  (click)="$event.preventDefault(); $event.stopPropagation(); updateQuantity(item.productId, -1)">
+  -
+</button>
+
+<span class="quantity">{{ item.quantity }} عدد</span>
+
+<button 
+  type="button"
+  class="btn-plus" 
+  (click)="$event.preventDefault(); $event.stopPropagation(); updateQuantity(item.productId, 1)">
+  +
+</button>
+
+
+        </div>
+      </div>
+    </div>
+
+    <div class="cart-total">
+      <span class="total-label">جمع کل:</span>
+      <span class="total-price">{{ formatPrice(getTotal()) }} تومان</span>
+    </div>
+
+    <div class="cart-actions">
+      <button class="btn-payment" 
+              (click)="goToPayment()" 
+              [disabled]="cart.length === 0">
+        🧾 پرداخت و تسویه حساب
+      </button>
+      
+      <button class="btn-back-to-menu" (click)="backToMenu()">
+        🍽️ بازگشت
+      </button>
+    </div>
+  </div>
+
+  <!-- Products Section -->
+  <div class="products-section">
+  <div class="categories-bar">
+  <button 
+    class="category-btn" 
+    [class.active]="selectedCategoryId === null"
+    (click)="selectCategory(null)">
+    همه
+  </button>
+  <button 
+    *ngFor="let category of filteredCategories" 
+    class="category-btn"
+    [class.active]="selectedCategoryId === category.id"
+    (click)="selectCategory(category.id)">
+    {{ category.name }}
+  </button>
+</div>
+
+    <!-- پیام در صورت عدم وجود دسته‌بندی -->
+    <div *ngIf="filteredCategories.length === 0 && !loading" class="no-categories">
+      <p>هیچ دسته‌بندی برای این نوع سفارش تعریف نشده است</p>
+      <p>لطفاً با مدیریت تماس بگیرید</p>
+    </div>
+
+    <div *ngIf="loading" class="loading">
+      <div class="spinner"></div>
+    </div>
+
+    <div *ngIf="!loading && filteredCategories.length > 0" class="products-grid">
+      <div *ngFor="let product of products" class="product-card" (click)="addToCart(product)">
+        <div class="product-image">
+          <img [src]="'http://localhost:5000' + product.imageUrl || 'assets/images/coffee-bar.jpg'" 
+               [alt]="product.name"
+               (error)="onImageError($event)">
+        </div>
+        <div class="product-info">
+          <h3 class="product-name">{{ product.name }}</h3>
+          <p class="product-description">{{ product.description }}</p>
+          
+          <!-- نمایش قیمت با تغییرات -->
+          <div class="price-container">
+            <span *ngIf="getOriginalPriceForDisplay(product)" class="original-price">
+              {{ formatPrice(getOriginalPriceForDisplay(product)!) }}
+            </span>
+            <span class="price" [class.discounted]="hasPriceChange(product)">
+              {{ getPriceDisplayText(product) }}
+            </span>
+          </div>
+          
+          <!-- نمایش برچسب تغییر قیمت -->
+          <div *ngIf="hasPriceChange(product)" class="discount-badge" 
+               [style.background]="getProductPrice(product) > product.price ? '#ff6b35' : '#4caf50'">
+            {{ getProductPrice(product) > product.price ? '🔺 افزایش قیمت' : '🔻 کاهش قیمت' }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-logo">
+      <img src="assets/logo.png" alt="Aghaveh Center" class="logo-image">
+    </div>
+  </div>
+</div>

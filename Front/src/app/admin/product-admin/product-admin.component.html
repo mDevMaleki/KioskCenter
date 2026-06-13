@@ -1,0 +1,87 @@
+<div class="admin-container">
+
+  <div class="add-form">
+    <h2>{{ editingProductId ? 'ویرایش محصول' : 'افزودن محصول جدید' }}</h2>
+
+    <input 
+      type="text" 
+      placeholder="نام محصول" 
+      [(ngModel)]="newProduct.name">
+
+    <input 
+      type="number" 
+      placeholder="قیمت اول" 
+      [(ngModel)]="newProduct.price">
+
+    <input 
+      type="number" 
+      placeholder="قیمت دوم (اختیاری - در صورت خالی برابر قیمت اول می‌شود)" 
+      [(ngModel)]="newProduct.secondPrice">
+
+    <select [(ngModel)]="newProduct.categoryId">
+      <option value="">انتخاب دسته بندی</option>
+      <option *ngFor="let c of categories" [value]="c.id">
+        {{ c.name }}
+      </option>
+    </select>
+
+    <div *ngIf="newProduct.imageUrl" class="image-preview">
+      <img [src]="'http://localhost:5000' + newProduct.imageUrl" alt="تصویر محصول" />
+    </div>
+
+    <input type="file" (change)="onFileSelected($event)">
+    
+    <select [(ngModel)]="newProduct.state">
+      <option [value]="1">فعال</option>
+      <option [value]="0">غیرفعال</option>
+    </select>
+    
+    <textarea 
+      placeholder="توضیحات" 
+      [(ngModel)]="newProduct.description">
+    </textarea>
+
+    <button (click)="saveProduct()">
+      {{ editingProductId ? 'ذخیره تغییرات' : 'افزودن محصول' }}
+    </button>
+
+    <button 
+      *ngIf="editingProductId" 
+      (click)="resetForm()" 
+      class="cancel-btn">
+      انصراف از ویرایش
+    </button>
+  </div>
+
+  <h3>لیست محصولات</h3>
+
+  <div class="product-list">
+    <div class="product-card" *ngFor="let product of products">
+
+      <img 
+        [src]="product.imageUrl ? 'http://localhost:5000' + product.imageUrl : 'assets/no-image.png'" 
+        width="80">
+
+      <div class="info">
+        <b>{{ product.name }}</b>
+        <!-- نمایش هر دو قیمت در جدول -->
+        <p>
+          <span>قیمت اول: {{ product.price | number }} تومان</span>
+          <span style="margin-right: 15px; margin-left: 15px;">|</span>
+          <span>قیمت دوم: {{ product.secondPrice | number }} تومان</span>
+        </p>
+        <!-- قیمت تخفیف‌خورده (اگر با هم تفاوت دارند) -->
+        <p *ngIf="product.secondPrice < product.price" style="color: green;">
+          💰 قیمت ویژه: {{ product.secondPrice | number }} تومان
+        </p>
+      </div>
+
+      <div class="buttons">
+        <button (click)="editProduct(product)">ویرایش</button>
+        <button (click)="deleteProduct(product.id)">حذف</button>
+      </div>
+
+    </div>
+  </div>
+
+</div>

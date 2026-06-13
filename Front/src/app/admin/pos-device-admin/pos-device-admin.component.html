@@ -1,0 +1,139 @@
+<div class="pos-device-admin">
+  <div class="header">
+    <h2>مدیریت دستگاه‌های POS</h2>
+    <button class="btn-add" (click)="addDevice()">➕ اضافه کردن دستگاه جدید</button>
+  </div>
+
+  <!-- فرم افزودن/ویرایش -->
+  <div class="form-modal" *ngIf="showForm && editingDevice">
+    <div class="form-content">
+      <h3>{{ isEditing ? 'ویرایش دستگاه' : 'دستگاه جدید' }}</h3>
+      
+      <div class="form-group">
+        <label>نام دستگاه:</label>
+        <input type="text" [(ngModel)]="editingDevice.name" placeholder="مثلاً: POS پرداخت نوین">
+      </div>
+
+      <div class="form-group">
+        <label>نوع دستگاه:</label>
+        <select [(ngModel)]="editingDevice.type">
+          <option *ngFor="let t of deviceTypes" [value]="t.value">{{t.label}}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>آدرس IP:</label>
+        <input type="text" [(ngModel)]="editingDevice.ipAddress" placeholder="192.168.1.3">
+      </div>
+
+      <div class="form-group">
+        <label>پورت:</label>
+        <input type="number" [(ngModel)]="editingDevice.port">
+      </div>
+
+      <div class="form-group">
+        <label>اولویت:</label>
+        <input type="number" [(ngModel)]="editingDevice.priority">
+      </div>
+
+      <div class="form-group checkbox-group">
+        <label>
+          <input type="checkbox" [(ngModel)]="editingDevice.isActive">
+          فعال
+        </label>
+        <label>
+          <input type="checkbox" [(ngModel)]="editingDevice.isDefault">
+          دستگاه پیش‌فرض
+        </label>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn-save" (click)="saveDevice()">💾 ذخیره</button>
+        <button class="btn-cancel" (click)="cancelForm()">❌ انصراف</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- بخش پرداخت -->
+  <div class="payment-section">
+    <h3>انجام پرداخت</h3>
+    <div class="payment-form">
+      <div class="form-group">
+        <label>مبلغ (تومان):</label>
+        <input type="number" [(ngModel)]="paymentAmount" placeholder="مبلغ را وارد کنید">
+      </div>
+      
+      <div class="form-group">
+        <label>انتخاب دستگاه:</label>
+        <select [(ngModel)]="selectedDeviceId">
+          <option [value]="null">دستگاه پیش‌فرض</option>
+          <option *ngFor="let d of devices" [value]="d.id">
+            {{d.name}} ({{d.type}} - {{d.isActive ? 'فعال' : 'غیرفعال'}})
+          </option>
+        </select>
+      </div>
+
+      <button class="btn-pay" (click)="startPayment()" [disabled]="isLoading">
+        {{ isLoading ? 'در حال پرداخت...' : '💳 پرداخت' }}
+      </button>
+    </div>
+
+    <!-- نتیجه پرداخت -->
+    <div class="payment-result" *ngIf="paymentResult">
+      <h4>نتیجه پرداخت:</h4>
+      <div [class.success]="paymentResult.success" [class.error]="!paymentResult.success">
+        <p><strong>وضعیت:</strong> {{ paymentResult.success ? 'موفق' : 'ناموفق' }}</p>
+        <p><strong>پیام:</strong> {{ paymentResult.message }}</p>
+        <p *ngIf="paymentResult.amount"><strong>مبلغ:</strong> {{ paymentResult.amount | number }} تومان</p>
+        <p *ngIf="paymentResult.prn"><strong>شماره پیگیری:</strong> {{ paymentResult.prn }}</p>
+        <p *ngIf="paymentResult.pan"><strong>شماره کارت:</strong> {{ paymentResult.pan }}</p>
+        <p *ngIf="paymentResult.transactionDate"><strong>تاریخ:</strong> {{ paymentResult.transactionDate }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- لیست دستگاه‌ها -->
+  <div class="devices-list">
+    <h3>لیست دستگاه‌های POS</h3>
+    <table class="devices-table">
+      <thead>
+        <tr>
+          <th>نام</th>
+          <th>نوع</th>
+          <th>آدرس IP</th>
+          <th>پورت</th>
+          <th>اولویت</th>
+          <th>وضعیت</th>
+          <th>پیش‌فرض</th>
+          <th>عملیات</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let device of devices">
+          <td>{{device.name}}</td>
+          <td>{{device.type === 'Parsian' ? 'پارسیان' : 'پرداخت نوین'}}</td>
+          <td>{{device.ipAddress}}</td>
+          <td>{{device.port}}</td>
+          <td>{{device.priority}}</td>
+          <td>
+            <span class="status" [class.active]="device.isActive" [class.inactive]="!device.isActive">
+              {{device.isActive ? 'فعال' : 'غیرفعال'}}
+            </span>
+          </td>
+          <td>
+            <span class="default-badge" *ngIf="device.isDefault">پیش‌فرض</span>
+            <button class="btn-set-default" *ngIf="!device.isDefault" (click)="setDefault(device)">تنظیم به عنوان پیش‌فرض</button>
+          </td>
+          <td class="actions">
+            <button class="btn-test" (click)="testConnection(device.id)" title="تست اتصال">🔌 تست</button>
+            <button class="btn-edit" (click)="editDevice(device)" title="ویرایش">✏️</button>
+            <button class="btn-delete" (click)="deleteDevice(device.id)" title="حذف">🗑️</button>
+          </td>
+        </tr>
+        <tr *ngIf="devices.length === 0">
+          <td colspan="8" class="no-data">هیچ دستگاهی یافت نشد</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

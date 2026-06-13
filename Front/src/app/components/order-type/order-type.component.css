@@ -1,0 +1,79 @@
+.kiosk-container {
+  width: 100%;
+  min-height: 100vh;
+  background: var(--background-color, linear-gradient(135deg, #d4b896 0%, #c9a882 100%));
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  direction: rtl;
+}
+
+.order-grid {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  width: 300px;
+  background: var(--order-type-card-bg, #0084fb);
+  border-radius: var(--card-radius, 20px);
+  padding: 15px;
+  cursor: pointer;
+  transition: all var(--animation-duration, 0.3s);
+}
+
+.card:hover {
+  background: var(--order-type-card-hover, #0094ff);
+  transform: scale(1.05);
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  border-radius: var(--card-radius, 15px);
+  object-fit: cover;
+}
+
+.card-title {
+  color: var(--order-type-card-text, white);
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 15px;
+  font-family: var(--font-family, 'YekanBakh', sans-serif);
+}
+
+/* لوگو در گوشه پایین سمت چپ */
+.footer-logo {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+
+.footer-logo img {
+  width: 120px;
+}
+
+.btn-back-to-menu {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  padding: 15px 30px;
+  background: var(--button-color, #f44336);
+  color: var(--button-text-color, white);
+  border: none;
+  border-radius: var(--button-radius, 8px);
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all var(--animation-duration, 0.3s);
+}
+
+.btn-back-to-menu:hover {
+  background: var(--button-hover-color, #d32f2f);
+}

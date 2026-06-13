@@ -1,0 +1,29 @@
+<div class="category-container">
+
+  <div class="category-box">
+    <h2>مدیریت دسته‌بندی</h2>
+
+    <input 
+      type="text" 
+      [(ngModel)]="newCategory.name" 
+      placeholder="نام دسته">
+
+    <button (click)="saveCategory()">
+      {{ newCategory.id ? 'ویرایش دسته' : 'افزودن دسته' }}
+    </button>
+  </div>
+
+  <div class="category-list">
+    <div class="category-card" *ngFor="let c of categories">
+
+      <div class="name">{{ c.name }}</div>
+
+      <div class="buttons">
+        <button (click)="editCategory(c)">ویرایش</button>
+        <button class="cancel-btn" (click)="deleteCategory(c.id)">حذف</button>
+      </div>
+
+    </div>
+  </div>
+
+</div>

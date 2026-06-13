@@ -1,0 +1,654 @@
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\appsettings.Development.json
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\appsettings.json
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\AghadonApi.staticwebassets.endpoints.json
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\AghadonApi.exe
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\AghadonApi.deps.json
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\AghadonApi.runtimeconfig.json
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\AghadonApi.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\AghadonApi.pdb
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\Azure.Core.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\Azure.Identity.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\Humanizer.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.Build.Locator.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.CodeAnalysis.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.CodeAnalysis.Workspaces.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.Data.SqlClient.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.Identity.Client.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.OpenApi.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.SqlServer.Server.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\Mono.TextTemplating.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\System.ClientModel.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\System.CodeDom.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Composition.AttributedModel.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Composition.Convention.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Composition.Hosting.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Composition.Runtime.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Composition.TypedParts.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Configuration.ConfigurationManager.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Drawing.Common.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Memory.Data.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Runtime.Caching.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Security.Permissions.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Windows.Extensions.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\obj\Debug\net9.0\AghadonApi.csproj.AssemblyReference.cache
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\obj\Debug\net9.0\AghadonApi.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\obj\Debug\net9.0\AghadonApi.AssemblyInfoInputs.cache
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\obj\Debug\net9.0\AghadonApi.AssemblyInfo.cs
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\obj\Debug\net9.0\AghadonApi.csproj.CoreCompileInputs.cache
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\obj\Debug\net9.0\AghadonApi.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\obj\Debug\net9.0\AghadonApi.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\obj\Debug\net9.0\scopedcss\bundle\AghadonApi.styles.css
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\obj\Debug\net9.0\staticwebassets.build.json
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\obj\Debug\net9.0\staticwebassets.development.json
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\obj\Debug\net9.0\staticwebassets.build.endpoints.json
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\obj\Debug\net9.0\staticwebassets\msbuild.AghadonApi.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\obj\Debug\net9.0\staticwebassets\msbuild.AghadonApi.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\obj\Debug\net9.0\staticwebassets\msbuild.build.AghadonApi.props
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\obj\Debug\net9.0\staticwebassets\msbuild.buildMultiTargeting.AghadonApi.props
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\obj\Debug\net9.0\staticwebassets\msbuild.buildTransitive.AghadonApi.props
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\obj\Debug\net9.0\staticwebassets.pack.json
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\obj\Debug\net9.0\AghadonApi.csproj.Up2Date
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\obj\Debug\net9.0\AghadonApi.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\obj\Debug\net9.0\refint\AghadonApi.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\obj\Debug\net9.0\AghadonApi.pdb
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\obj\Debug\net9.0\AghadonApi.genruntimeconfig.cache
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\obj\Debug\net9.0\ref\AghadonApi.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\QRCoder.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\Newtonsoft.Json.dll
+C:\Users\mdevm\OneDrive\Desktop\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Net.WebSockets.WebSocketProtocol.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\appsettings.Development.json
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\appsettings.json
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\AghadonApi.staticwebassets.endpoints.json
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\AghadonApi.exe
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\AghadonApi.deps.json
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\AghadonApi.runtimeconfig.json
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\AghadonApi.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\AghadonApi.pdb
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\Azure.Core.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\Azure.Identity.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\Humanizer.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.Build.Locator.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.CodeAnalysis.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.CodeAnalysis.Workspaces.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.Data.SqlClient.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.Identity.Client.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.OpenApi.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.SqlServer.Server.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\Mono.TextTemplating.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\Newtonsoft.Json.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\QRCoder.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\System.ClientModel.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\System.CodeDom.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Composition.AttributedModel.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Composition.Convention.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Composition.Hosting.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Composition.Runtime.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Composition.TypedParts.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Configuration.ConfigurationManager.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Drawing.Common.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Memory.Data.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Net.WebSockets.WebSocketProtocol.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Runtime.Caching.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Security.Permissions.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Windows.Extensions.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\AghadonApi.csproj.AssemblyReference.cache
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\AghadonApi.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\AghadonApi.AssemblyInfoInputs.cache
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\AghadonApi.AssemblyInfo.cs
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\AghadonApi.csproj.CoreCompileInputs.cache
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\AghadonApi.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\AghadonApi.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\scopedcss\bundle\AghadonApi.styles.css
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\staticwebassets.build.json
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\staticwebassets.development.json
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\staticwebassets.build.endpoints.json
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\staticwebassets\msbuild.AghadonApi.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\staticwebassets\msbuild.AghadonApi.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\staticwebassets\msbuild.build.AghadonApi.props
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\staticwebassets\msbuild.buildMultiTargeting.AghadonApi.props
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\staticwebassets\msbuild.buildTransitive.AghadonApi.props
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\staticwebassets.pack.json
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\AghadonApi.csproj.Up2Date
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\AghadonApi.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\refint\AghadonApi.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\AghadonApi.pdb
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\AghadonApi.genruntimeconfig.cache
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\ref\AghadonApi.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\bin\Debug\net9.0\AghadonApi.staticwebassets.runtime.json
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\ennkm7jdr8-viej874w3p.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\jwzimo9ze2-b9sayid5wm.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\gw9678x99m-61n19gt1b8.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\3zlnkui3rv-49rh02uuw1.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\2f8u6dvex1-yew92ttkez.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\x73y824uty-xtxxf3hu2r.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\ad8h8ozcaz-bqjiyaj88i.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\e0xh9629mm-c2jlpeoesf.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\ask6i3qijk-erw9l3u2r3.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\fmmnfb41px-aexeepp0ev.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\xktwodx56j-d7shbmvgxk.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\dfj70lieel-ausgxo2sd3.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\7vfk3u7wvd-k8d9w2qqmf.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\5t4gmbhpjs-cosvhxvwiu.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\4ad24eqvgd-ub07r2b239.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\o1gk9is3bg-fvhpjtyr6v.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\t55w9su09z-b7pk76d08c.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\1mz97jrrf8-fsbi9cje9m.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\zvdzhhjbym-rzd6atqjts.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\9u98a9qr2l-ee0r1s7dh0.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\2kh8nmz0tg-dxx9fxp4il.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\7xc22wfx8i-jd9uben2k1.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\vvwohze0i3-khv3u5hwcm.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\g47jjqcfaw-r4e9w2rdcm.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\515x9m1pmm-lcd1t2u6c8.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\gy9fq3yudu-c2oey78nd0.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\owg6ysmzgx-tdbxkamptv.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\da1kc7fpaw-j5mq2jizvt.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\9ockn5g763-06098lyss8.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\2s6pgl4c34-nvvlpmu67g.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\50f688u0rm-s35ty4nyc5.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\g05v6x1w52-pj5nd1wqec.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\f9rthh1koc-46ein0sx1k.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\brti5qvifa-v0zj4ognzu.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\uj92i1oiij-37tfw0ft22.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\c2cp1vcbwo-hrwsygsryq.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\8o6xppu69o-pk9g2wxc8p.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\rybdjquzv2-ft3s53vfgj.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\dbn6getjx7-6cfz1n2cew.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\3ssezx046w-6pdc2jztkx.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\gx0194fi44-493y06b0oq.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\sxzp3dioz1-iovd86k7lj.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\7p57212zt3-vr1egmr9el.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\ovkodbek9r-kbrnm935zg.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\wmpa2t1out-jj8uyg4cgr.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\6aiqd7rwr5-y7v9cxd14o.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\myfyil246s-notf2xhcfb.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\qdjn5kfv4i-h1s4sie4z3.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\mbrezm2lca-63fj8s7r0e.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\mdkt9kz4eo-0j3bgjxly4.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\f7ph003ncx-47otxtyo56.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\p4cig3e9xi-4v8eqarkd7.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\2zfyavfiou-356vix0kms.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\amq8fo72k4-83jwlth58m.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\jtobm8hnoq-mrlpezrjn3.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\ehha1fgc4l-lzl9nlhx6b.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\v8r4lqctp1-ag7o75518u.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\y73l2v14ob-x0q3zqp4vz.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\8rdgm0hvfh-0i3buxo5is.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\1usbfjmd06-o1o13a6vjx.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\ydjhkldk88-ttgo8qnofa.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\t2vyqsmv67-2z0ns9nrw6.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\fv9gvo0s7n-muycvpuwrr.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\a27zcym4eq-87fc7y1x7t.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\شاه محمدی - آقادون\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\77irnu477a-mlv21k5csn.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\appsettings.Development.json
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\appsettings.json
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\AghadonApi.staticwebassets.runtime.json
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\AghadonApi.staticwebassets.endpoints.json
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\AghadonApi.exe
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\AghadonApi.deps.json
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\AghadonApi.runtimeconfig.json
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\AghadonApi.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\AghadonApi.pdb
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Azure.Core.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Azure.Identity.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Humanizer.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.AspNetCore.OpenApi.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.Build.Locator.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.CodeAnalysis.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.CodeAnalysis.Workspaces.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.CodeAnalysis.Workspaces.MSBuild.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.Data.SqlClient.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.Identity.Client.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.OpenApi.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.SqlServer.Server.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Mono.TextTemplating.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Newtonsoft.Json.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\QRCoder.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\System.ClientModel.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\System.CodeDom.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Composition.AttributedModel.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Composition.Convention.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Composition.Hosting.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Composition.Runtime.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Composition.TypedParts.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Configuration.ConfigurationManager.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Drawing.Common.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Memory.Data.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Net.WebSockets.WebSocketProtocol.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Runtime.Caching.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Security.Permissions.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Windows.Extensions.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\cs\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\de\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\es\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\fr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\it\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\ja\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\ko\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\pl\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\ru\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\tr\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\AghadonApi.csproj.AssemblyReference.cache
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\AghadonApi.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\AghadonApi.AssemblyInfoInputs.cache
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\AghadonApi.AssemblyInfo.cs
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\AghadonApi.csproj.CoreCompileInputs.cache
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\AghadonApi.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\AghadonApi.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\scopedcss\bundle\AghadonApi.styles.css
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\ennkm7jdr8-viej874w3p.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\jwzimo9ze2-b9sayid5wm.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\gw9678x99m-61n19gt1b8.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\3zlnkui3rv-49rh02uuw1.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\2f8u6dvex1-yew92ttkez.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\x73y824uty-xtxxf3hu2r.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\ad8h8ozcaz-bqjiyaj88i.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\e0xh9629mm-c2jlpeoesf.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\ask6i3qijk-erw9l3u2r3.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\fmmnfb41px-aexeepp0ev.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\xktwodx56j-d7shbmvgxk.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\dfj70lieel-ausgxo2sd3.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\7vfk3u7wvd-k8d9w2qqmf.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\5t4gmbhpjs-cosvhxvwiu.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\4ad24eqvgd-ub07r2b239.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\o1gk9is3bg-fvhpjtyr6v.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\t55w9su09z-b7pk76d08c.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\1mz97jrrf8-fsbi9cje9m.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\zvdzhhjbym-rzd6atqjts.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\9u98a9qr2l-ee0r1s7dh0.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\2kh8nmz0tg-dxx9fxp4il.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\7xc22wfx8i-jd9uben2k1.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\vvwohze0i3-khv3u5hwcm.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\g47jjqcfaw-r4e9w2rdcm.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\515x9m1pmm-lcd1t2u6c8.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\gy9fq3yudu-c2oey78nd0.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\owg6ysmzgx-tdbxkamptv.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\da1kc7fpaw-j5mq2jizvt.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\9ockn5g763-06098lyss8.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\2s6pgl4c34-nvvlpmu67g.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\50f688u0rm-s35ty4nyc5.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\g05v6x1w52-pj5nd1wqec.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\f9rthh1koc-46ein0sx1k.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\brti5qvifa-v0zj4ognzu.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\uj92i1oiij-37tfw0ft22.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\c2cp1vcbwo-hrwsygsryq.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\8o6xppu69o-pk9g2wxc8p.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\rybdjquzv2-ft3s53vfgj.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\dbn6getjx7-6cfz1n2cew.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\3ssezx046w-6pdc2jztkx.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\gx0194fi44-493y06b0oq.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\sxzp3dioz1-iovd86k7lj.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\7p57212zt3-vr1egmr9el.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\ovkodbek9r-kbrnm935zg.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\wmpa2t1out-jj8uyg4cgr.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\6aiqd7rwr5-y7v9cxd14o.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\myfyil246s-notf2xhcfb.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\qdjn5kfv4i-h1s4sie4z3.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\mbrezm2lca-63fj8s7r0e.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\mdkt9kz4eo-0j3bgjxly4.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\f7ph003ncx-47otxtyo56.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\p4cig3e9xi-4v8eqarkd7.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\2zfyavfiou-356vix0kms.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\amq8fo72k4-83jwlth58m.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\jtobm8hnoq-mrlpezrjn3.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\ehha1fgc4l-lzl9nlhx6b.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\v8r4lqctp1-ag7o75518u.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\y73l2v14ob-x0q3zqp4vz.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\8rdgm0hvfh-0i3buxo5is.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\1usbfjmd06-o1o13a6vjx.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\ydjhkldk88-ttgo8qnofa.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\t2vyqsmv67-2z0ns9nrw6.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\fv9gvo0s7n-muycvpuwrr.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\a27zcym4eq-87fc7y1x7t.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\77irnu477a-mlv21k5csn.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\staticwebassets.build.json
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\staticwebassets.development.json
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\staticwebassets.build.endpoints.json
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\staticwebassets\msbuild.AghadonApi.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\staticwebassets\msbuild.AghadonApi.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\staticwebassets\msbuild.build.AghadonApi.props
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\staticwebassets\msbuild.buildMultiTargeting.AghadonApi.props
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\staticwebassets\msbuild.buildTransitive.AghadonApi.props
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\staticwebassets.pack.json
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\AghadonApi.csproj.Up2Date
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\AghadonApi.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\refint\AghadonApi.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\AghadonApi.pdb
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\AghadonApi.genruntimeconfig.cache
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\ref\AghadonApi.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\itext.barcodes.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\itext.bouncy-castle-connector.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\itext.forms.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\itext.io.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\itext.kernel.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\itext.layout.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\itext.pdfa.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\itext.pdfua.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\itext.sign.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\itext.styledxmlparser.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\itext.svg.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\itext.commons.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.DotNet.PlatformAbstractions.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\System.IO.Pipelines.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Text.Encodings.Web.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Text.Json.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\win\lib\net9.0\System.Text.Encodings.Web.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\HarfBuzzSharp.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Spire.Pdf.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Private.Windows.Core.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\osx\native\libHarfBuzzSharp.dylib
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\win-arm64\native\libHarfBuzzSharp.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\win-x64\native\libHarfBuzzSharp.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\win-x86\native\libHarfBuzzSharp.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\win\lib\net9.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\PdfiumViewer.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\nl\PdfiumViewer.resources.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.Extensions.Logging.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.Extensions.Options.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.Extensions.Primitives.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\Microsoft.IO.RecyclableMemoryStream.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\PuppeteerSharp.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Diagnostics.DiagnosticSource.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\WebDriverBiDi.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\OpenHtmlToPdf.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\obj\Debug\net9.0\compressed\eohk29atqd-vfz4m2kjl0.gz
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\System.Management.dll
+C:\Users\mdevm\OneDrive\Desktop\KioskCustomerFile\Aghadoon\AghadonApi\AghadonApi\bin\Debug\net9.0\runtimes\win\lib\net9.0\System.Management.dll

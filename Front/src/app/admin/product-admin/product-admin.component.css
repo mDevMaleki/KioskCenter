@@ -1,0 +1,95 @@
+.admin-container {
+  max-width: 900px;
+  margin: auto;
+  padding: 40px 20px;
+  font-family: 'YekanBakh', Tahoma, sans-serif;
+  color: #2c3e50;
+}
+
+.add-form {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+.add-form h2 {
+  margin-bottom: 15px;
+}
+
+.add-form input,
+.add-form select,
+.add-form textarea {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.add-form textarea {
+  min-height: 70px;
+  resize: vertical;
+}
+
+.add-form button {
+  margin-top: 5px;
+  margin-right: 5px;
+}
+
+button {
+  background: #5a3e2b;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: 'YekanBakh', Tahoma, sans-serif;
+  font-size: 14px;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+.cancel-btn {
+  background: #e74c3c;
+}
+
+.product-list {
+  margin-top: 10px;
+}
+
+.product-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255,255,255,0.9);
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.product-card img {
+  border-radius: 8px;
+}
+
+.product-card .info {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.product-card .buttons button {
+  margin-left: 5px;
+}
+
+.image-preview img {
+  max-width: 120px;
+  max-height: 120px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  display: block;
+}

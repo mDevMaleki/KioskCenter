@@ -1,0 +1,16 @@
+<div class="kiosk-container">
+  <div class="order-grid">
+    <div class="card" 
+         *ngFor="let type of activeOrderTypes"
+         (click)="selectOrderType(type.id)">
+      <div class="card-icon">{{type.icon}}</div>
+      <div class="card-title">{{type.persianName}}</div>
+    </div>
+  </div>
+  <button class="btn-back-to-menu" (click)="backToMenu()">
+    🍽️ بازگشت
+  </button>
+  <div class="footer-logo">
+    <img src="assets/logo.png" alt="Aghadoon Logo" (click)="goToAdmin()">
+  </div>
+</div>

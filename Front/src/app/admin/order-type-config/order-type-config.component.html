@@ -1,0 +1,191 @@
+<div class="order-type-config-container">
+  <!-- هدر -->
+  <div class="config-header">
+    <div class="header-title">
+      <span class="header-icon">📋</span>
+      <h2>تنظیمات انواع سفارش</h2>
+    </div>
+    <button class="btn-save" (click)="saveSettings()">
+      💾 ذخیره تغییرات
+    </button>
+  </div>
+
+  <!-- تب‌های انتخاب نوع سفارش -->
+  <div class="order-type-tabs">
+    <button 
+      *ngFor="let type of orderTypes"
+      class="tab-btn"
+      [class.active]="selectedTypeId === type.id"
+      (click)="selectType(type.id)">
+      <span class="tab-icon">{{type.icon}}</span>
+      <span class="tab-name">{{type.persianName}}</span>
+      <span class="tab-status" [class.active-status]="type.active" [class.inactive-status]="!type.active">
+        {{type.active ? 'فعال' : 'غیرفعال'}}
+      </span>
+    </button>
+  </div>
+
+  <!-- وضعیت لودینگ -->
+  <div *ngIf="isLoading" class="loading-state">
+    <div class="spinner"></div>
+    <p>در حال بارگذاری دسته‌بندی‌ها...</p>
+  </div>
+
+  <!-- پیام خطا -->
+  <div *ngIf="errorMessage" class="error-state">
+    <span class="error-icon">⚠️</span>
+    <span>{{errorMessage}}</span>
+    <button class="retry-btn" (click)="refreshCategories()">تلاش مجدد</button>
+  </div>
+
+  <!-- محتوای تنظیمات -->
+  <div class="config-form" *ngIf="currentSettings && !isLoading">
+    
+    <!-- بخش فعال/غیرفعال -->
+    <div class="form-section">
+      <div class="section-title">
+        <span class="section-icon">⚙️</span>
+        <span>وضعیت نوع سفارش</span>
+      </div>
+      <label class="toggle-switch">
+        <input type="checkbox" [(ngModel)]="currentSettings.active">
+        <span class="toggle-slider"></span>
+        <span class="toggle-label">
+          {{currentSettings.active ? '✅ فعال' : '❌ غیرفعال'}}
+        </span>
+      </label>
+      <div class="section-hint" *ngIf="!currentSettings.active">
+        ⚠️ این نوع سفارش در کیوسک نمایش داده نخواهد شد
+      </div>
+    </div>
+
+    <!-- بخش اطلاعات پایه -->
+    <div class="form-section">
+      <div class="section-title">
+        <span class="section-icon">📝</span>
+        <span>اطلاعات پایه</span>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>نام نمایشی:</label>
+          <input type="text" [(ngModel)]="currentSettings.persianName" class="form-input" placeholder="مثال: داخل سالن">
+        </div>
+        <div class="form-group">
+          <label>آیکون:</label>
+          <input type="text" [(ngModel)]="currentSettings.icon" maxlength="2" class="form-input small" placeholder="🏠">
+        </div>
+      </div>
+    </div>
+
+    <!-- بخش تنظیمات قیمت -->
+    <div class="form-section">
+      <div class="section-title">
+        <span class="section-icon">💰</span>
+        <span>تنظیمات قیمت</span>
+      </div>
+      
+      <div class="form-group">
+        <label>ضریب قیمت کلی:</label>
+        <div class="price-factor-control">
+          <input type="range" [(ngModel)]="currentSettings.priceFactor" step="0.05" min="0.5" max="2" class="price-slider">
+          <input type="number" [(ngModel)]="currentSettings.priceFactor" step="0.05" min="0.5" max="2" class="form-input small">
+          <span class="factor-badge" [class.positive]="currentSettings.priceFactor > 1" [class.negative]="currentSettings.priceFactor < 1">
+            {{getFactorDisplay(currentSettings.priceFactor)}}
+          </span>
+        </div>
+      </div>
+
+      <!-- قوانین قیمتی اختصاصی -->
+      <div class="price-rules-section">
+        <label class="subtitle">قوانین قیمتی اختصاصی برای دسته‌بندی‌ها:</label>
+        
+        <div class="rules-list" *ngIf="currentSettings.categoryPriceRules.length > 0">
+          <div class="rule-item" *ngFor="let rule of currentSettings.categoryPriceRules">
+            <span class="rule-category">{{getCategoryName(rule.categoryId)}}</span>
+            <span class="rule-factor" [class.positive]="rule.factor > 1" [class.negative]="rule.factor < 1">
+              {{getFactorDisplay(rule.factor)}}
+            </span>
+            <button class="btn-remove" (click)="removePriceRule(rule.categoryId)" title="حذف قانون">
+              🗑️
+            </button>
+          </div>
+        </div>
+        <div class="rules-list-empty" *ngIf="currentSettings.categoryPriceRules.length === 0">
+          <span class="empty-icon">📊</span>
+          <span>هیچ قانون قیمتی اختصاصی تعریف نشده است</span>
+        </div>
+
+        <div class="add-rule">
+          <select [(ngModel)]="newRule.categoryId" class="form-input">
+            <option value="">انتخاب دسته‌بندی...</option>
+            <option *ngFor="let cat of allCategories" [value]="cat.id">
+              {{cat.persianName || cat.name}}
+            </option>
+          </select>
+          <div class="rule-factor-input">
+            <input type="range" [(ngModel)]="newRule.factor" step="0.05" min="0.5" max="2" style="width: 150px;">
+            <input type="number" [(ngModel)]="newRule.factor" step="0.05" min="0.5" max="2" class="form-input tiny">
+          </div>
+          <button class="btn-add" (click)="addPriceRule()">➕ اضافه قانون</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- بخش دسته‌بندی‌های قابل نمایش -->
+    <div class="form-section">
+      <div class="section-title">
+        <span class="section-icon">📂</span>
+        <span>دسته‌بندی‌های قابل نمایش</span>
+        <button class="refresh-btn" (click)="refreshCategories()" title="بروزرسانی">🔄</button>
+      </div>
+      
+      <div class="category-actions">
+        <button class="btn-action" (click)="selectAllCategories()">✅ انتخاب همه</button>
+        <button class="btn-action" (click)="deselectAllCategories()">❌ حذف همه</button>
+      </div>
+
+      <div class="categories-grid">
+        <label class="category-checkbox" *ngFor="let cat of allCategories">
+          <input 
+            type="checkbox" 
+            [checked]="isCategoryVisible(cat.id)"
+            (change)="toggleCategory(cat.id, $event)">
+          <span class="checkbox-custom"></span>
+          <span class="category-name">
+            <span class="category-icon">📁</span>
+            {{cat.persianName || cat.name}}
+          </span>
+          <span class="category-price-badge" *ngIf="getRuleFactor(cat.id.toString()) !== 1" 
+                [class.positive]="getRuleFactor(cat.id.toString()) > 1" 
+                [class.negative]="getRuleFactor(cat.id.toString()) < 1">
+            {{getFactorDisplay(getRuleFactor(cat.id.toString()))}}
+          </span>
+        </label>
+      </div>
+      
+      <div class="category-hint">
+        💡 <strong>تذکر مهم:</strong> دسته‌بندی‌هایی که تیک نخورند، در کیوسک برای این نوع سفارش نمایش داده نمی‌شوند.
+      </div>
+    </div>
+
+    <!-- پیش‌نمایش -->
+    <div class="form-section preview-section">
+      <div class="section-title">
+        <span class="section-icon">👁️</span>
+        <span>پیش‌نمایش</span>
+      </div>
+      <div class="preview-card">
+        <div class="preview-icon">{{currentSettings.icon}}</div>
+        <div class="preview-info">
+          <div class="preview-title">{{currentSettings.persianName}}</div>
+          <div class="preview-status" [class]="currentSettings.active ? 'status-active' : 'status-inactive'">
+            {{currentSettings.active ? 'فعال' : 'غیرفعال'}}
+          </div>
+          <div class="preview-price">
+            ضریب قیمت: {{getFactorDisplay(currentSettings.priceFactor)}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

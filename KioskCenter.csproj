@@ -31,8 +31,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="App_Data\receipts\" />
     <Folder Include="Migrations\" />
     <Folder Include="Keys\" />
+    <Folder Include="wwwroot\uploads\fonts\" />
+    <Folder Include="wwwroot\uploads\logos\" />
+    <Folder Include="wwwroot\uploads\products\" />
   </ItemGroup>
 
 </Project>

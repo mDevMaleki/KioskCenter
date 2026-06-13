@@ -1,0 +1,28 @@
+﻿# پوشه‌های تولید شده توسط بیلدهای دات‌نت
+[Bb]in/
+[Oo]bj/
+.vs/
+.vscode/
+
+# خروجی‌های پکیج‌های ناگت (NuGet)
+packages/
+*.nupkg
+
+# تنظیمات کاربر و فایل‌های مخفی
+*.user
+*.userosscache
+*.sln.docstates
+
+# فایل‌های مربوط به تست‌ها و کاورج (در صورت وجود)
+TestResults/
+*.coverage
+*.coveragexml
+
+# فایل‌های دیتابیس لوکال (اگر استفاده می‌کنید)
+*.db
+*.sdf
+*.sqlite
+
+# سایر موارد رایج
+.DS_Store
+Thumbs.db

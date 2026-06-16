@@ -22,6 +22,317 @@ namespace KioskCenter.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("KioskCenter.Models.Account", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Balance")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsGroup")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int?>("ParentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.HasIndex("ParentId");
+
+                    b.ToTable("Accounts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Balance = 0m,
+                            Code = "1000",
+                            IsActive = true,
+                            IsGroup = true,
+                            Name = "دارایی‌ها",
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Balance = 0m,
+                            Code = "1100",
+                            IsActive = true,
+                            IsGroup = true,
+                            Name = "صندوق و بانک",
+                            ParentId = 1,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Balance = 0m,
+                            Code = "1200",
+                            IsActive = true,
+                            IsGroup = false,
+                            Name = "حساب‌های دریافتنی",
+                            ParentId = 1,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Balance = 0m,
+                            Code = "1300",
+                            IsActive = true,
+                            IsGroup = false,
+                            Name = "موجودی مواد اولیه",
+                            ParentId = 1,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Balance = 0m,
+                            Code = "2000",
+                            IsActive = true,
+                            IsGroup = true,
+                            Name = "بدهی‌ها",
+                            Type = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Balance = 0m,
+                            Code = "2100",
+                            IsActive = true,
+                            IsGroup = false,
+                            Name = "حساب‌های پرداختنی",
+                            ParentId = 5,
+                            Type = 2
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Balance = 0m,
+                            Code = "3000",
+                            IsActive = true,
+                            IsGroup = true,
+                            Name = "حقوق صاحبان سرمایه",
+                            Type = 3
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Balance = 0m,
+                            Code = "3100",
+                            IsActive = true,
+                            IsGroup = false,
+                            Name = "سرمایه",
+                            ParentId = 7,
+                            Type = 3
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Balance = 0m,
+                            Code = "4000",
+                            IsActive = true,
+                            IsGroup = true,
+                            Name = "درآمدها",
+                            Type = 4
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Balance = 0m,
+                            Code = "4100",
+                            IsActive = true,
+                            IsGroup = false,
+                            Name = "فروش محصولات",
+                            ParentId = 9,
+                            Type = 4
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Balance = 0m,
+                            Code = "5000",
+                            IsActive = true,
+                            IsGroup = true,
+                            Name = "هزینه‌ها",
+                            Type = 5
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Balance = 0m,
+                            Code = "5100",
+                            IsActive = true,
+                            IsGroup = false,
+                            Name = "هزینه‌های عمومی",
+                            ParentId = 11,
+                            Type = 5
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Balance = 0m,
+                            Code = "1101",
+                            IsActive = true,
+                            IsGroup = false,
+                            Name = "صندوق",
+                            ParentId = 2,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Balance = 0m,
+                            Code = "1102",
+                            IsActive = true,
+                            IsGroup = false,
+                            Name = "بانک",
+                            ParentId = 2,
+                            Type = 1
+                        });
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.AppUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsSuperAdmin")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Permissions")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FullName = "مدیر سیستم",
+                            IsActive = true,
+                            IsSuperAdmin = true,
+                            PasswordHash = "AAAAAAAAAAAAAAAAAAAAAA==.UQx0m4jTwaXcLRcbF4Ue97OtKlJsoS/o1HhHds97js0=",
+                            Permissions = "",
+                            Username = "admin"
+                        });
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.CashAccount", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AccountId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("AccountNumber")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<decimal>("Balance")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountId");
+
+                    b.ToTable("CashAccounts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AccountId = 13,
+                            Balance = 0m,
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = true,
+                            Name = "صندوق",
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AccountId = 14,
+                            Balance = 0m,
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = true,
+                            Name = "بانک",
+                            Type = 2
+                        });
+                });
+
             modelBuilder.Entity("KioskCenter.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -81,6 +392,161 @@ namespace KioskCenter.Migrations
                         });
                 });
 
+            modelBuilder.Entity("KioskCenter.Models.Expense", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AccountId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("CashAccountId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("JournalEntryId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountId");
+
+                    b.HasIndex("CashAccountId");
+
+                    b.HasIndex("JournalEntryId");
+
+                    b.ToTable("Expenses");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.InventoryTransaction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Note")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("StockAfter")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("UnitPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("InventoryTransactions");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.JournalEntry", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime>("EntryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RefId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RefType")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("JournalEntries");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.JournalEntryLine", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AccountId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CashAccountId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Credit")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Debit")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("JournalEntryId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PartyId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountId");
+
+                    b.HasIndex("CashAccountId");
+
+                    b.HasIndex("JournalEntryId");
+
+                    b.HasIndex("PartyId");
+
+                    b.ToTable("JournalEntryLines");
+                });
+
             modelBuilder.Entity("KioskCenter.Models.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -103,6 +569,9 @@ namespace KioskCenter.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("PaymentMethodId")
+                        .HasColumnType("int");
+
                     b.Property<string>("PaymentStatus")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -117,6 +586,8 @@ namespace KioskCenter.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PaymentMethodId");
 
                     b.ToTable("Orders");
                 });
@@ -186,6 +657,79 @@ namespace KioskCenter.Migrations
                     b.ToTable("OrderTypeSettings");
                 });
 
+            modelBuilder.Entity("KioskCenter.Models.Party", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<decimal>("Balance")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Phone")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Parties");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.PartyTransaction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("BalanceAfter")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("PartyId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RefId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PartyId");
+
+                    b.ToTable("PartyTransactions");
+                });
+
             modelBuilder.Entity("KioskCenter.Models.PaymentMethod", b =>
                 {
                     b.Property<int>("Id")
@@ -193,6 +737,9 @@ namespace KioskCenter.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("CashAccountId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -226,6 +773,8 @@ namespace KioskCenter.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CashAccountId");
 
                     b.ToTable("PaymentMethods");
                 });
@@ -261,9 +810,8 @@ namespace KioskCenter.Migrations
                     b.Property<int>("Priority")
                         .HasColumnType("int");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -336,6 +884,10 @@ namespace KioskCenter.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("MinStockLevel")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -352,6 +904,15 @@ namespace KioskCenter.Migrations
                     b.Property<int>("State")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("StockQuantity")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Unit")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
@@ -364,55 +925,242 @@ namespace KioskCenter.Migrations
                             Id = 1,
                             CategoryId = 1,
                             ImageUrl = "",
+                            MinStockLevel = 0m,
                             Name = "اسپرسو دوبل",
                             Price = 130000m,
-                            State = 0
+                            State = 0,
+                            StockQuantity = 0m,
+                            Unit = "عدد"
                         },
                         new
                         {
                             Id = 2,
                             CategoryId = 1,
                             ImageUrl = "",
+                            MinStockLevel = 0m,
                             Name = "اسپرسو تک",
                             Price = 90000m,
-                            State = 0
+                            State = 0,
+                            StockQuantity = 0m,
+                            Unit = "عدد"
                         },
                         new
                         {
                             Id = 3,
                             CategoryId = 1,
                             ImageUrl = "",
+                            MinStockLevel = 0m,
                             Name = "آمریکانو",
                             Price = 120000m,
-                            State = 0
+                            State = 0,
+                            StockQuantity = 0m,
+                            Unit = "عدد"
                         },
                         new
                         {
                             Id = 4,
                             CategoryId = 1,
                             ImageUrl = "",
+                            MinStockLevel = 0m,
                             Name = "لاته",
                             Price = 140000m,
-                            State = 0
+                            State = 0,
+                            StockQuantity = 0m,
+                            Unit = "عدد"
                         },
                         new
                         {
                             Id = 5,
                             CategoryId = 6,
                             ImageUrl = "",
+                            MinStockLevel = 0m,
                             Name = "چیز کیک",
                             Price = 85000m,
-                            State = 0
+                            State = 0,
+                            StockQuantity = 0m,
+                            Unit = "عدد"
                         },
                         new
                         {
                             Id = 6,
                             CategoryId = 6,
                             ImageUrl = "",
+                            MinStockLevel = 0m,
                             Name = "دبل چاکلت",
                             Price = 95000m,
-                            State = 0
+                            State = 0,
+                            StockQuantity = 0m,
+                            Unit = "عدد"
                         });
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.ProductRecipeItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<int>("RawMaterialId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("RawMaterialId");
+
+                    b.ToTable("ProductRecipeItems");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.PurchaseInvoice", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Note")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("PartyId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PartyId");
+
+                    b.ToTable("PurchaseInvoices");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.PurchaseInvoiceItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("PurchaseInvoiceId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("RawMaterialId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("UnitId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PurchaseInvoiceId");
+
+                    b.HasIndex("RawMaterialId");
+
+                    b.HasIndex("UnitId");
+
+                    b.ToTable("PurchaseInvoiceItems");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.RawMaterial", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("MinStockLevel")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<decimal>("StockQuantity")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("UnitId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UnitId");
+
+                    b.ToTable("RawMaterials");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.RawMaterialTransaction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Note")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("PartyName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("RawMaterialId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("StockAfter")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("UnitPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RawMaterialId");
+
+                    b.ToTable("RawMaterialTransactions");
                 });
 
             modelBuilder.Entity("KioskCenter.Models.RestaurantStyle", b =>
@@ -662,6 +1410,227 @@ namespace KioskCenter.Migrations
                     b.ToTable("RestaurantStyles");
                 });
 
+            modelBuilder.Entity("KioskCenter.Models.SaleInvoice", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Note")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("PartyId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PartyId");
+
+                    b.ToTable("SaleInvoices");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.SaleInvoiceItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("SaleInvoiceId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("SaleInvoiceId");
+
+                    b.ToTable("SaleInvoiceItems");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.UnitOfMeasure", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("BaseUnitId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("ConversionFactor")
+                        .HasColumnType("decimal(18,6)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BaseUnitId");
+
+                    b.ToTable("UnitsOfMeasure");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ConversionFactor = 1m,
+                            Name = "گرم"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BaseUnitId = 1,
+                            ConversionFactor = 1000m,
+                            Name = "کیلوگرم"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ConversionFactor = 1m,
+                            Name = "میلی‌لیتر"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            BaseUnitId = 3,
+                            ConversionFactor = 1000m,
+                            Name = "لیتر"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ConversionFactor = 1m,
+                            Name = "عدد"
+                        });
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.Account", b =>
+                {
+                    b.HasOne("KioskCenter.Models.Account", "Parent")
+                        .WithMany()
+                        .HasForeignKey("ParentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Parent");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.CashAccount", b =>
+                {
+                    b.HasOne("KioskCenter.Models.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Account");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.Expense", b =>
+                {
+                    b.HasOne("KioskCenter.Models.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("KioskCenter.Models.CashAccount", "CashAccount")
+                        .WithMany()
+                        .HasForeignKey("CashAccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("KioskCenter.Models.JournalEntry", "JournalEntry")
+                        .WithMany()
+                        .HasForeignKey("JournalEntryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
+
+                    b.Navigation("CashAccount");
+
+                    b.Navigation("JournalEntry");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.InventoryTransaction", b =>
+                {
+                    b.HasOne("KioskCenter.Models.Product", "Product")
+                        .WithMany("InventoryTransactions")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.JournalEntryLine", b =>
+                {
+                    b.HasOne("KioskCenter.Models.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("KioskCenter.Models.CashAccount", "CashAccount")
+                        .WithMany()
+                        .HasForeignKey("CashAccountId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("KioskCenter.Models.JournalEntry", "JournalEntry")
+                        .WithMany("Lines")
+                        .HasForeignKey("JournalEntryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("KioskCenter.Models.Party", "Party")
+                        .WithMany()
+                        .HasForeignKey("PartyId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Account");
+
+                    b.Navigation("CashAccount");
+
+                    b.Navigation("JournalEntry");
+
+                    b.Navigation("Party");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.Order", b =>
+                {
+                    b.HasOne("KioskCenter.Models.PaymentMethod", "PaymentMethod")
+                        .WithMany()
+                        .HasForeignKey("PaymentMethodId");
+
+                    b.Navigation("PaymentMethod");
+                });
+
             modelBuilder.Entity("KioskCenter.Models.OrderItem", b =>
                 {
                     b.HasOne("KioskCenter.Models.Order", "Order")
@@ -681,6 +1650,26 @@ namespace KioskCenter.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("KioskCenter.Models.PartyTransaction", b =>
+                {
+                    b.HasOne("KioskCenter.Models.Party", "Party")
+                        .WithMany("Transactions")
+                        .HasForeignKey("PartyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Party");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.PaymentMethod", b =>
+                {
+                    b.HasOne("KioskCenter.Models.CashAccount", "CashAccount")
+                        .WithMany()
+                        .HasForeignKey("CashAccountId");
+
+                    b.Navigation("CashAccount");
+                });
+
             modelBuilder.Entity("KioskCenter.Models.Product", b =>
                 {
                     b.HasOne("KioskCenter.Models.Category", "Category")
@@ -692,9 +1681,133 @@ namespace KioskCenter.Migrations
                     b.Navigation("Category");
                 });
 
+            modelBuilder.Entity("KioskCenter.Models.ProductRecipeItem", b =>
+                {
+                    b.HasOne("KioskCenter.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("KioskCenter.Models.RawMaterial", "RawMaterial")
+                        .WithMany("RecipeItems")
+                        .HasForeignKey("RawMaterialId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("RawMaterial");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.PurchaseInvoice", b =>
+                {
+                    b.HasOne("KioskCenter.Models.Party", "Party")
+                        .WithMany()
+                        .HasForeignKey("PartyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Party");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.PurchaseInvoiceItem", b =>
+                {
+                    b.HasOne("KioskCenter.Models.PurchaseInvoice", "PurchaseInvoice")
+                        .WithMany("Items")
+                        .HasForeignKey("PurchaseInvoiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("KioskCenter.Models.RawMaterial", "RawMaterial")
+                        .WithMany()
+                        .HasForeignKey("RawMaterialId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("KioskCenter.Models.UnitOfMeasure", "Unit")
+                        .WithMany()
+                        .HasForeignKey("UnitId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("PurchaseInvoice");
+
+                    b.Navigation("RawMaterial");
+
+                    b.Navigation("Unit");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.RawMaterial", b =>
+                {
+                    b.HasOne("KioskCenter.Models.UnitOfMeasure", "Unit")
+                        .WithMany()
+                        .HasForeignKey("UnitId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Unit");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.RawMaterialTransaction", b =>
+                {
+                    b.HasOne("KioskCenter.Models.RawMaterial", "RawMaterial")
+                        .WithMany("Transactions")
+                        .HasForeignKey("RawMaterialId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("RawMaterial");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.SaleInvoice", b =>
+                {
+                    b.HasOne("KioskCenter.Models.Party", "Party")
+                        .WithMany()
+                        .HasForeignKey("PartyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Party");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.SaleInvoiceItem", b =>
+                {
+                    b.HasOne("KioskCenter.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("KioskCenter.Models.SaleInvoice", "SaleInvoice")
+                        .WithMany("Items")
+                        .HasForeignKey("SaleInvoiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("SaleInvoice");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.UnitOfMeasure", b =>
+                {
+                    b.HasOne("KioskCenter.Models.UnitOfMeasure", "BaseUnit")
+                        .WithMany()
+                        .HasForeignKey("BaseUnitId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("BaseUnit");
+                });
+
             modelBuilder.Entity("KioskCenter.Models.Category", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.JournalEntry", b =>
+                {
+                    b.Navigation("Lines");
                 });
 
             modelBuilder.Entity("KioskCenter.Models.Order", b =>
@@ -702,9 +1815,33 @@ namespace KioskCenter.Migrations
                     b.Navigation("OrderItems");
                 });
 
+            modelBuilder.Entity("KioskCenter.Models.Party", b =>
+                {
+                    b.Navigation("Transactions");
+                });
+
             modelBuilder.Entity("KioskCenter.Models.Product", b =>
                 {
+                    b.Navigation("InventoryTransactions");
+
                     b.Navigation("OrderItems");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.PurchaseInvoice", b =>
+                {
+                    b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.RawMaterial", b =>
+                {
+                    b.Navigation("RecipeItems");
+
+                    b.Navigation("Transactions");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.SaleInvoice", b =>
+                {
+                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }

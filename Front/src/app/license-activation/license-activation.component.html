@@ -1,0 +1,40 @@
+<div class="license-page">
+  <div class="license-box">
+    <div class="logo-icon">🔒</div>
+    <h1>فعال‌سازی نرم‌افزار</h1>
+
+    <div class="loading-state" *ngIf="loading">
+      <div class="spinner"></div>
+      <p>در حال بررسی وضعیت لایسنس...</p>
+    </div>
+
+    <ng-container *ngIf="!loading">
+      <div class="status-message">⚠️ {{message}}</div>
+
+      <div class="hardware-section">
+        <label>کد دستگاه شما</label>
+        <div class="hardware-code-row">
+          <input type="text" [value]="hardwareHash" readonly class="hardware-code">
+          <button class="btn-copy" (click)="copyHardwareId()">{{copied ? '✅ کپی شد' : '📋 کپی'}}</button>
+        </div>
+        <p class="help-text">
+          این کد را برای پشتیبانی ارسال کنید تا فایل لایسنس مخصوص این دستگاه برای شما صادر شود.
+        </p>
+      </div>
+
+      <div class="upload-section">
+        <label>بارگذاری فایل لایسنس</label>
+        <input type="file" (change)="onFileSelected($event)" accept=".dat,.lic,.json,.txt">
+
+        <div class="error-message" *ngIf="uploadError">❌ {{uploadError}}</div>
+        <div class="success-message" *ngIf="uploadSuccess">✅ لایسنس با موفقیت فعال شد. در حال راه‌اندازی مجدد...</div>
+
+        <button class="btn-activate" (click)="uploadLicense()" [disabled]="uploading || uploadSuccess">
+          {{uploading ? 'در حال بررسی...' : 'فعال‌سازی'}}
+        </button>
+      </div>
+
+      <button class="btn-retry" (click)="checkStatus()">🔄 بررسی مجدد وضعیت</button>
+    </ng-container>
+  </div>
+</div>

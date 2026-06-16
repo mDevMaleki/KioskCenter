@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using KioskCenter.Authorization;
 using KioskCenter.Data;
 using KioskCenter.Models;
 
@@ -9,6 +12,10 @@ namespace KioskCenter.Controllers
     [Route("api/[controller]")]
     public class StyleController : ControllerBase
     {
+        private static readonly string[] AllowedImageExtensions = { ".jpg", ".jpeg", ".png", ".webp", ".gif" };
+        private static readonly string[] AllowedImageContentTypes = { "image/jpeg", "image/png", "image/webp", "image/gif" };
+        private const long MaxImageSize = 5 * 1024 * 1024; // 5MB
+
         private readonly CoffeeShopContext _context;
         private readonly IWebHostEnvironment _env;
         private readonly ILogger<StyleController> _logger;
@@ -33,6 +40,7 @@ namespace KioskCenter.Controllers
             return Ok(style);
         }
 
+        [Authorize, RequirePermission("style")]
         [HttpPut]
         public async Task<IActionResult> Update([FromBody] RestaurantStyle style)
         {
@@ -119,6 +127,7 @@ namespace KioskCenter.Controllers
             return Ok(existing);
         }
 
+        [Authorize, RequirePermission("style")]
         [HttpPost("upload-font")]
         public async Task<IActionResult> UploadFont(IFormFile file)
         {
@@ -146,17 +155,29 @@ namespace KioskCenter.Controllers
             return Ok(new { success = true, url = fontUrl });
         }
 
+        [Authorize, RequirePermission("style")]
         [HttpPost("upload-logo")]
+        [RequestSizeLimit(MaxImageSize)]
         public async Task<IActionResult> UploadLogo(IFormFile file)
         {
             if (file == null || file.Length == 0)
                 return BadRequest(new { success = false, message = "فایل انتخاب نشده است" });
 
+            if (file.Length > MaxImageSize)
+                return BadRequest(new { success = false, message = "حجم فایل بیشتر از حد مجاز است" });
+
+            var extension = Path.GetExtension(file.FileName).ToLowerInvariant();
+            if (!AllowedImageExtensions.Contains(extension))
+                return BadRequest(new { success = false, message = "فرمت فایل مجاز نیست" });
+
+            if (!AllowedImageContentTypes.Contains(file.ContentType.ToLowerInvariant()))
+                return BadRequest(new { success = false, message = "نوع فایل مجاز نیست" });
+
             var uploadsFolder = Path.Combine(_env.WebRootPath, "uploads", "logos");
             if (!Directory.Exists(uploadsFolder))
                 Directory.CreateDirectory(uploadsFolder);
 
-            var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+            var uniqueFileName = Guid.NewGuid().ToString() + extension;
             var filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
             using (var stream = new FileStream(filePath, FileMode.Create))
@@ -168,17 +189,29 @@ namespace KioskCenter.Controllers
             return Ok(new { success = true, url = logoUrl });
         }
 
+        [Authorize, RequirePermission("style")]
         [HttpPost("upload-background")]
+        [RequestSizeLimit(MaxImageSize)]
         public async Task<IActionResult> UploadBackground(IFormFile file)
         {
             if (file == null || file.Length == 0)
                 return BadRequest(new { success = false, message = "فایل انتخاب نشده است" });
 
+            if (file.Length > MaxImageSize)
+                return BadRequest(new { success = false, message = "حجم فایل بیشتر از حد مجاز است" });
+
+            var extension = Path.GetExtension(file.FileName).ToLowerInvariant();
+            if (!AllowedImageExtensions.Contains(extension))
+                return BadRequest(new { success = false, message = "فرمت فایل مجاز نیست" });
+
+            if (!AllowedImageContentTypes.Contains(file.ContentType.ToLowerInvariant()))
+                return BadRequest(new { success = false, message = "نوع فایل مجاز نیست" });
+
             var uploadsFolder = Path.Combine(_env.WebRootPath, "uploads", "backgrounds");
             if (!Directory.Exists(uploadsFolder))
                 Directory.CreateDirectory(uploadsFolder);
 
-            var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+            var uniqueFileName = Guid.NewGuid().ToString() + extension;
             var filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
             using (var stream = new FileStream(filePath, FileMode.Create))
@@ -190,35 +223,69 @@ namespace KioskCenter.Controllers
             return Ok(new { success = true, url = bgUrl });
         }
 
+        [Authorize, RequirePermission("style")]
+        [HttpPost("upload-order-type-image")]
+        [RequestSizeLimit(MaxImageSize)]
+        public async Task<IActionResult> UploadOrderTypeImage(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                return BadRequest(new { success = false, message = "فایل انتخاب نشده است" });
+
+            if (file.Length > MaxImageSize)
+                return BadRequest(new { success = false, message = "حجم فایل بیشتر از حد مجاز است" });
+
+            var extension = Path.GetExtension(file.FileName).ToLowerInvariant();
+            if (!AllowedImageExtensions.Contains(extension))
+                return BadRequest(new { success = false, message = "فرمت فایل مجاز نیست" });
+
+            if (!AllowedImageContentTypes.Contains(file.ContentType.ToLowerInvariant()))
+                return BadRequest(new { success = false, message = "نوع فایل مجاز نیست" });
+
+            var uploadsFolder = Path.Combine(_env.WebRootPath, "uploads", "ordertypes");
+            if (!Directory.Exists(uploadsFolder))
+                Directory.CreateDirectory(uploadsFolder);
+
+            var uniqueFileName = Guid.NewGuid().ToString() + extension;
+            var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            var imageUrl = $"/uploads/ordertypes/{uniqueFileName}";
+            return Ok(new { success = true, url = imageUrl });
+        }
+
         private RestaurantStyle CreateDefaultStyle()
         {
             return new RestaurantStyle
             {
                 RestaurantName = "کافی شاپ آغادون",
                 LogoUrl = "/images/logo.png",
-                PrimaryColor = "#5C2E15",
-                SecondaryColor = "#d4b896",
-                AccentColor = "#ff6b35",
-                BackgroundColor = "linear-gradient(135deg, #d4b896 0%, #c9a882 100%)",
+                PrimaryColor = "#2b1810",
+                SecondaryColor = "#8d6e63",
+                AccentColor = "#d4a574",
+                BackgroundColor = "linear-gradient(135deg, #1a1a1a 0%, #2b2320 100%)",
                 TextColor = "#ffffff",
-                TextSecondaryColor = "rgba(255,255,255,0.8)",
-                ButtonColor = "#28a745",
-                ButtonHoverColor = "#1e7e34",
+                TextSecondaryColor = "rgba(255,255,255,0.7)",
+                ButtonColor = "#6f4e37",
+                ButtonHoverColor = "#8d6e63",
                 ButtonTextColor = "#ffffff",
-                ProductCardBgColor = "#5C2E15",
-                ProductCardHoverColor = "#6B3D1F",
+                ProductCardBgColor = "#2b2320",
+                ProductCardHoverColor = "#3d322c",
                 ProductCardBorderRadius = "24px",
-                SidebarBgColor = "linear-gradient(180deg, #060468 0%, #2326b6 100%)",
-                SidebarHeaderBgColor = "rgba(0,0,0,0.2)",
-                SidebarItemBgColor = "rgba(255,255,255,0.1)",
-                SidebarItemHoverColor = "rgba(255,255,255,0.2)",
-                CategoryBtnBgColor = "white",
-                CategoryBtnActiveBgColor = "#6b4423",
-                CategoryBtnTextColor = "#6b4423",
-                CategoryBtnActiveTextColor = "white",
-                OrderTypeCardBgColor = "#0084fb",
-                OrderTypeCardHoverColor = "#0094ff",
-                OrderTypeCardTextColor = "white",
+                SidebarBgColor = "linear-gradient(180deg, #1a1a1a 0%, #2b1810 100%)",
+                SidebarHeaderBgColor = "rgba(0,0,0,0.4)",
+                SidebarItemBgColor = "rgba(255,255,255,0.05)",
+                SidebarItemHoverColor = "rgba(255,255,255,0.1)",
+                CategoryBtnBgColor = "#3d322c",
+                CategoryBtnActiveBgColor = "#6f4e37",
+                CategoryBtnTextColor = "#d4a574",
+                CategoryBtnActiveTextColor = "#ffffff",
+                OrderTypeCardBgColor = "#2b2320",
+                OrderTypeCardHoverColor = "#3d322c",
+                OrderTypeCardTextColor = "#ffffff",
                 FontFamily = "YekanBakh, Tahoma, sans-serif",
                 CustomFontUrl = "",
                 FontName = "YekanBakh",
@@ -227,10 +294,10 @@ namespace KioskCenter.Controllers
                 FontSizeBase = "14px",
                 FontSizeTitle = "24px",
                 BackgroundImage = "",
-                BackgroundOverlay = "rgba(0,0,0,0.3)",
+                BackgroundOverlay = "rgba(0,0,0,0.5)",
                 FooterText = "",
-                FooterBgColor = "rgba(0,0,0,0.8)",
-                FooterTextColor = "#ffffff",
+                FooterBgColor = "rgba(0,0,0,0.85)",
+                FooterTextColor = "#d4a574",
                 Address = "",
                 Phone = "",
                 Instagram = "",

@@ -1,3 +1,7 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 :root {
   --primary-color: #5C2E15;
   --secondary-color: #d4b896;
@@ -5,23 +9,20 @@
   --button-color: #28a745;
   --button-hover-color: #1e7e34;
   --font-family: 'YekanBakh', Tahoma, sans-serif;
+  --background-color: linear-gradient(135deg, #d4b896 0%, #c9a882 100%);
+  --card-radius: 20px;
+  --button-radius: 8px;
 }
 
 body {
   font-family: var(--font-family);
-  background: linear-gradient(135deg, #d4b896 0%, #c9a882 100%);
+  background: var(--background-color);
   min-height: 100vh;
   direction: rtl;
   margin: 0;
   padding: 0;
 }
 /* styles.css - اضافه کنید */
-
-/* اطمینان از اعمال گوشه‌ها به همه المان‌ها */
-* {
-  --card-radius: 20px;
-  --button-radius: 8px;
-}
 
 /* کلاس‌های عمومی برای گوشه‌ها */
 .rounded-card {

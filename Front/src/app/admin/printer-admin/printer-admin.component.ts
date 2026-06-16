@@ -17,6 +17,15 @@ export class PrinterAdminComponent implements OnInit {
   editingPrinter: PrinterSetting | null = null;
   showForm = false;
   isEditing = false;
+  searchPrinter = '';
+
+  get filteredPrinters(): PrinterSetting[] {
+    const q = this.searchPrinter.trim().toLowerCase();
+    return q ? this.printers.filter(p =>
+      p.name.toLowerCase().includes(q) ||
+      p.printerName.toLowerCase().includes(q)
+    ) : this.printers;
+  }
   
   printerTypes = [
     { value: 'Receipt', label: 'پرینتر فیش' },

@@ -1,13 +1,15 @@
 import { Component, OnInit, Renderer2, Inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { DOCUMENT } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { IdleService } from './services/idle.service';
 import { StyleService, RestaurantStyle } from './services/style.service';
+import { LicenseService } from './services/license.service';
+import { LicenseActivationComponent } from './license-activation/license-activation.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [CommonModule, RouterOutlet, LicenseActivationComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
@@ -15,14 +17,29 @@ export class AppComponent implements OnInit {
   title = 'aghadon-kiosk';
   private currentStyle: RestaurantStyle | null = null;
 
+  licenseChecked = false;
+  licensed = false;
+
   constructor(
     private idle: IdleService,
     private styleService: StyleService,
+    private licenseService: LicenseService,
     private renderer: Renderer2,
     @Inject(DOCUMENT) private document: Document
   ) {}
 
   ngOnInit() {
+    this.licenseService.getStatus().subscribe({
+      next: (res) => {
+        this.licensed = res.licensed;
+        this.licenseChecked = true;
+      },
+      error: () => {
+        this.licensed = false;
+        this.licenseChecked = true;
+      }
+    });
+
     // بارگذاری استایل از سرور
     this.styleService.style$.subscribe(style => {
       if (style) {

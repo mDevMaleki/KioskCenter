@@ -2,7 +2,6 @@
 using KioskCenter.Data;
 using KioskCenter.Interfaces;
 using KioskCenter.Models;
-using KioskCenter.Services.PardakhtNovinPos.PcPos;
 using Microsoft.EntityFrameworkCore;
 
 namespace KioskCenter.Services
@@ -12,20 +11,31 @@ namespace KioskCenter.Services
         private readonly CoffeeShopContext _context;
         private readonly ILogger<PosManagerService> _logger;
         private readonly IServiceProvider _serviceProvider;
-        private static PNAPcPos? _pcPos;
+        private  readonly IPosService _posService;
         private static readonly SemaphoreSlim _lock = new SemaphoreSlim(1, 1);
         private static PosPaymentResult? _currentPaymentResult;
         private static CancellationTokenSource? _paymentCancellationToken;
+        private readonly IPardakhtNovinService _pcPos;
+
+        private static TaskCompletionSource<PosPaymentResult>? _paymentCompletionSource;
 
         public PosManagerService(
-            CoffeeShopContext context,
-            ILogger<PosManagerService> logger,
-            IServiceProvider serviceProvider)
+       CoffeeShopContext context,
+       ILogger<PosManagerService> logger,
+       IServiceProvider serviceProvider,
+       IPosService posService,
+       IPardakhtNovinService pcPos)
         {
             _context = context;
             _logger = logger;
             _serviceProvider = serviceProvider;
+            _posService = posService;
+            _pcPos = pcPos;
+
+            _pcPos.TransactionResponseReceived += OnTransactionResponseReceived;
         }
+      
+
 
         public async Task<List<PosDevice>> GetAllDevices()
         {
@@ -96,8 +106,8 @@ namespace KioskCenter.Services
 
             return device.Type switch
             {
-                "Parsian" => await SendToParsianPos(amount, device.IpAddress, device.Port),
-                "PardakhtNovin" => await SendToPardakhtNovinPos(amount, device.IpAddress, device.Port),
+                PosType.Parsian => await SendToParsianPos(amount, device.IpAddress, device.Port),
+                PosType.PardakhtNovin => await SendToPardakhtNovinPos(amount, device.IpAddress, device.Port),
                 _ => new { success = false, message = $"نوع POS ناشناخته: {device.Type}" }
             };
         }
@@ -124,8 +134,8 @@ namespace KioskCenter.Services
 
             return device.Type switch
             {
-                "Parsian" => await CheckParsianConnection(device.IpAddress, device.Port),
-                "PardakhtNovin" => await CheckPardakhtNovinConnection(device.IpAddress, device.Port),
+                PosType.Parsian => await CheckParsianConnection(device.IpAddress, device.Port),
+                PosType.PardakhtNovin => await CheckPardakhtNovinConnection(device.IpAddress, device.Port),
                 _ => new { success = false, message = $"نوع POS ناشناخته: {device.Type}" }
             };
         }
@@ -134,11 +144,9 @@ namespace KioskCenter.Services
         {
             try
             {
-                var posService = new PosParsianService();
-
-                return await Task.Run(() =>
+                return await Task.Run(async () =>
                 {
-                    var result = posService.sendToLan(amount); // result از نوع string است مانند: {"cmd":"10","resp":"99"}0012{"cmd":"10","resp":"99"}
+                    var result = await _posService.sendToLan(amount,ip,port,PosType.Parsian); // result از نوع string است مانند: {"cmd":"10","resp":"99"}0012{"cmd":"10","resp":"99"}
 
                     // بررسی موفقیت آمیز بودن پاسخ
                     bool isSuccess = CheckParsianResponseSuccess(result);
@@ -209,44 +217,34 @@ namespace KioskCenter.Services
 
             try
             {
-                var pcPos = GetPcPos();
+                _paymentCompletionSource = new TaskCompletionSource<PosPaymentResult>(
+                    TaskCreationOptions.RunContinuationsAsynchronously
+                );
 
-                // بررسی اتصال
-                var isConnected = await Task.Run(() => pcPos.ConnectionByLan(ip, port));
-                if (!isConnected)
-                {
-                    return new { success = false, message = "اتصال به POS برقرار نشد" };
-                }
+                await Task.Run(() => _posService.sendToLan(amount, ip, port, PosType.PardakhtNovin));
 
-                // ریست نتیجه قبلی
-                _currentPaymentResult = null;
-                _paymentCancellationToken = new CancellationTokenSource();
-                _paymentCancellationToken.CancelAfter(TimeSpan.FromSeconds(120));
+                Task completedTask = await Task.WhenAny(
+                    _paymentCompletionSource.Task,
+                    Task.Delay(TimeSpan.FromSeconds(120))
+                );
 
-                // ارسال مبلغ
-                await Task.Run(() => pcPos.SendToPos(amount));
-
-                // انتظار برای پاسخ
-                while (_currentPaymentResult == null && !_paymentCancellationToken.Token.IsCancellationRequested)
-                {
-                    await Task.Delay(200, _paymentCancellationToken.Token);
-                }
-
-                if (_currentPaymentResult == null)
+                if (completedTask != _paymentCompletionSource.Task)
                 {
                     return new { success = false, message = "زمان انتظار برای پرداخت به پایان رسید" };
                 }
 
+                PosPaymentResult result = await _paymentCompletionSource.Task;
+
                 return new
                 {
-                    success = _currentPaymentResult.IsSuccess,
-                    message = _currentPaymentResult.Message,
-                    responseValue = _currentPaymentResult.ResponseValue,
-                    amount = _currentPaymentResult.Amount,
-                    prn = _currentPaymentResult.Prn,
-                    pan = _currentPaymentResult.Pan,
-                    terminalId = _currentPaymentResult.TerminalId,
-                    transactionDate = _currentPaymentResult.TransactionDate
+                    success = result.IsSuccess,
+                    message = result.Message,
+                    responseValue = result.ResponseValue,
+                    amount = result.Amount,
+                    prn = result.Prn,
+                    pan = result.Pan,
+                    terminalId = result.TerminalId,
+                    transactionDate = result.TransactionDate
                 };
             }
             catch (Exception ex)
@@ -256,18 +254,17 @@ namespace KioskCenter.Services
             }
             finally
             {
-                _paymentCancellationToken?.Dispose();
-                _paymentCancellationToken = null;
+                _paymentCompletionSource = null;
                 _lock.Release();
             }
         }
+
 
         private async Task<object> CheckParsianConnection(string ip, int port)
         {
             try
             {
                 // تست اتصال با یک درخواست کوچک
-                var posService = new PosParsianService();
                 return await Task.Run(() => new { success = true, message = "اتصال به POS پارسیان برقرار است" });
             }
             catch (Exception ex)
@@ -280,31 +277,29 @@ namespace KioskCenter.Services
         {
             try
             {
-                var pcPos = GetPcPos();
-                var isConnected = await Task.Run(() => pcPos.ConnectionByLan(ip, port));
-                return new { success = isConnected, message = isConnected ? "اتصال برقرار است" : "اتصال برقرار نیست" };
+                var isConnected = await Task.Run(() => _pcPos.ConnectionByLan(ip, port));
+
+                return new
+                {
+                    success = isConnected,
+                    message = isConnected ? "اتصال به POS پرداخت نوین برقرار است" : "اتصال به POS پرداخت نوین برقرار نیست"
+                };
             }
             catch (Exception ex)
             {
-                return new { success = false, message = $"خطا: {ex.Message}" };
+                return new { success = false, message = $"خطا در اتصال: {ex.Message}" };
             }
-        }
-
-        private PNAPcPos GetPcPos()
-        {
-            if (_pcPos == null)
-            {
-                _pcPos = new PNAPcPos();
-                _pcPos.TransactionResponseReceived += OnTransactionResponseReceived;
-            }
-            return _pcPos;
         }
 
         private void OnTransactionResponseReceived(object? sender, ResponseReceivedEventArgs e)
         {
-            _logger.LogInformation("POS Response: ResponseValue={ResponseValue}, Message={Message}", e.ResponseValue, e.ResponseMessage);
+            _logger.LogInformation(
+                "POS Response received. ResponseValue={ResponseValue}, Message={Message}",
+                e.ResponseValue,
+                e.ResponseMessage
+            );
 
-            _currentPaymentResult = new PosPaymentResult
+            PosPaymentResult result = new PosPaymentResult
             {
                 IsSuccess = e.ResponseValue == "00",
                 ResponseValue = e.ResponseValue ?? "",
@@ -316,8 +311,9 @@ namespace KioskCenter.Services
                 TransactionDate = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
             };
 
-            _paymentCancellationToken?.Cancel();
+            _paymentCompletionSource?.TrySetResult(result);
         }
+
     }
 
     public class PosPaymentResult

@@ -14,7 +14,8 @@
   </div>
 
   <div class="category-list">
-    <div class="category-card" *ngFor="let c of categories">
+    <input type="text" [(ngModel)]="searchCategory" placeholder="جستجوی دسته‌بندی..." class="search-input" />
+    <div class="category-card" *ngFor="let c of filteredCategories">
 
       <div class="name">{{ c.name }}</div>
 

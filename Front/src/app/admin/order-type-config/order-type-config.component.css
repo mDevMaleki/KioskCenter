@@ -1,7 +1,22 @@
 .order-type-config-container {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  min-height: 100vh;
-  padding: 24px;
+  font-family: var(--font-family, 'YekanBakh', Tahoma, sans-serif);
+  background: transparent;
+  padding: 0;
+}
+
+.image-upload-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.order-type-image-preview {
+  width: 100px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #ddd;
 }
 
 /* هدر */
@@ -33,7 +48,7 @@
 }
 
 .btn-save {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--button-color, #5a3e2b);
   color: white;
   border: none;
   padding: 12px 24px;
@@ -46,7 +61,7 @@
 
 .btn-save:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(102,126,234,0.4);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
 }
 
 /* تب‌ها */
@@ -73,7 +88,7 @@
 }
 
 .tab-btn.active {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--button-color, #5a3e2b);
   color: white;
   transform: scale(1.02);
 }
@@ -161,7 +176,7 @@
 
 .form-input:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: var(--button-color, #5a3e2b);
 }
 
 .form-input.small {
@@ -251,7 +266,7 @@
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: #667eea;
+  background: var(--button-color, #5a3e2b);
   cursor: pointer;
 }
 
@@ -437,7 +452,7 @@
 .checkbox-custom {
   width: 22px;
   height: 22px;
-  border: 2px solid #667eea;
+  border: 2px solid var(--button-color, #5a3e2b);
   border-radius: 6px;
   display: inline-block;
   position: relative;
@@ -446,7 +461,7 @@
 }
 
 .category-checkbox input:checked + .checkbox-custom {
-  background: #667eea;
+  background: var(--button-color, #5a3e2b);
 }
 
 .category-checkbox input:checked + .checkbox-custom:after {
@@ -515,7 +530,7 @@
 
 .preview-icon {
   font-size: 48px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--button-color, #5a3e2b);
   width: 80px;
   height: 80px;
   display: flex;
@@ -595,7 +610,7 @@
   width: 40px;
   height: 40px;
   border: 4px solid #f3f3f3;
-  border-top: 4px solid #667eea;
+  border-top: 4px solid var(--button-color, #5a3e2b);
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin: 0 auto 16px;

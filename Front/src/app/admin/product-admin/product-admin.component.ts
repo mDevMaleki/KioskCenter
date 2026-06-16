@@ -28,6 +28,16 @@ export class ProductAdminComponent implements OnInit {
   };
 
   editingProductId: number | null = null;
+  searchProduct = '';
+  filterCategoryId = '';
+
+  get filteredProducts(): any[] {
+    return this.products.filter(p => {
+      const matchName = !this.searchProduct || p.name.toLowerCase().includes(this.searchProduct.toLowerCase());
+      const matchCat = !this.filterCategoryId || String(p.categoryId) === String(this.filterCategoryId);
+      return matchName && matchCat;
+    });
+  }
 
   constructor(private kioskService: KioskService) {}
 

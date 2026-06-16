@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using KioskCenter.Authorization;
 using KioskCenter.Data;
 using KioskCenter.Models;
+using KioskCenter.Services;
 
 namespace KioskCenter.Controllers
 {
@@ -10,10 +13,12 @@ namespace KioskCenter.Controllers
     public class OrderController : ControllerBase
     {
         private readonly CoffeeShopContext _context;
+        private readonly JournalPostingService _journalPostingService;
 
-        public OrderController(CoffeeShopContext context)
+        public OrderController(CoffeeShopContext context, JournalPostingService journalPostingService)
         {
             _context = context;
+            _journalPostingService = journalPostingService;
         }
 
         [ProducesResponseType(typeof(IEnumerable<Order>), 200)]
@@ -158,6 +163,19 @@ namespace KioskCenter.Controllers
                     _context.OrderItems.Add(orderItem);
                     subtotal += orderItem.TotalPrice;
                     orderItems.Add(orderItem);
+
+                    // کسر موجودی انبار به ازای فروش
+                    product.StockQuantity -= item.Quantity;
+
+                    _context.InventoryTransactions.Add(new InventoryTransaction
+                    {
+                        ProductId = product.Id,
+                        Type = InventoryTransactionType.Out,
+                        Quantity = item.Quantity,
+                        StockAfter = product.StockQuantity,
+                        Note = $"فروش - سفارش شماره {order.OrderNumber}",
+                        CreatedAt = DateTime.Now
+                    });
                 }
 
                 await _context.SaveChangesAsync();
@@ -167,8 +185,33 @@ namespace KioskCenter.Controllers
 
                 order.TotalAmount = total;
                 order.TaxAmount = tax;
+                order.PaymentMethodId = request.PaymentMethodId;
 
                 await _context.SaveChangesAsync();
+
+                // ثبت سند حسابداری بر اساس روش پرداخت (صندوق برای نقدی، بانک برای کارت/آنلاین)
+                if (request.PaymentMethodId.HasValue && total > 0)
+                {
+                    var paymentMethod = await _context.PaymentMethods.FindAsync(request.PaymentMethodId.Value);
+                    if (paymentMethod?.CashAccountId != null)
+                    {
+                        var cashAccount = await _context.CashAccounts.FindAsync(paymentMethod.CashAccountId.Value);
+                        if (cashAccount != null)
+                        {
+                            await _journalPostingService.PostAsync(
+                                order.OrderDate,
+                                $"فروش - سفارش شماره {order.OrderNumber}",
+                                JournalEntryRefType.SaleInvoice,
+                                order.Id,
+                                new List<JournalLineInput>
+                                {
+                                    new JournalLineInput { AccountId = cashAccount.AccountId, Debit = total, CashAccountId = cashAccount.Id },
+                                    new JournalLineInput { AccountId = AccountingConstants.SalesRevenue, Credit = total }
+                                });
+                        }
+                    }
+                }
+
                 await transaction.CommitAsync();
 
                 return Ok(new
@@ -257,6 +300,7 @@ namespace KioskCenter.Controllers
             return Ok(new { success = true, message = "سفارش با موفقیت حذف شد" });
         }
 
+        [Authorize, RequirePermission("reports")]
         [HttpGet("stats/summary")]
         public async Task<IActionResult> GetStats()
         {
@@ -279,6 +323,7 @@ namespace KioskCenter.Controllers
             });
         }
 
+        [Authorize, RequirePermission("reports")]
         [HttpGet("date-range")]
         public async Task<IActionResult> GetByDateRange([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
         {
@@ -297,6 +342,7 @@ namespace KioskCenter.Controllers
             return Ok(orders);
         }
 
+        [Authorize, RequirePermission("reports")]
         [HttpGet("week/{year}/{week}")]
         public async Task<IActionResult> GetByWeek(int year, int week)
         {
@@ -318,6 +364,7 @@ namespace KioskCenter.Controllers
             return Ok(orders);
         }
 
+        [Authorize, RequirePermission("reports")]
         [HttpGet("month/{year}/{month}")]
         public async Task<IActionResult> GetByMonth(int year, int month)
         {
@@ -339,6 +386,7 @@ namespace KioskCenter.Controllers
             return Ok(orders);
         }
 
+        [Authorize, RequirePermission("reports")]
         [HttpGet("year/{year}")]
         public async Task<IActionResult> GetByYear(int year)
         {
@@ -360,6 +408,7 @@ namespace KioskCenter.Controllers
             return Ok(orders);
         }
 
+        [Authorize, RequirePermission("reports")]
         [HttpGet("report-stats")]
         public async Task<IActionResult> GetReportStats([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
         {
@@ -464,6 +513,7 @@ namespace KioskCenter.Controllers
         public string CustomerName { get; set; } = string.Empty;
         public string OrderType { get; set; } = "EatIn";
         public List<OrderItemRequest> Items { get; set; } = new();
+        public int? PaymentMethodId { get; set; }
     }
 
     public class OrderItemRequest

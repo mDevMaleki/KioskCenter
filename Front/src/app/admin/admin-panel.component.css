@@ -1,18 +1,84 @@
-.admin-menu{
-  display:flex;
-  gap:10px;
-  margin-bottom:20px;
+.admin-panel {
+  display: flex;
+  min-height: 100vh;
+  font-family: var(--font-family, 'YekanBakh', Tahoma, sans-serif);
+  direction: rtl;
 }
 
-.admin-menu button{
-  padding:10px 20px;
-  border:none;
-  background:#eee;
-  cursor:pointer;
-  border-radius:8px;
+.admin-sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+  flex-shrink: 0;
+  background: #2b2320;
+  color: #f5f0ec;
+  padding: 16px 12px;
+  gap: 8px;
+  box-sizing: border-box;
 }
 
-.admin-menu button.active{
-  background:#5a3e2b;
-  color:white;
+.sidebar-header {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  padding: 12px 0 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 8px;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.admin-sidebar button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 14px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: inherit;
+  font-family: inherit;
+  font-size: 14px;
+  text-align: right;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.admin-sidebar button:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.admin-sidebar button.active {
+  background: var(--button-color, #6f4e37);
+  color: var(--button-text-color, #ffffff);
+}
+
+.nav-icon {
+  font-size: 18px;
+  width: 24px;
+  text-align: center;
+}
+
+.nav-label {
+  flex: 1;
+}
+
+.btn-back-to-menu {
+  margin-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 12px;
+}
+
+.admin-content {
+  flex: 1;
+  min-width: 0;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
 }

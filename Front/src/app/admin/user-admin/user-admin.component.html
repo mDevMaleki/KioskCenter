@@ -1,0 +1,56 @@
+<div class="user-container">
+
+  <div class="user-box">
+    <h2>{{ editingId ? 'ویرایش کاربر' : 'افزودن کاربر جدید' }}</h2>
+
+    <input type="text" [(ngModel)]="form.username" placeholder="نام کاربری" />
+    <input type="text" [(ngModel)]="form.fullName" placeholder="نام و نام خانوادگی" />
+    <input type="password" [(ngModel)]="form.password" [placeholder]="editingId ? 'رمز عبور جدید (اختیاری)' : 'رمز عبور'" />
+
+    <label class="checkbox-row">
+      <input type="checkbox" [(ngModel)]="form.isSuperAdmin" />
+      دسترسی کامل (سوپر ادمین)
+    </label>
+
+    <label class="checkbox-row">
+      <input type="checkbox" [(ngModel)]="form.isActive" />
+      فعال
+    </label>
+
+    <div class="permissions-box" *ngIf="!form.isSuperAdmin">
+      <div class="permissions-title">دسترسی به بخش‌ها:</div>
+      <div class="permissions-grid">
+        <label class="checkbox-row" *ngFor="let section of sections">
+          <input type="checkbox" [checked]="hasPermission(section)" (change)="togglePermission(section)" />
+          {{ sectionLabels[section] || section }}
+        </label>
+      </div>
+    </div>
+
+    <div class="error-message" *ngIf="error">{{ error }}</div>
+
+    <div class="form-buttons">
+      <button (click)="save()">{{ editingId ? 'ذخیره تغییرات' : 'افزودن کاربر' }}</button>
+      <button class="cancel-btn" *ngIf="editingId" (click)="cancelEdit()">انصراف</button>
+    </div>
+  </div>
+
+  <div class="user-list">
+    <input type="text" [(ngModel)]="searchUser" placeholder="جستجوی کاربر..." class="search-input" />
+    <div class="user-card" *ngFor="let u of filteredUsers">
+      <div class="info">
+        <div class="name">{{ u.fullName || u.username }} ({{ u.username }})</div>
+        <div class="meta">
+          <span *ngIf="u.isSuperAdmin">سوپر ادمین</span>
+          <span *ngIf="!u.isSuperAdmin">{{ u.permissions.length }} دسترسی</span>
+          <span *ngIf="!u.isActive" class="inactive">غیرفعال</span>
+        </div>
+      </div>
+      <div class="buttons">
+        <button (click)="editUser(u)">ویرایش</button>
+        <button class="cancel-btn" (click)="deleteUser(u.id)">حذف</button>
+      </div>
+    </div>
+  </div>
+
+</div>

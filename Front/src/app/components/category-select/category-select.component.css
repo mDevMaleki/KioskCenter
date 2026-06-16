@@ -2,11 +2,20 @@
   width: 100%;
   height: 100vh;
   cursor: pointer;
+  position: relative;
+  background-color: var(--primary-color, #2b1810);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
 }
 
-.start-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.start-logo {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  width: 140px;
+  max-height: 140px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
 }
- 

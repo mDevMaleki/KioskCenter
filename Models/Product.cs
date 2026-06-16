@@ -24,10 +24,21 @@ namespace KioskCenter.Models
         public string ImageUrl { get; set; } = string.Empty;
         public string? Description { get; set; }
 
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal StockQuantity { get; set; } = 0;
+
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal MinStockLevel { get; set; } = 0;
+
+        [MaxLength(20)]
+        public string Unit { get; set; } = "عدد";
+
         [ForeignKey("CategoryId")]
         public virtual Category? Category { get; set; }
         [JsonIgnore]
         // اضافه کردن این خاصیت برای رابطه با OrderItem
         public virtual ICollection<OrderItem>? OrderItems { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<InventoryTransaction>? InventoryTransactions { get; set; }
     }
 }

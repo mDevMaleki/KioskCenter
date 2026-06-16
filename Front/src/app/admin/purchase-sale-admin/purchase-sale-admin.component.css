@@ -1,0 +1,439 @@
+.ps-container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
+  font-family: var(--font-family, 'YekanBakh', Tahoma, sans-serif);
+  color: #2c3e50;
+}
+
+.ps-section-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.ps-section-tabs button {
+  flex: 1;
+  background: rgba(255,255,255,0.7);
+  color: #5a3e2b;
+  border: 2px solid transparent;
+  padding: 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.ps-section-tabs button.active {
+  background: var(--button-color, #5a3e2b);
+  color: #fff;
+}
+
+.ps-box {
+  background: rgba(255,255,255,0.9);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  margin-bottom: 25px;
+}
+
+.ps-box h2 {
+  margin-bottom: 12px;
+}
+
+.ps-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.ps-row input,
+.ps-row select {
+  flex: 1;
+  min-width: 150px;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background: #f9f9f9;
+  font-family: inherit;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+.error-message {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  font-size: 13px;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+button {
+  background: var(--button-color, #5a3e2b);
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: var(--font-family, 'YekanBakh', Tahoma, sans-serif);
+  font-size: 14px;
+}
+
+.cancel-btn {
+  background: #999;
+}
+
+.empty {
+  color: #999;
+  font-size: 13px;
+  text-align: center;
+  padding: 10px;
+}
+
+/* لیست مواد اولیه */
+.material-list {
+  margin-top: 10px;
+}
+
+.material-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f9f9f9;
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.material-card.low-stock {
+  border: 1px solid #c0392b;
+}
+
+.material-card .name {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.material-card .meta {
+  font-size: 12px;
+  color: #777;
+  display: flex;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.material-card .meta .warn {
+  color: #c0392b;
+  font-weight: 600;
+}
+
+.material-card .buttons button {
+  margin-left: 5px;
+}
+
+/* فرمول محصول */
+.recipe-list {
+  margin: 10px 0;
+}
+
+.recipe-row {
+  display: grid;
+  grid-template-columns: 2fr 2fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+
+.recipe-header {
+  font-weight: 600;
+  color: #777;
+  font-size: 13px;
+  border-bottom: 2px solid #eee;
+}
+
+/* جدول تراکنش‌ها */
+.tx-table {
+  margin-top: 10px;
+  overflow-x: auto;
+}
+
+.tx-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 13px;
+  min-width: 700px;
+}
+
+.tx-row-7 {
+  grid-template-columns: repeat(7, 1fr);
+  min-width: 900px;
+}
+
+.tx-header {
+  font-weight: 600;
+  color: #777;
+  border-bottom: 2px solid #eee;
+}
+
+.tx-row-4 {
+  grid-template-columns: 1fr 1fr 1fr auto;
+  min-width: 500px;
+}
+
+.tx-row-5 {
+  grid-template-columns: repeat(5, 1fr);
+  min-width: 700px;
+}
+
+/* طرف‌های حساب */
+.material-card.selected {
+  border: 2px solid var(--button-color, #5a3e2b);
+}
+
+.material-card .info {
+  cursor: pointer;
+  flex: 1;
+}
+
+.warn {
+  color: #c0392b;
+  font-weight: 600;
+}
+
+.positive {
+  color: #27ae60;
+  font-weight: 600;
+}
+
+.balance-line {
+  margin-bottom: 12px;
+  font-size: 15px;
+}
+
+/* فاکتورها */
+.invoice-row {
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr auto;
+}
+
+.invoice-row-4 {
+  grid-template-columns: 2fr 1fr 1fr 1fr auto;
+}
+
+.invoice-header {
+  font-weight: 600;
+  color: #777;
+  font-size: 13px;
+  border-bottom: 2px solid #eee;
+}
+
+.invoice-total {
+  text-align: left;
+  font-weight: 600;
+  padding: 10px 0;
+  font-size: 15px;
+}
+
+/* مودال جزئیات فاکتور */
+/* ---- Search input ---- */
+.search-input {
+  width: 100%;
+  padding: 9px 14px;
+  border: 1.5px solid #ddd;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 14px;
+  margin-bottom: 12px;
+  box-sizing: border-box;
+  background: #f9f9f9;
+  transition: border-color 0.2s;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--button-color, #5a3e2b);
+  background: #fff;
+}
+
+/* ---- Quick-add raw material panel ---- */
+.purchase-item-row {
+  align-items: flex-start;
+}
+
+.material-select-wrap {
+  display: flex;
+  gap: 6px;
+  flex: 2;
+  min-width: 200px;
+}
+
+.material-select-wrap select {
+  flex: 1;
+}
+
+.quick-add-btn {
+  white-space: nowrap;
+  background: #27ae60;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.quick-add-btn:hover {
+  background: #219a52;
+}
+
+.quick-add-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: 900;
+}
+
+.quick-add-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 340px;
+  height: 100%;
+  background: #fff;
+  box-shadow: 4px 0 20px rgba(0,0,0,0.15);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(-100%);
+  transition: transform 0.28s ease;
+  direction: rtl;
+}
+
+.quick-add-panel.open {
+  transform: translateX(0);
+}
+
+.quick-add-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  background: var(--button-color, #5a3e2b);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.quick-add-header .close-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+}
+
+.quick-add-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.quick-add-body input,
+.quick-add-body select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1.5px solid #ddd;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.quick-add-body input:focus,
+.quick-add-body select:focus {
+  outline: none;
+  border-color: #27ae60;
+}
+
+.quick-add-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.quick-add-actions button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.quick-add-actions button:first-child {
+  background: #27ae60;
+  color: #fff;
+}
+
+.quick-add-actions button:first-child:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+}
+
+.quick-add-actions button.cancel-btn {
+  background: #f0f0f0;
+  color: #555;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-box {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  max-width: 700px;
+  width: 90%;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.modal-box .meta {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: #777;
+}

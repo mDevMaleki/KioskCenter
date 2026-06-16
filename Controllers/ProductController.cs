@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using KioskCenter.Authorization;
 using KioskCenter.Models;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using KioskCenter.Data;
 using KioskCenter.Models;
 
@@ -60,6 +63,7 @@ namespace KioskCenter.Controllers
         }
 
         // POST: api/product - افزودن محصول جدید
+        [Authorize, RequirePermission("products")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateProductRequest request)
         {
@@ -90,6 +94,7 @@ namespace KioskCenter.Controllers
         }
 
         // PUT: api/product/{id} - ویرایش محصول
+        [Authorize, RequirePermission("products")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] UpdateProductRequest request)
         {
@@ -119,7 +124,9 @@ namespace KioskCenter.Controllers
 
             if (!string.IsNullOrEmpty(request.Description))
                 product.Description = request.Description;
-            product.State = request.State;
+
+            if (request.State.HasValue)
+                product.State = request.State.Value;
 
             await _context.SaveChangesAsync();
 
@@ -127,6 +134,7 @@ namespace KioskCenter.Controllers
         }
 
         // DELETE: api/product/{id} - حذف محصول
+        [Authorize, RequirePermission("products")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -212,11 +220,27 @@ namespace KioskCenter.Controllers
 
             return Math.Round(originalPrice * factor, 0);
         }
+        private static readonly string[] AllowedImageExtensions = { ".jpg", ".jpeg", ".png", ".webp", ".gif" };
+        private static readonly string[] AllowedImageContentTypes = { "image/jpeg", "image/png", "image/webp", "image/gif" };
+        private const long MaxImageSize = 5 * 1024 * 1024; // 5MB
+
+        [Authorize, RequirePermission("products")]
         [HttpPost("upload")]
+        [RequestSizeLimit(MaxImageSize)]
         public async Task<IActionResult> UploadImage(IFormFile file)
         {
             if (file == null || file.Length == 0)
-                return BadRequest("فایل معتبر نیست");
+                return BadRequest(new { success = false, message = "فایل معتبر نیست" });
+
+            if (file.Length > MaxImageSize)
+                return BadRequest(new { success = false, message = "حجم فایل بیشتر از حد مجاز است" });
+
+            var extension = Path.GetExtension(file.FileName).ToLowerInvariant();
+            if (!AllowedImageExtensions.Contains(extension))
+                return BadRequest(new { success = false, message = "فرمت فایل مجاز نیست" });
+
+            if (!AllowedImageContentTypes.Contains(file.ContentType.ToLowerInvariant()))
+                return BadRequest(new { success = false, message = "نوع فایل مجاز نیست" });
 
             var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images");
 
@@ -224,7 +248,7 @@ namespace KioskCenter.Controllers
                 Directory.CreateDirectory(uploadsFolder);
 
             // اسم یکتا بسازیم
-            var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+            var uniqueFileName = Guid.NewGuid().ToString() + extension;
 
             var filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
@@ -272,7 +296,7 @@ namespace KioskCenter.Controllers
         public decimal? SecondPrice { get; set; }
         public int? CategoryId { get; set; }
         public string? ImageUrl { get; set; }
-        public int State { get; set; }
+        public int? State { get; set; }
         public string? Description { get; set; }
 
     }

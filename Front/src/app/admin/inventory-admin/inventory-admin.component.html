@@ -1,0 +1,166 @@
+<div class="inventory-admin">
+  <div class="header">
+    <h2>📦 مدیریت انبار</h2>
+    <div class="header-buttons">
+      <button class="btn-history" (click)="openHistory()">📜 تاریخچه کل</button>
+    </div>
+  </div>
+
+  <!-- فیلترها -->
+  <div class="filters">
+    <input
+      type="text"
+      class="search-input"
+      placeholder="جستجوی محصول..."
+      [(ngModel)]="searchTerm"
+      (input)="loadProducts()">
+
+    <select [(ngModel)]="selectedCategoryId" (change)="loadProducts()">
+      <option [ngValue]="null">همه دسته‌بندی‌ها</option>
+      <option *ngFor="let cat of categories" [ngValue]="cat.id">{{cat.name}}</option>
+    </select>
+
+    <label class="low-stock-toggle">
+      <input type="checkbox" [(ngModel)]="lowStockOnly" (change)="loadProducts()">
+      فقط کمبود موجودی
+    </label>
+  </div>
+
+  <!-- حالت لودینگ -->
+  <div class="loading-state" *ngIf="loading">
+    <div class="spinner"></div>
+    <p>در حال بارگذاری...</p>
+  </div>
+
+  <!-- لیست محصولات -->
+  <div class="stock-list" *ngIf="!loading">
+    <div class="list-header">
+      <div class="col-img"></div>
+      <div class="col-name">نام محصول</div>
+      <div class="col-cat">دسته‌بندی</div>
+      <div class="col-stock">موجودی</div>
+      <div class="col-min">حد آستانه</div>
+      <div class="col-actions">عملیات</div>
+    </div>
+
+    <div class="stock-item" *ngFor="let p of products" [class.low-stock]="isLowStock(p)">
+      <div class="col-img">
+        <img *ngIf="p.imageUrl" [src]="getAssetUrl(p.imageUrl)" class="product-thumb" [alt]="p.name">
+        <div *ngIf="!p.imageUrl" class="product-thumb placeholder">📦</div>
+      </div>
+      <div class="col-name" data-label="نام محصول">
+        {{p.name}}
+        <span *ngIf="isLowStock(p)" class="low-stock-badge">⚠️ کمبود</span>
+      </div>
+      <div class="col-cat" data-label="دسته‌بندی">{{p.categoryName}}</div>
+      <div class="col-stock" data-label="موجودی">{{p.stockQuantity}} {{p.unit}}</div>
+      <div class="col-min" data-label="حد آستانه">{{p.minStockLevel}} {{p.unit}}</div>
+      <div class="col-actions" data-label="عملیات">
+        <button class="btn-action btn-in" (click)="openStockModal(p, 'in')" title="ورود کالا">➕ ورود</button>
+        <button class="btn-action btn-out" (click)="openStockModal(p, 'out')" title="خروج کالا">➖ خروج</button>
+        <button class="btn-action btn-adjust" (click)="openStockModal(p, 'adjust')" title="اصلاح موجودی">✏️ اصلاح</button>
+        <button class="btn-action btn-settings" (click)="openStockModal(p, 'settings')" title="تنظیمات">⚙️</button>
+        <button class="btn-action btn-history-item" (click)="openHistory(p)" title="تاریخچه">📜</button>
+      </div>
+    </div>
+
+    <div class="empty-state" *ngIf="products.length === 0">
+      <div class="empty-icon">📦</div>
+      <p>محصولی یافت نشد</p>
+    </div>
+  </div>
+
+  <!-- مودال ورود/خروج/اصلاح/تنظیمات -->
+  <div class="form-modal" *ngIf="showStockModal" (click)="closeStockModal()">
+    <div class="form-content" (click)="$event.stopPropagation()">
+      <h3>{{stockModalTitle}} - {{selectedProduct?.name}}</h3>
+
+      <div class="form-group" *ngIf="stockModalMode === 'in' || stockModalMode === 'out'">
+        <label>مقدار ({{selectedProduct?.unit}})</label>
+        <input type="number" min="0" step="0.01" [(ngModel)]="stockForm.quantity">
+      </div>
+
+      <div class="form-group" *ngIf="stockModalMode === 'in'">
+        <label>قیمت خرید واحد (اختیاری)</label>
+        <input type="number" min="0" [(ngModel)]="stockForm.unitPrice">
+      </div>
+
+      <div class="form-group" *ngIf="stockModalMode === 'adjust'">
+        <label>موجودی جدید ({{selectedProduct?.unit}})</label>
+        <input type="number" min="0" step="0.01" [(ngModel)]="stockForm.newQuantity">
+        <span class="help-text">موجودی فعلی: {{selectedProduct?.stockQuantity}} {{selectedProduct?.unit}}</span>
+      </div>
+
+      <ng-container *ngIf="stockModalMode === 'settings'">
+        <div class="form-group">
+          <label>واحد شمارش</label>
+          <input type="text" [(ngModel)]="stockForm.unit" placeholder="مثلاً: عدد، کیلوگرم، بسته">
+        </div>
+        <div class="form-group">
+          <label>حد آستانه کمبود موجودی</label>
+          <input type="number" min="0" step="0.01" [(ngModel)]="stockForm.minStockLevel">
+        </div>
+      </ng-container>
+
+      <div class="form-group" *ngIf="stockModalMode !== 'settings'">
+        <label>توضیحات (اختیاری)</label>
+        <textarea [(ngModel)]="stockForm.note" rows="2"></textarea>
+      </div>
+
+      <div class="error-message" *ngIf="stockError">⚠️ {{stockError}}</div>
+
+      <div class="form-actions">
+        <button class="btn-save" (click)="submitStockModal()" [disabled]="savingStock">
+          {{savingStock ? 'در حال ذخیره...' : 'ذخیره'}}
+        </button>
+        <button class="btn-cancel" (click)="closeStockModal()">انصراف</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- مودال تاریخچه -->
+  <div class="form-modal" *ngIf="showHistoryModal" (click)="closeHistoryModal()">
+    <div class="form-content history-content" (click)="$event.stopPropagation()">
+      <h3>📜 تاریخچه {{historyProduct ? historyProduct.name : 'کلی انبار'}}</h3>
+
+      <div class="loading-state" *ngIf="loadingHistory">
+        <div class="spinner"></div>
+      </div>
+
+      <div class="history-table" *ngIf="!loadingHistory">
+        <div class="history-row history-header">
+          <div>تاریخ</div>
+          <div *ngIf="!historyProduct">محصول</div>
+          <div>نوع</div>
+          <div>مقدار</div>
+          <div>موجودی پس از تغییر</div>
+          <div>توضیحات</div>
+        </div>
+        <div class="history-row" *ngFor="let t of transactions">
+          <div>{{formatDate(t.createdAt)}}</div>
+          <div *ngIf="!historyProduct">{{t.productName}}</div>
+          <div>
+            <span class="type-badge" [class.type-in]="t.type === 'In'"
+                  [class.type-out]="t.type === 'Out'"
+                  [class.type-adjust]="t.type === 'Adjustment'">
+              {{transactionLabel(t.type)}}
+            </span>
+          </div>
+          <div [class.positive]="t.quantity > 0" [class.negative]="t.quantity < 0">
+            {{t.quantity > 0 ? '+' : ''}}{{t.quantity}}
+          </div>
+          <div>{{t.stockAfter}}</div>
+          <div>{{t.note}}</div>
+        </div>
+
+        <div class="empty-state" *ngIf="transactions.length === 0">
+          <p>تاریخچه‌ای ثبت نشده است</p>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn-cancel" (click)="closeHistoryModal()">بستن</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -176,7 +176,7 @@ namespace KioskCenter.Services
                 File.WriteAllBytes(tempPath, pdfBytes);
 
                 var process = new Process();
-                process.StartInfo.FileName = "SumatraPDF.exe"; // مسیر فایل اجرایی Sumatra
+                process.StartInfo.FileName = Path.Combine(AppContext.BaseDirectory, "SumatraPDF.exe"); // مسیر فایل اجرایی Sumatra
                                                                // دستور چاپ دقیق برای سوماترا
                 process.StartInfo.Arguments = $"-print-to \"{printerName}\" \"{tempPath}\"";
                 process.StartInfo.CreateNoWindow = true;

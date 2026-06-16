@@ -286,7 +286,7 @@ ngOnDestroy() {
   }
 
   payWithCash() {
-    this.kioskService.createFullOrder().subscribe({
+    this.kioskService.createFullOrder(this.selectedPaymentMethod?.id).subscribe({
       next: (order: any) => {
         this.orderNumber = order.id || order.orderId;
         this.paymentSuccess = true;
@@ -328,7 +328,7 @@ ngOnDestroy() {
         console.log('POS payment result:', result);
         
         if (result && result.success) {
-          this.kioskService.createFullOrder().subscribe({
+          this.kioskService.createFullOrder(this.selectedPaymentMethod?.id).subscribe({
             next: (order: any) => {
               this.orderNumber = order.id || order.orderId;
               this.paymentSuccess = true;
@@ -368,7 +368,7 @@ ngOnDestroy() {
       return;
     }
     
-    this.kioskService.createFullOrder().subscribe({
+    this.kioskService.createFullOrder(this.selectedPaymentMethod?.id).subscribe({
       next: (order: any) => {
         const orderId = order.id || order.orderId;
         this.orderNumber = orderId;

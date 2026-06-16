@@ -41,6 +41,10 @@ export class StyleAdminComponent implements OnInit {
     });
   }
 
+  getAssetUrl(url: string | null | undefined): string {
+    return this.styleService.resolveAssetUrl(url || '');
+  }
+
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
     if (this.selectedFile) {

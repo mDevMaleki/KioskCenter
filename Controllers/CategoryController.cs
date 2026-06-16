@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using KioskCenter.Authorization;
 using KioskCenter.Models;
 using System.ComponentModel.DataAnnotations;
 using KioskCenter.Data;
@@ -42,6 +44,7 @@ namespace KioskCenter.Controllers
         }
 
         // POST: api/category - افزودن دسته بندی جدید
+        [Authorize, RequirePermission("categories")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateCategoryRequest request)
         {
@@ -61,6 +64,7 @@ namespace KioskCenter.Controllers
         }
 
         // PUT: api/category/{id} - ویرایش دسته بندی
+        [Authorize, RequirePermission("categories")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] UpdateCategoryRequest request)
         {
@@ -80,6 +84,7 @@ namespace KioskCenter.Controllers
         }
 
         // DELETE: api/category/{id} - حذف دسته بندی
+        [Authorize, RequirePermission("categories")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

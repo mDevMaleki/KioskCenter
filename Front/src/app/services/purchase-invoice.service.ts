@@ -12,6 +12,7 @@ export interface PurchaseInvoiceItemRequest {
 export interface PurchaseInvoiceRequest {
   partyId: number;
   note?: string;
+  vatRate?: number;
   items: PurchaseInvoiceItemRequest[];
 }
 
@@ -20,6 +21,9 @@ export interface PurchaseInvoiceListItem {
   partyId: number;
   partyName: string;
   totalAmount: number;
+  vatRate: number;
+  vatAmount: number;
+  grandTotal: number;
   note?: string | null;
   createdAt: string;
 }

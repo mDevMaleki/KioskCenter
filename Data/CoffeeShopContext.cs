@@ -39,6 +39,15 @@ namespace KioskCenter.Data
         public DbSet<JournalEntry> JournalEntries { get; set; }
         public DbSet<JournalEntryLine> JournalEntryLines { get; set; }
         public DbSet<Expense> Expenses { get; set; }
+        public DbSet<Cheque> Cheques { get; set; }
+        public DbSet<FixedAsset> FixedAssets { get; set; }
+        public DbSet<DepreciationRecord> DepreciationRecords { get; set; }
+        public DbSet<PettyCashFund> PettyCashFunds { get; set; }
+        public DbSet<PettyCashTransaction> PettyCashTransactions { get; set; }
+        public DbSet<Budget> Budgets { get; set; }
+        public DbSet<FiscalYear> FiscalYears { get; set; }
+        public DbSet<TaxSetting> TaxSettings { get; set; }
+        public DbSet<MoadianSetting> MoadianSettings { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -236,13 +245,24 @@ namespace KioskCenter.Data
                 new Account { Id = 11, Code = "5000", Name = "هزینه‌ها", Type = AccountType.Expense, ParentId = null, IsGroup = true },
                 new Account { Id = 12, Code = "5100", Name = "هزینه‌های عمومی", Type = AccountType.Expense, ParentId = 11, IsGroup = false },
                 new Account { Id = 13, Code = "1101", Name = "صندوق", Type = AccountType.Asset, ParentId = 2, IsGroup = false },
-                new Account { Id = 14, Code = "1102", Name = "بانک", Type = AccountType.Asset, ParentId = 2, IsGroup = false }
+                new Account { Id = 14, Code = "1102", Name = "بانک", Type = AccountType.Asset, ParentId = 2, IsGroup = false },
+                new Account { Id = 15, Code = "1210", Name = "اسناد دریافتنی (چک)", Type = AccountType.Asset, ParentId = 1, IsGroup = false },
+                new Account { Id = 16, Code = "2200", Name = "اسناد پرداختنی (چک)", Type = AccountType.Liability, ParentId = 5, IsGroup = false },
+                new Account { Id = 21, Code = "1400", Name = "دارایی‌های ثابت", Type = AccountType.Asset, ParentId = 1, IsGroup = false },
+                new Account { Id = 22, Code = "1410", Name = "استهلاک انباشته دارایی ثابت", Type = AccountType.Asset, ParentId = 1, IsGroup = false },
+                new Account { Id = 23, Code = "1500", Name = "تنخواه‌گردان", Type = AccountType.Asset, ParentId = 1, IsGroup = false },
+                new Account { Id = 24, Code = "1220", Name = "مالیات بر ارزش افزوده خرید", Type = AccountType.Asset, ParentId = 1, IsGroup = false },
+                new Account { Id = 25, Code = "2300", Name = "مالیات بر ارزش افزوده فروش", Type = AccountType.Liability, ParentId = 5, IsGroup = false }
             );
 
             // صندوق و بانک پیش‌فرض
             modelBuilder.Entity<CashAccount>().HasData(
                 new CashAccount { Id = 1, Name = "صندوق", Type = CashAccountType.Cash, AccountId = 13, CreatedAt = new DateTime(2026, 1, 1) },
                 new CashAccount { Id = 2, Name = "بانک", Type = CashAccountType.Bank, AccountId = 14, CreatedAt = new DateTime(2026, 1, 1) }
+            );
+
+            modelBuilder.Entity<TaxSetting>().HasData(
+                new TaxSetting { Id = 1, VatRate = 9, IsEnabled = true }
             );
 
             // واحدهای پیش‌فرض
@@ -253,6 +273,55 @@ namespace KioskCenter.Data
                 new UnitOfMeasure { Id = 4, Name = "لیتر", BaseUnitId = 3, ConversionFactor = 1000 },
                 new UnitOfMeasure { Id = 5, Name = "عدد", BaseUnitId = null, ConversionFactor = 1 }
             );
+
+        // جلوگیری از تداخل cascade برای حساب‌های مرتبط با دارایی ثابت
+        modelBuilder.Entity<FixedAsset>()
+            .HasOne(f => f.AssetAccount)
+            .WithMany()
+            .HasForeignKey(f => f.AssetAccountId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<FixedAsset>()
+            .HasOne(f => f.DepreciationExpenseAccount)
+            .WithMany()
+            .HasForeignKey(f => f.DepreciationExpenseAccountId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<FixedAsset>()
+            .HasOne(f => f.AccumulatedDepreciationAccount)
+            .WithMany()
+            .HasForeignKey(f => f.AccumulatedDepreciationAccountId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<PettyCashTransaction>()
+            .HasOne(t => t.ExpenseAccount)
+            .WithMany()
+            .HasForeignKey(t => t.ExpenseAccountId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Budget>()
+            .HasOne(b => b.Account)
+            .WithMany()
+            .HasForeignKey(b => b.AccountId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Cheque>()
+            .HasOne(c => c.Party)
+            .WithMany()
+            .HasForeignKey(c => c.PartyId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Cheque>()
+            .HasOne(c => c.CashAccount)
+            .WithMany()
+            .HasForeignKey(c => c.CashAccountId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<PettyCashFund>()
+            .HasOne(p => p.SourceCashAccount)
+            .WithMany()
+            .HasForeignKey(p => p.SourceCashAccountId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         // رابطه Category با Product
         modelBuilder.Entity<Category>()

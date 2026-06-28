@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { KioskService } from '../../services/kiosk.service';
+import { PrintService } from '../../services/print.service';
 
 @Component({
   selector: 'app-category-admin',
@@ -21,7 +22,13 @@ export class CategoryAdminComponent implements OnInit {
     return q ? this.categories.filter(c => c.name.toLowerCase().includes(q)) : this.categories;
   }
 
-  constructor(private kioskService:KioskService){}
+  constructor(private kioskService:KioskService, private printService: PrintService){}
+
+  @ViewChild('printArea') printAreaRef?: ElementRef<HTMLElement>;
+
+  printSection(title: string): void {
+    if (this.printAreaRef) this.printService.print(title, this.printAreaRef.nativeElement);
+  }
 
   ngOnInit(){
     this.loadCategories();

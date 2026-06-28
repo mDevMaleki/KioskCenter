@@ -17,6 +17,26 @@ import { Router } from '@angular/router';
 import { KioskService } from './../services/kiosk.service';
 import { AuthService } from '../services/auth.service';
 
+interface AdminSubItem {
+  key: string;
+  label: string;
+  icon: string;
+}
+
+interface AdminTab {
+  key: string;
+  label: string;
+  icon: string;
+  subItems?: AdminSubItem[];
+}
+
+interface AdminMenuGroup {
+  key: string;
+  label: string;
+  icon: string;
+  tabs: AdminTab[];
+}
+
 @Component({
   selector: 'app-admin-panel',
   standalone: true,
@@ -47,6 +67,9 @@ export class AdminPanelComponent implements OnInit {
   ) {}
 
   activeTab: string = 'order-type';
+  activeSubSection: string | null = null;
+  openGroupKey: string = '';
+  openTabKey: string = '';
 
   ngOnInit(): void {
     if (this.authService.isLoggedIn()) {
@@ -54,35 +77,140 @@ export class AdminPanelComponent implements OnInit {
     }
   }
 
+  private allGroups: AdminMenuGroup[] = [
+    {
+      key: 'catalog', label: 'مدیریت محصولات', icon: '🍔',
+      tabs: [
+        { key: 'products', label: 'مدیریت محصولات', icon: '🍔' },
+        { key: 'categories', label: 'مدیریت دسته‌بندی', icon: '🗂️' },
+        { key: 'order-type', label: 'مدیریت انواع سفارش', icon: '📋' },
+        { key: 'inventory', label: 'مدیریت انبار', icon: '📦' },
+      ]
+    },
+    {
+      key: 'commerce', label: 'خرید، فروش و حسابداری', icon: '🛒',
+      tabs: [
+        {
+          key: 'purchase-sale', label: 'خرید و فروش', icon: '🛒',
+          subItems: [
+            { key: 'parties', label: 'طرف‌های حساب', icon: '👥' },
+            { key: 'units', label: 'واحدها', icon: '📐' },
+            { key: 'materials', label: 'مواد اولیه', icon: '🧂' },
+            { key: 'purchaseInvoices', label: 'فاکتور خرید', icon: '🧾' },
+            { key: 'products', label: 'محصولات', icon: '🍱' },
+            { key: 'saleInvoices', label: 'فاکتور فروش', icon: '🧾' },
+          ]
+        },
+        {
+          key: 'accounting', label: 'حسابداری', icon: '📒',
+          subItems: [
+            { key: 'accounts', label: 'کدینگ حساب‌ها', icon: '🧾' },
+            { key: 'cashAccounts', label: 'صندوق و بانک', icon: '🏦' },
+            { key: 'journalEntries', label: 'اسناد حسابداری', icon: '📝' },
+            { key: 'journalBook', label: 'دفتر روزنامه', icon: '📔' },
+            { key: 'trialBalance', label: 'تراز آزمایشی', icon: '⚖️' },
+            { key: 'profitLoss', label: 'سود و زیان', icon: '📈' },
+            { key: 'balanceSheet', label: 'ترازنامه', icon: '📋' },
+            { key: 'vatReport', label: 'گزارش ارزش افزوده', icon: '🧮' },
+            { key: 'cheques', label: 'مدیریت چک', icon: '🧷' },
+            { key: 'pettyCash', label: 'تنخواه‌گردان', icon: '👛' },
+            { key: 'expenses', label: 'هزینه‌ها', icon: '🧯' },
+            { key: 'fixedAssets', label: 'دارایی ثابت', icon: '🏭' },
+            { key: 'budget', label: 'بودجه', icon: '🎯' },
+            { key: 'fiscalYear', label: 'سال مالی و مالیات', icon: '🗓️' },
+            { key: 'moadian', label: 'سامانه مودیان', icon: '🏛️' },
+          ]
+        },
+      ]
+    },
+    {
+      key: 'equipment', label: 'تجهیزات و تنظیمات', icon: '⚙️',
+      tabs: [
+        { key: 'printers', label: 'مدیریت پرینترها', icon: '🖨️' },
+        { key: 'pos-devices', label: 'مدیریت دستگاه‌های POS', icon: '💠' },
+        { key: 'payment-methods', label: 'مدیریت روش‌های پرداخت', icon: '💳' },
+        { key: 'style', label: 'مدیریت استایل', icon: '🎨' },
+      ]
+    },
+    {
+      key: 'reportsUsers', label: 'گزارش و کاربران', icon: '📊',
+      tabs: [
+        { key: 'reports', label: 'گزارشات', icon: '📊' },
+        { key: 'users', label: 'مدیریت کاربران', icon: '👤' },
+      ]
+    },
+  ];
+
+  get menuGroups(): AdminMenuGroup[] {
+    return this.allGroups
+      .map(group => ({
+        ...group,
+        tabs: group.tabs.filter(tab => this.authService.hasPermission(tab.key))
+      }))
+      .filter(group => group.tabs.length > 0);
+  }
+
   get tabs() {
-    return [
-      { key: 'products', label: 'مدیریت محصولات', icon: '🍔' },
-      { key: 'categories', label: 'مدیریت دسته‌بندی', icon: '🗂️' },
-      { key: 'order-type', label: 'مدیریت انواع سفارش', icon: '📋' },
-      { key: 'inventory', label: 'مدیریت انبار', icon: '📦' },
-      { key: 'printers', label: 'مدیریت پرینترها', icon: '🖨️' },
-      { key: 'pos-devices', label: 'مدیریت دستگاه‌های POS', icon: '💠' },
-      { key: 'payment-methods', label: 'مدیریت روش‌های پرداخت', icon: '💳' },
-      { key: 'style', label: 'مدیریت استایل', icon: '🎨' },
-      { key: 'reports', label: 'گزارشات', icon: '📊' },
-      { key: 'users', label: 'مدیریت کاربران', icon: '👤' },
-      { key: 'purchase-sale', label: 'خرید و فروش', icon: '🛒' },
-      { key: 'accounting', label: 'حسابداری', icon: '📒' },
-    ].filter(tab => this.authService.hasPermission(tab.key));
+    return this.menuGroups.flatMap(g => g.tabs);
+  }
+
+  toggleGroup(groupKey: string): void {
+    this.openGroupKey = this.openGroupKey === groupKey ? '' : groupKey;
+  }
+
+  isGroupOpen(groupKey: string): boolean {
+    return this.openGroupKey === groupKey;
+  }
+
+  toggleTab(tab: AdminTab): void {
+    if (tab.subItems && tab.subItems.length > 0) {
+      this.openTabKey = this.openTabKey === tab.key ? '' : tab.key;
+      this.activeTab = tab.key;
+      if (!this.activeSubSection || this.openTabKey !== tab.key) {
+        this.activeSubSection = tab.subItems[0].key;
+      }
+    } else {
+      this.setTab(tab.key);
+    }
+  }
+
+  isTabOpen(tabKey: string): boolean {
+    return this.openTabKey === tabKey;
+  }
+
+  setSubSection(tab: AdminTab, subKey: string): void {
+    this.activeTab = tab.key;
+    this.openTabKey = tab.key;
+    this.activeSubSection = subKey;
   }
 
   onLoggedIn(): void {
     const allowedTabs = this.tabs;
     if (!allowedTabs.some(t => t.key === this.activeTab)) {
-      const firstTab = allowedTabs[0];
-      if (firstTab) {
-        this.activeTab = firstTab.key;
+      const firstGroup = this.menuGroups[0];
+      if (firstGroup) {
+        this.openGroupKey = firstGroup.key;
+        const firstTab = firstGroup.tabs[0];
+        if (firstTab) {
+          this.activeTab = firstTab.key;
+          if (firstTab.subItems && firstTab.subItems.length > 0) {
+            this.openTabKey = firstTab.key;
+            this.activeSubSection = firstTab.subItems[0].key;
+          }
+        }
       }
+    } else {
+      const group = this.menuGroups.find(g => g.tabs.some(t => t.key === this.activeTab));
+      if (group) this.openGroupKey = group.key;
     }
   }
 
   setTab(tab: string) {
     this.activeTab = tab;
+    this.activeSubSection = null;
+    this.openTabKey = '';
+    const group = this.menuGroups.find(g => g.tabs.some(t => t.key === tab));
+    if (group) this.openGroupKey = group.key;
   }
 
   logout(): void {

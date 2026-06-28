@@ -70,7 +70,7 @@ export class AppComponent implements OnInit {
     
     const fontUrl = style.customFontUrl.startsWith('http') 
       ? style.customFontUrl 
-      : `https://localhost:7000${style.customFontUrl}`;
+      : `http://localhost:5000${style.customFontUrl}`;
     
     const fontFace = `
       @font-face {

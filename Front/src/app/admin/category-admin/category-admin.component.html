@@ -14,7 +14,9 @@
   </div>
 
   <div class="category-list">
+    <h3>لیست دسته‌بندی‌ها <button class="print-btn" (click)="printSection('دسته‌بندی‌ها')">🖨️ چاپ</button></h3>
     <input type="text" [(ngModel)]="searchCategory" placeholder="جستجوی دسته‌بندی..." class="search-input" />
+    <div #printArea>
     <div class="category-card" *ngFor="let c of filteredCategories">
 
       <div class="name">{{ c.name }}</div>
@@ -24,6 +26,7 @@
         <button class="cancel-btn" (click)="deleteCategory(c.id)">حذف</button>
       </div>
 
+    </div>
     </div>
   </div>
 

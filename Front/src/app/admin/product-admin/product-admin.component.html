@@ -53,7 +53,7 @@
     </button>
   </div>
 
-  <h3>لیست محصولات</h3>
+  <h3>لیست محصولات <button class="print-btn" (click)="printSection('لیست محصولات')">🖨️ چاپ</button></h3>
 
   <div class="search-bar">
     <input type="text" [(ngModel)]="searchProduct" placeholder="جستجوی محصول..." class="search-input" />
@@ -63,7 +63,7 @@
     </select>
   </div>
 
-  <div class="product-list">
+  <div class="product-list" #printArea>
     <div class="product-card" *ngFor="let product of filteredProducts">
 
       <img 

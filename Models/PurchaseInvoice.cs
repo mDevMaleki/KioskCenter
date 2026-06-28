@@ -14,6 +14,15 @@ namespace KioskCenter.Models
         [Column(TypeName = "decimal(18,2)")]
         public decimal TotalAmount { get; set; }
 
+        [Column(TypeName = "decimal(5,2)")]
+        public decimal VatRate { get; set; } = 0;
+
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal VatAmount { get; set; } = 0;
+
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal GrandTotal { get; set; }
+
         [MaxLength(500)]
         public string? Note { get; set; }
 

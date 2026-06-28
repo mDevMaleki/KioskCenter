@@ -11,6 +11,7 @@ export interface SaleInvoiceItemRequest {
 export interface SaleInvoiceRequest {
   partyId: number;
   note?: string;
+  vatRate?: number;
   items: SaleInvoiceItemRequest[];
 }
 
@@ -19,6 +20,9 @@ export interface SaleInvoiceListItem {
   partyId: number;
   partyName: string;
   totalAmount: number;
+  vatRate: number;
+  vatAmount: number;
+  grandTotal: number;
   note?: string | null;
   createdAt: string;
 }

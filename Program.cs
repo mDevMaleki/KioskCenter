@@ -41,6 +41,7 @@ builder.Services.AddScoped<OrderService>();
 builder.Services.AddScoped<PosParsianService>();
 builder.Services.AddScoped<OnlinePayService>();
 builder.Services.AddScoped<KioskCenter.Services.JournalPostingService>();
+builder.Services.AddScoped<KioskCenter.Services.MoadianService>();
 
 builder.Services.AddSingleton<HardwareService>();
 builder.Services.AddSingleton<LicenseValidator>();
@@ -104,9 +105,6 @@ app.UseCors("AllowAll");  // استفاده از policy اول
 
 // 2. سپس UseWebSockets (اگه SignalR دارید)
 app.UseWebSockets();
-
-// 3. بعد UseHttpsRedirection
-app.UseHttpsRedirection();
 
 // 4. بعد UseStaticFiles
 app.UseStaticFiles();

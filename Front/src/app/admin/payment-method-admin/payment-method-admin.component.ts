@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PaymentMethodService, PaymentMethod } from '../../services/payment-method.service';
 import { CashAccountService, CashAccount } from '../../services/cash-account.service';
+import { PrintService } from '../../services/print.service';
 
 @Component({
   selector: 'app-payment-method-admin',
@@ -41,8 +42,15 @@ export class PaymentMethodAdminComponent implements OnInit {
 
   constructor(
     private paymentMethodService: PaymentMethodService,
-    private cashAccountService: CashAccountService
+    private cashAccountService: CashAccountService,
+    private printService: PrintService
   ) {}
+
+  @ViewChild('printArea') printAreaRef?: ElementRef<HTMLElement>;
+
+  printSection(title: string): void {
+    if (this.printAreaRef) this.printService.print(title, this.printAreaRef.nativeElement);
+  }
 
   ngOnInit() {
     this.loadPaymentMethods();

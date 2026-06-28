@@ -11,7 +11,12 @@ namespace KioskCenter.Models
         SaleInvoice = 2,     // فاکتور فروش
         Payment = 3,         // سند پرداخت
         Receipt = 4,         // سند دریافت
-        Expense = 5          // هزینه
+        Expense = 5,         // هزینه
+        ChequeReceived = 6,  // دریافت چک
+        ChequePaid = 7,      // پرداخت چک
+        ChequeStatusChange = 8, // تغییر وضعیت چک (وصول/برگشت/...)
+        FixedAssetDepreciation = 9, // استهلاک دارایی ثابت
+        PettyCash = 10       // تنخواه‌گردان
     }
 
     public class JournalEntry

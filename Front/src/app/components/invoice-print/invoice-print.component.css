@@ -1,0 +1,250 @@
+.invoice-print-overlay {
+  position: fixed;
+  inset: 0;
+  background: #f0f0f0;
+  z-index: 9999;
+  overflow-y: auto;
+  direction: rtl;
+  font-family: var(--font-family, 'YekanBakh', Tahoma, sans-serif);
+}
+
+.invoice-print-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  background: #2b2320;
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.invoice-print-toolbar select {
+  margin-right: 8px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: none;
+}
+
+.invoice-print-toolbar button {
+  padding: 8px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+.btn-primary {
+  background: #5a3e2b;
+  color: #fff;
+}
+
+.btn-secondary {
+  background: #888;
+  color: #fff;
+}
+
+.invoice-print-area {
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+}
+
+.invoice-sheet {
+  background: #fff;
+  color: #1a1a1a;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  padding: 28px;
+  box-sizing: border-box;
+}
+
+/* ===== قالب A4 ===== */
+.tpl-A4 .invoice-sheet {
+  width: 210mm;
+  min-height: 297mm;
+}
+
+/* ===== قالب A5 ===== */
+.tpl-A5 .invoice-sheet {
+  width: 148mm;
+  min-height: 210mm;
+  font-size: 13px;
+}
+
+/* ===== قالب فیش حرارتی 80mm ===== */
+.tpl-Thermal80 .invoice-sheet {
+  width: 80mm;
+  min-height: auto;
+  font-size: 11px;
+  padding: 10px;
+}
+
+.invoice-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #5a3e2b;
+  padding-bottom: 10px;
+  margin-bottom: 14px;
+}
+
+.tpl-Thermal80 .invoice-header {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.invoice-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #5a3e2b;
+}
+
+.tpl-Thermal80 .invoice-title {
+  font-size: 14px;
+}
+
+.invoice-meta {
+  display: flex;
+  gap: 16px;
+  font-size: 13px;
+  color: #555;
+}
+
+.tpl-Thermal80 .invoice-meta {
+  font-size: 10px;
+  gap: 8px;
+}
+
+.invoice-party {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+  font-size: 14px;
+}
+
+.tpl-Thermal80 .invoice-party {
+  font-size: 11px;
+  margin-bottom: 8px;
+}
+
+.invoice-items-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 16px;
+}
+
+.invoice-items-table th, .invoice-items-table td {
+  border: 1px solid #ccc;
+  padding: 6px 8px;
+  text-align: center;
+  font-size: 13px;
+}
+
+.tpl-A5 .invoice-items-table th, .tpl-A5 .invoice-items-table td {
+  padding: 4px 6px;
+  font-size: 12px;
+}
+
+.tpl-Thermal80 .invoice-items-table th, .tpl-Thermal80 .invoice-items-table td {
+  padding: 3px 4px;
+  font-size: 10px;
+  border: 1px dashed #999;
+}
+
+.invoice-items-table th {
+  background: #f3ede6;
+  font-weight: 700;
+}
+
+.invoice-totals {
+  margin-right: auto;
+  width: 260px;
+  margin-bottom: 16px;
+}
+
+.tpl-Thermal80 .invoice-totals {
+  width: 100%;
+}
+
+.totals-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+  font-size: 13px;
+}
+
+.tpl-Thermal80 .totals-row {
+  font-size: 10px;
+}
+
+.totals-row.grand-total {
+  border-top: 2px solid #5a3e2b;
+  margin-top: 6px;
+  padding-top: 8px;
+  font-weight: 800;
+  font-size: 15px;
+}
+
+.tpl-Thermal80 .totals-row.grand-total {
+  font-size: 12px;
+}
+
+.invoice-note {
+  font-size: 12px;
+  color: #555;
+  margin-bottom: 16px;
+}
+
+.invoice-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+
+.tpl-Thermal80 .invoice-footer {
+  display: none;
+}
+
+.signature-box {
+  width: 40%;
+  border-top: 1px solid #999;
+  text-align: center;
+  padding-top: 6px;
+  font-size: 12px;
+  color: #777;
+}
+
+/* ===== حالت چاپ ===== */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  .invoice-print-overlay {
+    position: static;
+    background: #fff;
+  }
+
+  .invoice-print-area {
+    padding: 0;
+  }
+
+  .invoice-sheet {
+    box-shadow: none;
+    margin: 0;
+  }
+
+  .tpl-A4 .invoice-sheet {
+    width: auto;
+    min-height: auto;
+  }
+
+  .tpl-A5 .invoice-sheet {
+    width: auto;
+    min-height: auto;
+  }
+}
+

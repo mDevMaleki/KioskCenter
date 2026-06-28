@@ -33,7 +33,8 @@
   </div>
 
   <!-- لیست محصولات -->
-  <div class="stock-list" *ngIf="!loading">
+  <h3>وضعیت انبار <button class="print-btn" (click)="printSection('وضعیت انبار')">🖨️ چاپ</button></h3>
+  <div class="stock-list" *ngIf="!loading" #printArea>
     <div class="list-header">
       <div class="col-img"></div>
       <div class="col-name">نام محصول</div>

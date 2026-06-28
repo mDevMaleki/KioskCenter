@@ -1,0 +1,76 @@
+<div class="invoice-print-overlay" *ngIf="visible">
+  <div class="invoice-print-toolbar no-print">
+    <label>
+      قالب چاپ:
+      <select [(ngModel)]="template" (ngModelChange)="onTemplateChange()">
+        <option *ngFor="let t of templates" [value]="t.key">{{ t.label }}</option>
+      </select>
+    </label>
+    <button class="btn-primary" (click)="print()">چاپ</button>
+    <button class="btn-secondary" (click)="close()">بستن</button>
+  </div>
+
+  <div class="invoice-print-area" [ngClass]="'tpl-' + template">
+    <div #printArea class="invoice-sheet">
+      <div class="invoice-header">
+        <div class="invoice-title">{{ invoiceTypeLabel }}</div>
+        <div class="invoice-meta">
+          <span>شماره: {{ invoiceNumber }}</span>
+          <span>تاریخ: {{ date | date:'yyyy/MM/dd' }}</span>
+        </div>
+      </div>
+
+      <div class="invoice-party">
+        <span>{{ partyLabel }}:</span>
+        <strong>{{ partyName }}</strong>
+      </div>
+
+      <table class="invoice-items-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>شرح</th>
+            <th *ngIf="template !== 'Thermal80'">واحد</th>
+            <th>مقدار</th>
+            <th>قیمت واحد</th>
+            <th>قیمت کل</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of items; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ item.name }}</td>
+            <td *ngIf="template !== 'Thermal80'">{{ item.unit || '-' }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.unitPrice | number }}</td>
+            <td>{{ item.totalPrice | number }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="invoice-totals">
+        <div class="totals-row">
+          <span>جمع جزء:</span>
+          <span>{{ subtotal | number }}</span>
+        </div>
+        <div class="totals-row" *ngIf="vatAmount > 0">
+          <span>مالیات بر ارزش افزوده ({{ vatRate }}%):</span>
+          <span>{{ vatAmount | number }}</span>
+        </div>
+        <div class="totals-row grand-total">
+          <span>جمع کل:</span>
+          <span>{{ grandTotal | number }} تومان</span>
+        </div>
+      </div>
+
+      <div class="invoice-note" *ngIf="note">
+        توضیحات: {{ note }}
+      </div>
+
+      <div class="invoice-footer">
+        <div class="signature-box">امضای فروشنده</div>
+        <div class="signature-box">امضای خریدار</div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -49,8 +49,9 @@
   </div>
 
   <!-- لیست پرینترها -->
+  <h3>لیست پرینترها <button class="print-btn" (click)="printSection('پرینترها')">🖨️ چاپ</button></h3>
   <input type="text" [(ngModel)]="searchPrinter" placeholder="جستجوی پرینتر..." class="search-input" />
-  <table class="printers-table">
+  <table class="printers-table" #printArea>
     <thead>
       <tr>
         <th>نام</th>

@@ -26,5 +26,8 @@ namespace KioskCenter.Models
         // صندوق/بانک پیش‌فرض (CashAccount.Id)
         public const int DefaultCashAccount = 1;
         public const int DefaultBankAccount = 2;
+
+        public const int VatReceivable = 24; // 1220 - مالیات بر ارزش افزوده خرید (دریافتنی از سازمان مالیاتی)
+        public const int VatPayable = 25;    // 2300 - مالیات بر ارزش افزوده فروش (پرداختنی به سازمان مالیاتی)
     }
 }

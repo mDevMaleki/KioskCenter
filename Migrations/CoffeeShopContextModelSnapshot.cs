@@ -214,6 +214,83 @@ namespace KioskCenter.Migrations
                             Name = "بانک",
                             ParentId = 2,
                             Type = 1
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Balance = 0m,
+                            Code = "1210",
+                            IsActive = true,
+                            IsGroup = false,
+                            Name = "اسناد دریافتنی (چک)",
+                            ParentId = 1,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Balance = 0m,
+                            Code = "2200",
+                            IsActive = true,
+                            IsGroup = false,
+                            Name = "اسناد پرداختنی (چک)",
+                            ParentId = 5,
+                            Type = 2
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Balance = 0m,
+                            Code = "1400",
+                            IsActive = true,
+                            IsGroup = false,
+                            Name = "دارایی‌های ثابت",
+                            ParentId = 1,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Balance = 0m,
+                            Code = "1410",
+                            IsActive = true,
+                            IsGroup = false,
+                            Name = "استهلاک انباشته دارایی ثابت",
+                            ParentId = 1,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Balance = 0m,
+                            Code = "1500",
+                            IsActive = true,
+                            IsGroup = false,
+                            Name = "تنخواه‌گردان",
+                            ParentId = 1,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 24,
+                            Balance = 0m,
+                            Code = "1220",
+                            IsActive = true,
+                            IsGroup = false,
+                            Name = "مالیات بر ارزش افزوده خرید",
+                            ParentId = 1,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 25,
+                            Balance = 0m,
+                            Code = "2300",
+                            IsActive = true,
+                            IsGroup = false,
+                            Name = "مالیات بر ارزش افزوده فروش",
+                            ParentId = 5,
+                            Type = 2
                         });
                 });
 
@@ -269,6 +346,40 @@ namespace KioskCenter.Migrations
                             Permissions = "",
                             Username = "admin"
                         });
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.Budget", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AccountId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("BudgetedAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Note")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime>("PeriodEnd")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("PeriodStart")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountId");
+
+                    b.ToTable("Budgets");
                 });
 
             modelBuilder.Entity("KioskCenter.Models.CashAccount", b =>
@@ -392,6 +503,90 @@ namespace KioskCenter.Migrations
                         });
                 });
 
+            modelBuilder.Entity("KioskCenter.Models.Cheque", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("BankName")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int?>("CashAccountId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("Direction")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DueDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("IssueDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Number")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("PartyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CashAccountId");
+
+                    b.HasIndex("PartyId");
+
+                    b.ToTable("Cheques");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.DepreciationRecord", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("FixedAssetId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("JournalEntryId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("PeriodDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FixedAssetId");
+
+                    b.ToTable("DepreciationRecords");
+                });
+
             modelBuilder.Entity("KioskCenter.Models.Expense", b =>
                 {
                     b.Property<int>("Id")
@@ -431,6 +626,93 @@ namespace KioskCenter.Migrations
                     b.HasIndex("JournalEntryId");
 
                     b.ToTable("Expenses");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.FiscalYear", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("ClosedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsClosed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FiscalYears");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.FixedAsset", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("AccumulatedDepreciation")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("AccumulatedDepreciationAccountId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AssetAccountId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DepreciationExpenseAccountId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("PurchaseDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("PurchaseValue")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SalvageValue")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("UsefulLifeMonths")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccumulatedDepreciationAccountId");
+
+                    b.HasIndex("AssetAccountId");
+
+                    b.HasIndex("DepreciationExpenseAccountId");
+
+                    b.ToTable("FixedAssets");
                 });
 
             modelBuilder.Entity("KioskCenter.Models.InventoryTransaction", b =>
@@ -545,6 +827,46 @@ namespace KioskCenter.Migrations
                     b.HasIndex("PartyId");
 
                     b.ToTable("JournalEntryLines");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.MoadianSetting", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("BaseUrl")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("IsEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastUpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("OrgKeyId")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("PrivateKeyPem")
+                        .HasMaxLength(4000)
+                        .HasColumnType("nvarchar(4000)");
+
+                    b.Property<string>("PublicKeyPem")
+                        .HasMaxLength(4000)
+                        .HasColumnType("nvarchar(4000)");
+
+                    b.Property<string>("Username")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MoadianSettings");
                 });
 
             modelBuilder.Entity("KioskCenter.Models.Order", b =>
@@ -676,6 +998,10 @@ namespace KioskCenter.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("EconomicCode")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -777,6 +1103,81 @@ namespace KioskCenter.Migrations
                     b.HasIndex("CashAccountId");
 
                     b.ToTable("PaymentMethods");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.PettyCashFund", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Balance")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Custodian")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("SourceCashAccountId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SourceCashAccountId");
+
+                    b.ToTable("PettyCashFunds");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.PettyCashTransaction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int?>("ExpenseAccountId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("JournalEntryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PettyCashFundId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("TransactionDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExpenseAccountId");
+
+                    b.HasIndex("PettyCashFundId");
+
+                    b.ToTable("PettyCashTransactions");
                 });
 
             modelBuilder.Entity("KioskCenter.Models.PosDevice", b =>
@@ -1031,6 +1432,9 @@ namespace KioskCenter.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<decimal>("GrandTotal")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("Note")
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
@@ -1040,6 +1444,12 @@ namespace KioskCenter.Migrations
 
                     b.Property<decimal>("TotalAmount")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("VatAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("VatRate")
+                        .HasColumnType("decimal(5,2)");
 
                     b.HasKey("Id");
 
@@ -1421,6 +1831,27 @@ namespace KioskCenter.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<decimal>("GrandTotal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("MoadianError")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("MoadianReferenceNumber")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("MoadianSent")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("MoadianSentAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("MoadianTaxId")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<string>("Note")
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
@@ -1430,6 +1861,12 @@ namespace KioskCenter.Migrations
 
                     b.Property<decimal>("TotalAmount")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("VatAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("VatRate")
+                        .HasColumnType("decimal(5,2)");
 
                     b.HasKey("Id");
 
@@ -1468,6 +1905,33 @@ namespace KioskCenter.Migrations
                     b.HasIndex("SaleInvoiceId");
 
                     b.ToTable("SaleInvoiceItems");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.TaxSetting", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal>("VatRate")
+                        .HasColumnType("decimal(5,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TaxSettings");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IsEnabled = true,
+                            VatRate = 9m
+                        });
                 });
 
             modelBuilder.Entity("KioskCenter.Models.UnitOfMeasure", b =>
@@ -1540,6 +2004,17 @@ namespace KioskCenter.Migrations
                     b.Navigation("Parent");
                 });
 
+            modelBuilder.Entity("KioskCenter.Models.Budget", b =>
+                {
+                    b.HasOne("KioskCenter.Models.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Account");
+                });
+
             modelBuilder.Entity("KioskCenter.Models.CashAccount", b =>
                 {
                     b.HasOne("KioskCenter.Models.Account", "Account")
@@ -1549,6 +2024,35 @@ namespace KioskCenter.Migrations
                         .IsRequired();
 
                     b.Navigation("Account");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.Cheque", b =>
+                {
+                    b.HasOne("KioskCenter.Models.CashAccount", "CashAccount")
+                        .WithMany()
+                        .HasForeignKey("CashAccountId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("KioskCenter.Models.Party", "Party")
+                        .WithMany()
+                        .HasForeignKey("PartyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("CashAccount");
+
+                    b.Navigation("Party");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.DepreciationRecord", b =>
+                {
+                    b.HasOne("KioskCenter.Models.FixedAsset", "FixedAsset")
+                        .WithMany("DepreciationRecords")
+                        .HasForeignKey("FixedAssetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FixedAsset");
                 });
 
             modelBuilder.Entity("KioskCenter.Models.Expense", b =>
@@ -1576,6 +2080,33 @@ namespace KioskCenter.Migrations
                     b.Navigation("CashAccount");
 
                     b.Navigation("JournalEntry");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.FixedAsset", b =>
+                {
+                    b.HasOne("KioskCenter.Models.Account", "AccumulatedDepreciationAccount")
+                        .WithMany()
+                        .HasForeignKey("AccumulatedDepreciationAccountId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("KioskCenter.Models.Account", "AssetAccount")
+                        .WithMany()
+                        .HasForeignKey("AssetAccountId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("KioskCenter.Models.Account", "DepreciationExpenseAccount")
+                        .WithMany()
+                        .HasForeignKey("DepreciationExpenseAccountId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("AccumulatedDepreciationAccount");
+
+                    b.Navigation("AssetAccount");
+
+                    b.Navigation("DepreciationExpenseAccount");
                 });
 
             modelBuilder.Entity("KioskCenter.Models.InventoryTransaction", b =>
@@ -1668,6 +2199,35 @@ namespace KioskCenter.Migrations
                         .HasForeignKey("CashAccountId");
 
                     b.Navigation("CashAccount");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.PettyCashFund", b =>
+                {
+                    b.HasOne("KioskCenter.Models.CashAccount", "SourceCashAccount")
+                        .WithMany()
+                        .HasForeignKey("SourceCashAccountId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("SourceCashAccount");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.PettyCashTransaction", b =>
+                {
+                    b.HasOne("KioskCenter.Models.Account", "ExpenseAccount")
+                        .WithMany()
+                        .HasForeignKey("ExpenseAccountId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("KioskCenter.Models.PettyCashFund", "PettyCashFund")
+                        .WithMany("Transactions")
+                        .HasForeignKey("PettyCashFundId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ExpenseAccount");
+
+                    b.Navigation("PettyCashFund");
                 });
 
             modelBuilder.Entity("KioskCenter.Models.Product", b =>
@@ -1805,6 +2365,11 @@ namespace KioskCenter.Migrations
                     b.Navigation("Products");
                 });
 
+            modelBuilder.Entity("KioskCenter.Models.FixedAsset", b =>
+                {
+                    b.Navigation("DepreciationRecords");
+                });
+
             modelBuilder.Entity("KioskCenter.Models.JournalEntry", b =>
                 {
                     b.Navigation("Lines");
@@ -1816,6 +2381,11 @@ namespace KioskCenter.Migrations
                 });
 
             modelBuilder.Entity("KioskCenter.Models.Party", b =>
+                {
+                    b.Navigation("Transactions");
+                });
+
+            modelBuilder.Entity("KioskCenter.Models.PettyCashFund", b =>
                 {
                     b.Navigation("Transactions");
                 });

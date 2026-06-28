@@ -28,6 +28,10 @@ namespace KioskCenter.Models
         [MaxLength(500)]
         public string? Address { get; set; }
 
+        // کد اقتصادی / شناسه ملی - برای ارسال فاکتور به سامانه مودیان
+        [MaxLength(50)]
+        public string? EconomicCode { get; set; }
+
         // مانده حساب: مثبت = طرف حساب به ما بدهکار است، منفی = ما به او بدهکار هستیم (بستانکار)
         [Column(TypeName = "decimal(18,2)")]
         public decimal Balance { get; set; } = 0;

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
+import { InvoicePrintComponent } from '../../components/invoice-print/invoice-print.component';
+import { PrintService } from '../../services/print.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { KioskService } from '../../services/kiosk.service';
@@ -22,13 +24,23 @@ type Section = 'parties' | 'units' | 'materials' | 'purchaseInvoices' | 'product
 @Component({
   selector: 'app-purchase-sale-admin',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, InvoicePrintComponent],
   templateUrl: './purchase-sale-admin.component.html',
   styleUrls: ['./purchase-sale-admin.component.css']
 })
 export class PurchaseSaleAdminComponent implements OnInit {
 
   activeSection: Section = 'parties';
+
+  @ViewChild(InvoicePrintComponent) invoicePrint!: InvoicePrintComponent;
+
+  private validSections: Section[] = ['parties', 'units', 'materials', 'purchaseInvoices', 'products', 'saleInvoices'];
+
+  @Input() set section(value: string | null) {
+    if (value && this.validSections.includes(value as Section)) {
+      this.setSection(value as Section);
+    }
+  }
 
   TransactionType = RawMaterialTransactionType;
   PartyType = PartyType;
@@ -68,7 +80,7 @@ export class PurchaseSaleAdminComponent implements OnInit {
   // ---------- فاکتور خرید ----------
   purchaseInvoices: PurchaseInvoiceListItem[] = [];
   purchaseInvoiceDetail: PurchaseInvoiceDetail | null = null;
-  purchaseForm = { partyId: 0, note: '' };
+  purchaseForm = { partyId: 0, note: '', vatRate: 0 };
   purchaseItems: PurchaseInvoiceItemRequest[] = [];
   newPurchaseItem = { rawMaterialId: 0, unitId: 0, quantity: 0, unitPrice: 0 };
   purchaseError = '';
@@ -147,7 +159,7 @@ export class PurchaseSaleAdminComponent implements OnInit {
   // ---------- فاکتور فروش ----------
   saleInvoices: SaleInvoiceListItem[] = [];
   saleInvoiceDetail: SaleInvoiceDetail | null = null;
-  saleForm = { partyId: 0, note: '' };
+  saleForm = { partyId: 0, note: '', vatRate: 0 };
   saleItems: SaleInvoiceItemRequest[] = [];
   newSaleItem = { productId: 0, quantity: 0, unitPrice: 0 };
   saleError = '';
@@ -160,8 +172,20 @@ export class PurchaseSaleAdminComponent implements OnInit {
     private purchaseInvoiceService: PurchaseInvoiceService,
     private saleInvoiceService: SaleInvoiceService,
     private cashAccountService: CashAccountService,
-    private kioskService: KioskService
+    private kioskService: KioskService,
+    private printService: PrintService
   ) {}
+
+  @ViewChild('printArea') printAreaRef?: ElementRef<HTMLElement>;
+  @ViewChild('printArea2') printAreaRef2?: ElementRef<HTMLElement>;
+
+  printSection(title: string): void {
+    if (this.printAreaRef) this.printService.print(title, this.printAreaRef.nativeElement);
+  }
+
+  printSection2(title: string): void {
+    if (this.printAreaRef2) this.printService.print(title, this.printAreaRef2.nativeElement);
+  }
 
   ngOnInit(): void {
     this.loadParties();
@@ -709,6 +733,14 @@ export class PurchaseSaleAdminComponent implements OnInit {
     return this.purchaseItems.reduce((sum, i) => sum + (i.quantity * i.unitPrice), 0);
   }
 
+  get purchaseVatAmount(): number {
+    return Math.round(this.purchaseTotal * (this.purchaseForm.vatRate || 0) / 100 * 100) / 100;
+  }
+
+  get purchaseGrandTotal(): number {
+    return this.purchaseTotal + this.purchaseVatAmount;
+  }
+
   submitPurchaseInvoice(): void {
     this.purchaseError = '';
 
@@ -725,10 +757,11 @@ export class PurchaseSaleAdminComponent implements OnInit {
     this.purchaseInvoiceService.create({
       partyId: this.purchaseForm.partyId,
       note: this.purchaseForm.note,
+      vatRate: this.purchaseForm.vatRate,
       items: this.purchaseItems
     }).subscribe({
       next: () => {
-        this.purchaseForm = { partyId: 0, note: '' };
+        this.purchaseForm = { partyId: 0, note: '', vatRate: 0 };
         this.purchaseItems = [];
         this.loadPurchaseInvoices();
         this.loadMaterials();
@@ -749,6 +782,33 @@ export class PurchaseSaleAdminComponent implements OnInit {
 
   closePurchaseInvoiceDetail(): void {
     this.purchaseInvoiceDetail = null;
+  }
+
+  printPurchaseInvoice(id: number): void {
+    this.purchaseInvoiceService.getOne(id).subscribe({
+      next: (res) => {
+        this.invoicePrint.open({
+          invoiceTypeLabel: 'فاکتور خرید',
+          invoiceNumber: res.id,
+          partyLabel: 'تامین‌کننده',
+          partyName: res.partyName,
+          date: res.createdAt,
+          items: res.items.map(it => ({
+            name: it.rawMaterialName,
+            unit: it.unitName,
+            quantity: it.quantity,
+            unitPrice: it.unitPrice,
+            totalPrice: it.totalPrice
+          })),
+          subtotal: res.totalAmount,
+          vatRate: res.vatRate,
+          vatAmount: res.vatAmount,
+          grandTotal: res.grandTotal,
+          note: res.note
+        });
+      },
+      error: (err) => console.error('خطا در دریافت فاکتور خرید برای چاپ', err)
+    });
   }
 
   // ===================== محصولات (فرمول) =====================
@@ -844,6 +904,14 @@ export class PurchaseSaleAdminComponent implements OnInit {
     return this.saleItems.reduce((sum, i) => sum + (i.quantity * i.unitPrice), 0);
   }
 
+  get saleVatAmount(): number {
+    return Math.round(this.saleTotal * (this.saleForm.vatRate || 0) / 100 * 100) / 100;
+  }
+
+  get saleGrandTotal(): number {
+    return this.saleTotal + this.saleVatAmount;
+  }
+
   submitSaleInvoice(): void {
     this.saleError = '';
 
@@ -860,10 +928,11 @@ export class PurchaseSaleAdminComponent implements OnInit {
     this.saleInvoiceService.create({
       partyId: this.saleForm.partyId,
       note: this.saleForm.note,
+      vatRate: this.saleForm.vatRate,
       items: this.saleItems
     }).subscribe({
       next: () => {
-        this.saleForm = { partyId: 0, note: '' };
+        this.saleForm = { partyId: 0, note: '', vatRate: 0 };
         this.saleItems = [];
         this.loadSaleInvoices();
         this.loadMaterials();
@@ -884,5 +953,31 @@ export class PurchaseSaleAdminComponent implements OnInit {
 
   closeSaleInvoiceDetail(): void {
     this.saleInvoiceDetail = null;
+  }
+
+  printSaleInvoice(id: number): void {
+    this.saleInvoiceService.getOne(id).subscribe({
+      next: (res) => {
+        this.invoicePrint.open({
+          invoiceTypeLabel: 'فاکتور فروش',
+          invoiceNumber: res.id,
+          partyLabel: 'مشتری',
+          partyName: res.partyName,
+          date: res.createdAt,
+          items: res.items.map(it => ({
+            name: it.productName,
+            quantity: it.quantity,
+            unitPrice: it.unitPrice,
+            totalPrice: it.totalPrice
+          })),
+          subtotal: res.totalAmount,
+          vatRate: res.vatRate,
+          vatAmount: res.vatAmount,
+          grandTotal: res.grandTotal,
+          note: res.note
+        });
+      },
+      error: (err) => console.error('خطا در دریافت فاکتور فروش برای چاپ', err)
+    });
   }
 }

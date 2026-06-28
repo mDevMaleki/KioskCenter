@@ -43,6 +43,13 @@ namespace KioskCenter.Services
             if (totalDebit <= 0)
                 throw new InvalidOperationException("جمع سند نمی‌تواند صفر باشد");
 
+            var closedYear = await _context.FiscalYears
+                .Where(f => f.IsClosed && entryDate >= f.StartDate && entryDate <= f.EndDate)
+                .FirstOrDefaultAsync();
+
+            if (closedYear != null)
+                throw new InvalidOperationException($"سال مالی «{closedYear.Name}» بسته شده است و امکان ثبت سند جدید برای این تاریخ وجود ندارد");
+
             foreach (var line in lines)
             {
                 var account = await _context.Accounts.FindAsync(line.AccountId);

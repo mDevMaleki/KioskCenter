@@ -36,7 +36,9 @@
   </div>
 
   <div class="user-list">
+    <h3>لیست کاربران <button class="print-btn" (click)="printSection('کاربران')">🖨️ چاپ</button></h3>
     <input type="text" [(ngModel)]="searchUser" placeholder="جستجوی کاربر..." class="search-input" />
+    <div #printArea>
     <div class="user-card" *ngFor="let u of filteredUsers">
       <div class="info">
         <div class="name">{{ u.fullName || u.username }} ({{ u.username }})</div>
@@ -50,6 +52,7 @@
         <button (click)="editUser(u)">ویرایش</button>
         <button class="cancel-btn" (click)="deleteUser(u.id)">حذف</button>
       </div>
+    </div>
     </div>
   </div>
 

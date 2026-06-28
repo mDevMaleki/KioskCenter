@@ -43,6 +43,9 @@ namespace KioskCenter.Controllers
                     i.PartyId,
                     PartyName = i.Party != null ? i.Party.Name : null,
                     i.TotalAmount,
+                    i.VatRate,
+                    i.VatAmount,
+                    i.GrandTotal,
                     i.Note,
                     i.CreatedAt
                 })
@@ -70,6 +73,9 @@ namespace KioskCenter.Controllers
                 invoice.PartyId,
                 PartyName = invoice.Party != null ? invoice.Party.Name : null,
                 invoice.TotalAmount,
+                invoice.VatRate,
+                invoice.VatAmount,
+                invoice.GrandTotal,
                 invoice.Note,
                 invoice.CreatedAt,
                 Items = invoice.Items!.Select(it => new
@@ -151,8 +157,16 @@ namespace KioskCenter.Controllers
 
             invoice.TotalAmount = totalAmount;
 
-            // افزایش بدهی ما به طرف حساب (کاهش مانده)
-            party.Balance -= totalAmount;
+            var vatRate = request.VatRate ?? 0;
+            var vatAmount = Math.Round(totalAmount * vatRate / 100, 2);
+            var grandTotal = totalAmount + vatAmount;
+
+            invoice.VatRate = vatRate;
+            invoice.VatAmount = vatAmount;
+            invoice.GrandTotal = grandTotal;
+
+            // افزایش بدهی ما به طرف حساب (کاهش مانده) - شامل مالیات بر ارزش افزوده
+            party.Balance -= grandTotal;
 
             _context.PurchaseInvoices.Add(invoice);
             await _context.SaveChangesAsync();
@@ -177,7 +191,7 @@ namespace KioskCenter.Controllers
             {
                 PartyId = party.Id,
                 Type = PartyTransactionType.PurchaseInvoice,
-                Amount = -totalAmount,
+                Amount = -grandTotal,
                 BalanceAfter = party.Balance,
                 RefId = invoice.Id,
                 Description = $"فاکتور خرید #{invoice.Id}",
@@ -186,19 +200,25 @@ namespace KioskCenter.Controllers
 
             await _context.SaveChangesAsync();
 
-            // ثبت سند حسابداری: بدهکار موجودی مواد اولیه / بستانکار حساب‌های پرداختنی
+            // ثبت سند حسابداری: بدهکار موجودی مواد اولیه و مالیات خرید / بستانکار حساب‌های پرداختنی
+            var lines = new List<JournalLineInput>
+            {
+                new JournalLineInput { AccountId = AccountingConstants.RawMaterialInventory, Debit = totalAmount, Credit = 0 }
+            };
+
+            if (vatAmount > 0)
+                lines.Add(new JournalLineInput { AccountId = AccountingConstants.VatReceivable, Debit = vatAmount, Credit = 0, Description = "مالیات بر ارزش افزوده خرید" });
+
+            lines.Add(new JournalLineInput { AccountId = AccountingConstants.AccountsPayable, Debit = 0, Credit = grandTotal, PartyId = party.Id });
+
             await _postingService.PostAsync(
                 invoice.CreatedAt,
                 $"فاکتور خرید #{invoice.Id} - {party.Name}",
                 JournalEntryRefType.PurchaseInvoice,
                 invoice.Id,
-                new List<JournalLineInput>
-                {
-                    new JournalLineInput { AccountId = AccountingConstants.RawMaterialInventory, Debit = totalAmount, Credit = 0 },
-                    new JournalLineInput { AccountId = AccountingConstants.AccountsPayable, Debit = 0, Credit = totalAmount, PartyId = party.Id }
-                });
+                lines);
 
-            return Ok(new { success = true, message = "فاکتور خرید با موفقیت ثبت شد", invoiceId = invoice.Id, totalAmount });
+            return Ok(new { success = true, message = "فاکتور خرید با موفقیت ثبت شد", invoiceId = invoice.Id, totalAmount, vatAmount, grandTotal });
         }
     }
 
@@ -206,6 +226,7 @@ namespace KioskCenter.Controllers
     {
         public int PartyId { get; set; }
         public string? Note { get; set; }
+        public decimal? VatRate { get; set; }
         public List<PurchaseInvoiceItemRequest> Items { get; set; } = new();
     }
 

@@ -15,11 +15,13 @@ namespace KioskCenter.Controllers
     {
         private readonly CoffeeShopContext _context;
         private readonly JournalPostingService _postingService;
+        private readonly MoadianService _moadianService;
 
-        public SaleInvoiceController(CoffeeShopContext context, JournalPostingService postingService)
+        public SaleInvoiceController(CoffeeShopContext context, JournalPostingService postingService, MoadianService moadianService)
         {
             _context = context;
             _postingService = postingService;
+            _moadianService = moadianService;
         }
 
         // GET: api/saleinvoice - لیست فاکتورهای فروش
@@ -43,8 +45,14 @@ namespace KioskCenter.Controllers
                     i.PartyId,
                     PartyName = i.Party != null ? i.Party.Name : null,
                     i.TotalAmount,
+                    i.VatRate,
+                    i.VatAmount,
+                    i.GrandTotal,
                     i.Note,
-                    i.CreatedAt
+                    i.CreatedAt,
+                    i.MoadianSent,
+                    i.MoadianReferenceNumber,
+                    i.MoadianError
                 })
                 .ToListAsync();
 
@@ -69,6 +77,9 @@ namespace KioskCenter.Controllers
                 invoice.PartyId,
                 PartyName = invoice.Party != null ? invoice.Party.Name : null,
                 invoice.TotalAmount,
+                invoice.VatRate,
+                invoice.VatAmount,
+                invoice.GrandTotal,
                 invoice.Note,
                 invoice.CreatedAt,
                 Items = invoice.Items!.Select(it => new
@@ -152,8 +163,16 @@ namespace KioskCenter.Controllers
 
             invoice.TotalAmount = totalAmount;
 
-            // افزایش طلب ما از طرف حساب (افزایش مانده)
-            party.Balance += totalAmount;
+            var vatRate = request.VatRate ?? 0;
+            var vatAmount = Math.Round(totalAmount * vatRate / 100, 2);
+            var grandTotal = totalAmount + vatAmount;
+
+            invoice.VatRate = vatRate;
+            invoice.VatAmount = vatAmount;
+            invoice.GrandTotal = grandTotal;
+
+            // افزایش طلب ما از طرف حساب (افزایش مانده) - شامل مالیات بر ارزش افزوده
+            party.Balance += grandTotal;
 
             _context.SaleInvoices.Add(invoice);
             await _context.SaveChangesAsync();
@@ -195,7 +214,7 @@ namespace KioskCenter.Controllers
             {
                 PartyId = party.Id,
                 Type = PartyTransactionType.SaleInvoice,
-                Amount = totalAmount,
+                Amount = grandTotal,
                 BalanceAfter = party.Balance,
                 RefId = invoice.Id,
                 Description = $"فاکتور فروش #{invoice.Id}",
@@ -204,19 +223,34 @@ namespace KioskCenter.Controllers
 
             await _context.SaveChangesAsync();
 
-            // ثبت سند حسابداری: بدهکار حساب‌های دریافتنی / بستانکار فروش محصولات
+            // ثبت سند حسابداری: بدهکار حساب‌های دریافتنی / بستانکار فروش محصولات و مالیات فروش
+            var lines = new List<JournalLineInput>
+            {
+                new JournalLineInput { AccountId = AccountingConstants.AccountsReceivable, Debit = grandTotal, Credit = 0, PartyId = party.Id },
+                new JournalLineInput { AccountId = AccountingConstants.SalesRevenue, Debit = 0, Credit = totalAmount }
+            };
+
+            if (vatAmount > 0)
+                lines.Add(new JournalLineInput { AccountId = AccountingConstants.VatPayable, Debit = 0, Credit = vatAmount, Description = "مالیات بر ارزش افزوده فروش" });
+
             await _postingService.PostAsync(
                 invoice.CreatedAt,
                 $"فاکتور فروش #{invoice.Id} - {party.Name}",
                 JournalEntryRefType.SaleInvoice,
                 invoice.Id,
-                new List<JournalLineInput>
-                {
-                    new JournalLineInput { AccountId = AccountingConstants.AccountsReceivable, Debit = totalAmount, Credit = 0, PartyId = party.Id },
-                    new JournalLineInput { AccountId = AccountingConstants.SalesRevenue, Debit = 0, Credit = totalAmount }
-                });
+                lines);
 
-            return Ok(new { success = true, message = "فاکتور فروش با موفقیت ثبت شد", invoiceId = invoice.Id, totalAmount });
+            // ارسال خوش‌بینانه به سامانه مودیان - فقط در صورت فعال‌سازی توسط کاربر، و هیچ‌گاه باعث شکست فروش نمی‌شود
+            try
+            {
+                await _moadianService.TrySendSaleInvoiceAsync(invoice.Id);
+            }
+            catch
+            {
+                // خطای اتصال به سامانه مودیان نباید فروش را مختل کند
+            }
+
+            return Ok(new { success = true, message = "فاکتور فروش با موفقیت ثبت شد", invoiceId = invoice.Id, totalAmount, vatAmount, grandTotal });
         }
     }
 
@@ -224,6 +258,7 @@ namespace KioskCenter.Controllers
     {
         public int PartyId { get; set; }
         public string? Note { get; set; }
+        public decimal? VatRate { get; set; }
         public List<SaleInvoiceItemRequest> Items { get; set; } = new();
     }
 

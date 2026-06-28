@@ -1,14 +1,5 @@
 <div class="ps-container">
 
-  <div class="ps-section-tabs">
-    <button [class.active]="activeSection === 'parties'" (click)="setSection('parties')">طرف‌های حساب</button>
-    <button [class.active]="activeSection === 'units'" (click)="setSection('units')">واحدها</button>
-    <button [class.active]="activeSection === 'materials'" (click)="setSection('materials')">مواد اولیه</button>
-    <button [class.active]="activeSection === 'purchaseInvoices'" (click)="setSection('purchaseInvoices')">فاکتور خرید</button>
-    <button [class.active]="activeSection === 'products'" (click)="setSection('products')">محصولات</button>
-    <button [class.active]="activeSection === 'saleInvoices'" (click)="setSection('saleInvoices')">فاکتور فروش</button>
-  </div>
-
   <!-- ===================== طرف‌های حساب ===================== -->
   <div *ngIf="activeSection === 'parties'">
 
@@ -37,9 +28,9 @@
     </div>
 
     <div class="ps-box">
-      <h2>لیست طرف‌های حساب</h2>
+      <h2>لیست طرف‌های حساب <button class="print-btn" (click)="printSection('طرف‌های حساب')">🖨️ چاپ</button></h2>
       <input class="search-input" type="text" [(ngModel)]="searchParty" placeholder="جستجو در طرف‌های حساب..." />
-      <div class="material-list">
+      <div class="material-list" #printArea>
         <div class="material-card" *ngFor="let p of filteredParties" [class.selected]="selectedPartyId === p.id">
           <div class="info" (click)="selectParty(p.id)">
             <div class="name">{{ p.name }}</div>
@@ -136,9 +127,9 @@
     </div>
 
     <div class="ps-box">
-      <h2>لیست واحدها</h2>
+      <h2>لیست واحدها <button class="print-btn" (click)="printSection('واحدها')">🖨️ چاپ</button></h2>
       <input class="search-input" type="text" [(ngModel)]="searchUnit" placeholder="جستجو در واحدها..." />
-      <div class="material-list">
+      <div class="material-list" #printArea>
         <div class="material-card" *ngFor="let u of filteredUnits">
           <div class="info">
             <div class="name">{{ u.name }}</div>
@@ -182,9 +173,9 @@
     </div>
 
     <div class="ps-box">
-      <h2>لیست مواد اولیه</h2>
+      <h2>لیست مواد اولیه <button class="print-btn" (click)="printSection('مواد اولیه')">🖨️ چاپ</button></h2>
       <input class="search-input" type="text" [(ngModel)]="searchMaterial" placeholder="جستجو در مواد اولیه..." />
-      <div class="material-list">
+      <div class="material-list" #printArea>
         <div class="material-card" *ngFor="let m of filteredMaterials" [class.low-stock]="m.stockQuantity <= m.minStockLevel">
           <div class="info">
             <div class="name">{{ m.name }}</div>
@@ -222,8 +213,8 @@
     </div>
 
     <div class="ps-box">
-      <h2>تاریخچه تراکنش‌های مواد اولیه</h2>
-      <div class="tx-table">
+      <h2>تاریخچه تراکنش‌های مواد اولیه <button class="print-btn" (click)="printSection2('تراکنش‌های مواد اولیه')">🖨️ چاپ</button></h2>
+      <div class="tx-table" #printArea2>
         <div class="tx-row tx-row-7 tx-header">
           <span>تاریخ</span>
           <span>ماده اولیه</span>
@@ -263,6 +254,7 @@
           <button class="quick-add-btn" type="button" (click)="openQuickAddParty()" title="افزودن طرف حساب جدید">+ جدید</button>
         </div>
         <input type="text" [(ngModel)]="purchaseForm.note" placeholder="توضیحات فاکتور (اختیاری)" />
+        <input type="number" [(ngModel)]="purchaseForm.vatRate" placeholder="درصد مالیات بر ارزش افزوده" style="width:160px" />
       </div>
 
       <div class="ps-row purchase-item-row">
@@ -302,7 +294,9 @@
           <span>{{ (item.quantity * item.unitPrice) | number }}</span>
           <button class="cancel-btn" (click)="removePurchaseItem(i)">حذف</button>
         </div>
-        <div class="invoice-total">جمع کل فاکتور: {{ purchaseTotal | number }} تومان</div>
+        <div class="invoice-total">جمع جزء: {{ purchaseTotal | number }} تومان</div>
+        <div class="invoice-total" *ngIf="purchaseForm.vatRate">مالیات بر ارزش افزوده ({{ purchaseForm.vatRate }}%): {{ purchaseVatAmount | number }} تومان</div>
+        <div class="invoice-total">جمع کل فاکتور: {{ purchaseGrandTotal | number }} تومان</div>
       </div>
 
       <div class="form-buttons">
@@ -311,9 +305,9 @@
     </div>
 
     <div class="ps-box">
-      <h2>لیست فاکتورهای خرید</h2>
+      <h2>لیست فاکتورهای خرید <button class="print-btn" (click)="printSection('فاکتورهای خرید')">🖨️ چاپ همه</button></h2>
       <input class="search-input" type="text" [(ngModel)]="searchPurchaseInvoice" placeholder="جستجو بر اساس تامین‌کننده یا تاریخ..." />
-      <div class="tx-table">
+      <div class="tx-table" #printArea>
         <div class="tx-row tx-row-4 tx-header">
           <span>تاریخ</span>
           <span>تامین‌کننده</span>
@@ -324,7 +318,10 @@
           <span>{{ inv.createdAt | date:'yyyy/MM/dd HH:mm' }}</span>
           <span>{{ inv.partyName }}</span>
           <span>{{ inv.totalAmount | number }} تومان</span>
-          <button (click)="viewPurchaseInvoice(inv.id)">جزئیات</button>
+          <span class="buttons">
+            <button (click)="viewPurchaseInvoice(inv.id)">جزئیات</button>
+            <button (click)="printPurchaseInvoice(inv.id)">چاپ</button>
+          </span>
         </div>
         <div class="empty" *ngIf="filteredPurchaseInvoices.length === 0">موردی یافت نشد</div>
       </div>
@@ -355,6 +352,7 @@
         </div>
         <div class="invoice-total">جمع کل: {{ purchaseInvoiceDetail.totalAmount | number }} تومان</div>
         <div class="form-buttons">
+          <button (click)="printPurchaseInvoice(purchaseInvoiceDetail.id)">چاپ</button>
           <button class="cancel-btn" (click)="closePurchaseInvoiceDetail()">بستن</button>
         </div>
       </div>
@@ -425,6 +423,7 @@
           <button class="quick-add-btn" type="button" (click)="openQuickAddParty('sale')" title="افزودن طرف حساب جدید">+ جدید</button>
         </div>
         <input type="text" [(ngModel)]="saleForm.note" placeholder="توضیحات فاکتور (اختیاری)" />
+        <input type="number" [(ngModel)]="saleForm.vatRate" placeholder="درصد مالیات بر ارزش افزوده" style="width:160px" />
       </div>
 
       <div class="ps-row purchase-item-row">
@@ -457,7 +456,9 @@
           <span>{{ (item.quantity * item.unitPrice) | number }}</span>
           <button class="cancel-btn" (click)="removeSaleItem(i)">حذف</button>
         </div>
-        <div class="invoice-total">جمع کل فاکتور: {{ saleTotal | number }} تومان</div>
+        <div class="invoice-total">جمع جزء: {{ saleTotal | number }} تومان</div>
+        <div class="invoice-total" *ngIf="saleForm.vatRate">مالیات بر ارزش افزوده ({{ saleForm.vatRate }}%): {{ saleVatAmount | number }} تومان</div>
+        <div class="invoice-total">جمع کل فاکتور: {{ saleGrandTotal | number }} تومان</div>
       </div>
 
       <div class="form-buttons">
@@ -466,9 +467,9 @@
     </div>
 
     <div class="ps-box">
-      <h2>لیست فاکتورهای فروش</h2>
+      <h2>لیست فاکتورهای فروش <button class="print-btn" (click)="printSection('فاکتورهای فروش')">🖨️ چاپ همه</button></h2>
       <input class="search-input" type="text" [(ngModel)]="searchSaleInvoice" placeholder="جستجو بر اساس مشتری یا تاریخ..." />
-      <div class="tx-table">
+      <div class="tx-table" #printArea>
         <div class="tx-row tx-row-4 tx-header">
           <span>تاریخ</span>
           <span>مشتری</span>
@@ -479,7 +480,10 @@
           <span>{{ inv.createdAt | date:'yyyy/MM/dd HH:mm' }}</span>
           <span>{{ inv.partyName }}</span>
           <span>{{ inv.totalAmount | number }} تومان</span>
-          <button (click)="viewSaleInvoice(inv.id)">جزئیات</button>
+          <span class="buttons">
+            <button (click)="viewSaleInvoice(inv.id)">جزئیات</button>
+            <button (click)="printSaleInvoice(inv.id)">چاپ</button>
+          </span>
         </div>
         <div class="empty" *ngIf="filteredSaleInvoices.length === 0">موردی یافت نشد</div>
       </div>
@@ -508,12 +512,15 @@
         </div>
         <div class="invoice-total">جمع کل: {{ saleInvoiceDetail.totalAmount | number }} تومان</div>
         <div class="form-buttons">
+          <button (click)="printSaleInvoice(saleInvoiceDetail.id)">چاپ</button>
           <button class="cancel-btn" (click)="closeSaleInvoiceDetail()">بستن</button>
         </div>
       </div>
     </div>
 
   </div>
+
+  <app-invoice-print></app-invoice-print>
 
   <!-- ===================== پنل‌های سریع (خارج از همه section ها) ===================== -->
 

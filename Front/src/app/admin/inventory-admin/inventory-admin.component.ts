@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { KioskService } from '../../services/kiosk.service';
 import { StyleService } from '../../services/style.service';
 import { InventoryService, InventoryProduct, InventoryTransaction } from '../../services/inventory.service';
+import { PrintService } from '../../services/print.service';
 
 type StockModalMode = 'in' | 'out' | 'adjust' | 'settings';
 
@@ -48,8 +49,15 @@ export class InventoryAdminComponent implements OnInit {
   constructor(
     private kioskService: KioskService,
     private styleService: StyleService,
-    private inventoryService: InventoryService
+    private inventoryService: InventoryService,
+    private printService: PrintService
   ) {}
+
+  @ViewChild('printArea') printAreaRef?: ElementRef<HTMLElement>;
+
+  printSection(title: string): void {
+    if (this.printAreaRef) this.printService.print(title, this.printAreaRef.nativeElement);
+  }
 
   ngOnInit(): void {
     this.loadCategories();

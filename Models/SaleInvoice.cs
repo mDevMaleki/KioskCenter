@@ -14,10 +14,33 @@ namespace KioskCenter.Models
         [Column(TypeName = "decimal(18,2)")]
         public decimal TotalAmount { get; set; }
 
+        [Column(TypeName = "decimal(5,2)")]
+        public decimal VatRate { get; set; } = 0;
+
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal VatAmount { get; set; } = 0;
+
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal GrandTotal { get; set; }
+
         [MaxLength(500)]
         public string? Note { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+
+        // وضعیت ارسال به سامانه مودیان (اختیاری - فقط در صورت فعال‌سازی توسط کاربر)
+        [MaxLength(50)]
+        public string? MoadianTaxId { get; set; }
+
+        public bool MoadianSent { get; set; } = false;
+
+        public DateTime? MoadianSentAt { get; set; }
+
+        [MaxLength(100)]
+        public string? MoadianReferenceNumber { get; set; }
+
+        [MaxLength(1000)]
+        public string? MoadianError { get; set; }
 
         [ForeignKey("PartyId")]
         [JsonIgnore]

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AdminUser, AdminUserDto, UserService } from '../../services/user.service';
+import { PrintService } from '../../services/print.service';
 
 const SECTION_LABELS: Record<string, string> = {
   'products': 'مدیریت محصولات',
@@ -43,7 +44,13 @@ export class UserAdminComponent implements OnInit {
   form: AdminUserDto = this.emptyForm();
   error = '';
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private printService: PrintService) {}
+
+  @ViewChild('printArea') printAreaRef?: ElementRef<HTMLElement>;
+
+  printSection(title: string): void {
+    if (this.printAreaRef) this.printService.print(title, this.printAreaRef.nativeElement);
+  }
 
   ngOnInit(): void {
     this.loadSections();

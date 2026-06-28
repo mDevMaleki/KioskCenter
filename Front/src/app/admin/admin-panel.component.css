@@ -1,18 +1,187 @@
-.admin-menu{
-  display:flex;
-  gap:10px;
-  margin-bottom:20px;
+/* =====================================================================
+   پنل ادمین - استایل ثابت و مستقل از تنظیمات ظاهری کیوسک
+   با بازتعریف متغیرهای CSS در این سطح، هر تغییری که در «مدیریت استایل»
+   روی کیوسک مشتری اعمال شود، هیچ اثری روی پنل ادمین نخواهد داشت.
+   ===================================================================== */
+.admin-panel {
+  --admin-bg: #f1f3f7;
+  --admin-surface: #ffffff;
+  --admin-border: #e2e5ec;
+  --admin-ink: #1f2433;
+  --admin-ink-soft: #5b6175;
+  --admin-primary: #2f3b63;
+  --admin-primary-dark: #232c4c;
+  --admin-accent: #3b6ee0;
+  --admin-accent-dark: #2c56b8;
+  --admin-danger: #d8454a;
+  --admin-danger-dark: #b8373c;
+  --admin-success: #1f9d63;
+  --admin-warn: #d98c2b;
+  --admin-radius: 12px;
+  --admin-radius-sm: 8px;
+  --admin-shadow: 0 2px 10px rgba(31, 36, 51, 0.06);
+  --admin-shadow-lg: 0 8px 24px rgba(31, 36, 51, 0.10);
+
+  /* بازنویسی متغیرهای عمومی سایت (که توسط استایل کیوسک تغییر می‌کنند)
+     تا داخل پنل ادمین همیشه مقادیر ثابت زیر استفاده شوند */
+  --primary-color: var(--admin-primary);
+  --secondary-color: var(--admin-ink-soft);
+  --button-color: var(--admin-accent);
+  --button-hover-color: var(--admin-accent-dark);
+  --button-text-color: #ffffff;
+  --text-color: var(--admin-ink);
+  --background-color: var(--admin-bg);
+  --card-radius: var(--admin-radius);
+  --button-radius: var(--admin-radius-sm);
+  --font-family: 'YekanBakh', Tahoma, sans-serif;
+
+  display: flex;
+  min-height: 100vh;
+  font-family: var(--font-family);
+  direction: rtl;
+  background: var(--admin-bg);
+  color: var(--admin-ink);
 }
 
-.admin-menu button{
-  padding:10px 20px;
-  border:none;
-  background:#eee;
-  cursor:pointer;
-  border-radius:8px;
+.admin-sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 270px;
+  flex-shrink: 0;
+  background: linear-gradient(180deg, var(--admin-primary-dark), var(--admin-primary));
+  color: #f3f5fb;
+  padding: 18px 12px;
+  gap: 8px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  max-height: 100vh;
 }
 
-.admin-menu button.active{
-  background:#5a3e2b;
-  color:white;
+.sidebar-header {
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+  padding: 10px 0 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  margin-bottom: 8px;
+  letter-spacing: 0.3px;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.admin-sidebar button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 11px 14px;
+  border: none;
+  border-radius: var(--admin-radius-sm);
+  background: transparent;
+  color: inherit;
+  font-family: inherit;
+  font-size: 14px;
+  text-align: right;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.admin-sidebar button:hover {
+  background: rgba(255, 255, 255, 0.10);
+}
+
+.admin-sidebar button.active {
+  background: var(--admin-accent);
+  color: #ffffff;
+}
+
+.nav-icon {
+  font-size: 17px;
+  width: 22px;
+  text-align: center;
+}
+
+.nav-label {
+  flex: 1;
+}
+
+/* ===== گروه‌های دسته‌بندی‌شده ===== */
+.sidebar-group {
+  margin-bottom: 4px;
+}
+
+.sidebar-group-header {
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+
+.sidebar-group-header.open {
+  background: rgba(255, 255, 255, 0.14) !important;
+}
+
+.group-chevron {
+  font-size: 15px;
+  font-weight: 900;
+  width: 16px;
+  text-align: center;
+  flex: 0 0 auto;
+  opacity: 0.8;
+}
+
+.sidebar-group-items {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 4px 0 6px 0;
+}
+
+.sidebar-tab {
+  padding-right: 22px !important;
+  font-size: 13.5px;
+}
+
+.sidebar-tab.active-parent {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-sub-items {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 2px 0 6px 0;
+}
+
+.sidebar-sub-tab {
+  padding-right: 38px !important;
+  font-size: 13px;
+  color: #d3d8ea;
+}
+
+.sidebar-sub-tab .nav-icon {
+  font-size: 14px;
+}
+
+.sidebar-sub-tab.active {
+  background: var(--admin-accent) !important;
+  color: #ffffff !important;
+}
+
+.btn-back-to-menu {
+  margin-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding-top: 12px;
+}
+
+.admin-content {
+  flex: 1;
+  min-width: 0;
+  padding: 22px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  background: var(--admin-bg);
 }

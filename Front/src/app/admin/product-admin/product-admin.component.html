@@ -53,10 +53,18 @@
     </button>
   </div>
 
-  <h3>لیست محصولات</h3>
+  <h3>لیست محصولات <button class="print-btn" (click)="printSection('لیست محصولات')">🖨️ چاپ</button></h3>
 
-  <div class="product-list">
-    <div class="product-card" *ngFor="let product of products">
+  <div class="search-bar">
+    <input type="text" [(ngModel)]="searchProduct" placeholder="جستجوی محصول..." class="search-input" />
+    <select [(ngModel)]="filterCategoryId" class="search-input">
+      <option value="">همه دسته‌بندی‌ها</option>
+      <option *ngFor="let c of categories" [value]="c.id">{{ c.name }}</option>
+    </select>
+  </div>
+
+  <div class="product-list" #printArea>
+    <div class="product-card" *ngFor="let product of filteredProducts">
 
       <img 
         [src]="product.imageUrl ? 'http://localhost:5000' + product.imageUrl : 'assets/no-image.png'" 

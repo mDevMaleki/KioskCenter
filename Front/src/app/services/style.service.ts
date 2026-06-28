@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject, of } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 
 export interface RestaurantStyle {
   id: number;
@@ -69,64 +71,71 @@ export interface RestaurantStyle {
   providedIn: 'root'
 })
 export class StyleService {
+  private apiUrl = 'http://localhost:5000/api/Style';
   private styleSubject = new BehaviorSubject<RestaurantStyle | null>(null);
   style$ = this.styleSubject.asObservable();
 
-  constructor() {
-    this.loadStyleFromStorage();
-  }
-
-  loadStyle(): void {
-    this.loadStyleFromStorage();
-  }
-
-  private loadStyleFromStorage() {
+  constructor(private http: HttpClient) {
     const savedStyle = this.loadFromLocalStorage();
-    if (savedStyle) {
-      this.styleSubject.next(savedStyle);
-      this.applyAllStyles(savedStyle);
-      console.log('✅ استایل از localStorage لود شد');
-    } else {
-      const defaultStyle = this.getDefaultStyle();
-      this.styleSubject.next(defaultStyle);
-      this.applyAllStyles(defaultStyle);
-      this.saveToLocalStorage(defaultStyle);
-      console.log('✅ استایل پیش‌فرض اعمال شد');
+    const initialStyle = savedStyle || this.getDefaultStyle();
+    this.styleSubject.next(initialStyle);
+    this.applyAllStyles(initialStyle);
+    if (!savedStyle) {
+      this.saveToLocalStorage(initialStyle);
     }
+  }
+
+  // دریافت استایل از سرور و اعمال آن
+  loadStyle(): Observable<RestaurantStyle> {
+    return this.http.get<RestaurantStyle>(this.apiUrl).pipe(
+      tap(style => {
+        this.styleSubject.next(style);
+        this.applyAllStyles(style);
+        this.saveToLocalStorage(style);
+      }),
+      catchError(() => {
+        const current = this.styleSubject.value || this.getDefaultStyle();
+        return of(current);
+      })
+    );
   }
 
   getStyle(): Observable<RestaurantStyle> {
-    const current = this.styleSubject.value;
-    if (current) {
-      return of(current);
-    }
-    return of(this.getDefaultStyle());
+    return this.loadStyle();
   }
 
   updateStyle(style: RestaurantStyle): Observable<RestaurantStyle> {
-    // ذخیره در localStorage
-    this.saveToLocalStorage(style);
-    this.styleSubject.next(style);
-    this.applyAllStyles(style);
-    
-    console.log('✅ استایل ذخیره شد:', style);
-    return of(style);
+    return this.http.put<RestaurantStyle>(this.apiUrl, style).pipe(
+      tap(updated => {
+        this.styleSubject.next(updated);
+        this.applyAllStyles(updated);
+        this.saveToLocalStorage(updated);
+      })
+    );
   }
 
-  // متدهای آپلود (برای استفاده بعدی)
-  uploadLogo(file: File): Observable<{ url: string }> {
-    const fakeUrl = URL.createObjectURL(file);
-    return of({ url: fakeUrl });
+  uploadLogo(file: File): Observable<{ success: boolean; url: string }> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post<{ success: boolean; url: string }>(`${this.apiUrl}/upload-logo`, formData);
   }
 
-  uploadBackground(file: File): Observable<{ url: string }> {
-    const fakeUrl = URL.createObjectURL(file);
-    return of({ url: fakeUrl });
+  uploadBackground(file: File): Observable<{ success: boolean; url: string }> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post<{ success: boolean; url: string }>(`${this.apiUrl}/upload-background`, formData);
   }
 
-  uploadFont(file: File): Observable<{ url: string }> {
-    const fakeUrl = URL.createObjectURL(file);
-    return of({ url: fakeUrl });
+  uploadFont(file: File): Observable<{ success: boolean; url: string }> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post<{ success: boolean; url: string }>(`${this.apiUrl}/upload-font`, formData);
+  }
+
+  uploadOrderTypeImage(file: File): Observable<{ success: boolean; url: string }> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post<{ success: boolean; url: string }>(`${this.apiUrl}/upload-order-type-image`, formData);
   }
 
   private applyAllStyles(style: RestaurantStyle) {
@@ -146,11 +155,8 @@ export class StyleService {
 
     // اعمال فونت
     if (style.customFontUrl && style.customFontUrl.trim() !== '') {
-      let fontUrl = style.customFontUrl;
-      if (!fontUrl.startsWith('http') && !fontUrl.startsWith('blob:')) {
-        fontUrl = `http://localhost:5000${fontUrl}`;
-      }
-      
+      const fontUrl = this.resolveAssetUrl(style.customFontUrl);
+
       const fontFace = document.createElement('style');
       fontFace.id = 'dynamic-font-face';
       fontFace.textContent = `
@@ -220,7 +226,7 @@ export class StyleService {
         left: 0;
         right: 0;
         bottom: 0;
-        background-image: url('${style.backgroundImage}');
+        background-image: url('${this.resolveAssetUrl(style.backgroundImage)}');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -410,6 +416,14 @@ export class StyleService {
     }
   }
 
+  resolveAssetUrl(url: string): string {
+    if (!url) return url;
+    if (url.startsWith('http') || url.startsWith('blob:') || url.startsWith('data:')) {
+      return url;
+    }
+    return `http://localhost:5000${url}`;
+  }
+
   private getFontFamilyValue(style: RestaurantStyle): string {
     if (style.customFontUrl && style.fontName) {
       return `'${style.fontName}', ${style.fontFamily}`;
@@ -438,29 +452,29 @@ export class StyleService {
       id: 0,
       restaurantName: 'کافی شاپ آغادون',
       logoUrl: 'assets/images/logo.png',
-      primaryColor: '#5C2E15',
-      secondaryColor: '#d4b896',
-      accentColor: '#ff6b35',
-      backgroundColor: 'linear-gradient(135deg, #d4b896 0%, #c9a882 100%)',
+      primaryColor: '#2b1810',
+      secondaryColor: '#8d6e63',
+      accentColor: '#d4a574',
+      backgroundColor: 'linear-gradient(135deg, #1a1a1a 0%, #2b2320 100%)',
       textColor: '#ffffff',
-      textSecondaryColor: 'rgba(255,255,255,0.8)',
-      buttonColor: '#28a745',
-      buttonHoverColor: '#1e7e34',
+      textSecondaryColor: 'rgba(255,255,255,0.7)',
+      buttonColor: '#6f4e37',
+      buttonHoverColor: '#8d6e63',
       buttonTextColor: '#ffffff',
-      productCardBgColor: '#5C2E15',
-      productCardHoverColor: '#6B3D1F',
+      productCardBgColor: '#2b2320',
+      productCardHoverColor: '#3d322c',
       productCardBorderRadius: '24px',
-      sidebarBgColor: 'linear-gradient(180deg, #060468 0%, #2326b6 100%)',
-      sidebarHeaderBgColor: 'rgba(0,0,0,0.2)',
-      sidebarItemBgColor: 'rgba(255,255,255,0.1)',
-      sidebarItemHoverColor: 'rgba(255,255,255,0.2)',
-      categoryBtnBgColor: 'white',
-      categoryBtnActiveBgColor: '#6b4423',
-      categoryBtnTextColor: '#6b4423',
-      categoryBtnActiveTextColor: 'white',
-      orderTypeCardBgColor: '#0084fb',
-      orderTypeCardHoverColor: '#0094ff',
-      orderTypeCardTextColor: 'white',
+      sidebarBgColor: 'linear-gradient(180deg, #1a1a1a 0%, #2b1810 100%)',
+      sidebarHeaderBgColor: 'rgba(0,0,0,0.4)',
+      sidebarItemBgColor: 'rgba(255,255,255,0.05)',
+      sidebarItemHoverColor: 'rgba(255,255,255,0.1)',
+      categoryBtnBgColor: '#3d322c',
+      categoryBtnActiveBgColor: '#6f4e37',
+      categoryBtnTextColor: '#d4a574',
+      categoryBtnActiveTextColor: '#ffffff',
+      orderTypeCardBgColor: '#2b2320',
+      orderTypeCardHoverColor: '#3d322c',
+      orderTypeCardTextColor: '#ffffff',
       fontFamily: 'YekanBakh, Tahoma, sans-serif',
       customFontUrl: '',
       fontName: 'YekanBakh',
@@ -469,10 +483,10 @@ export class StyleService {
       fontSizeBase: '14px',
       fontSizeTitle: '24px',
       backgroundImage: '',
-      backgroundOverlay: 'rgba(0,0,0,0.3)',
+      backgroundOverlay: 'rgba(0,0,0,0.5)',
       footerText: '',
-      footerBgColor: 'rgba(0,0,0,0.8)',
-      footerTextColor: '#ffffff',
+      footerBgColor: 'rgba(0,0,0,0.85)',
+      footerTextColor: '#d4a574',
       address: '',
       phone: '',
       instagram: '',

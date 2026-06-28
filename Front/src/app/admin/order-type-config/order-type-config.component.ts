@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { KioskService } from '../../services/kiosk.service';
+import { StyleService } from '../../services/style.service';
 
 interface OrderTypeSetting {
   id: 'EatIn' | 'TakeAway';
   name: string;
   persianName: string;
   icon: string;
+  imageUrl?: string;
   active: boolean;
   priceFactor: number;
   visibleCategoryIds: string[];
@@ -43,7 +45,7 @@ export class OrderTypeConfigComponent implements OnInit {
     factor: 1
   };
 
-  constructor(private kioskService: KioskService) {}
+  constructor(private kioskService: KioskService, private styleService: StyleService) {}
 
   ngOnInit() {
     this.loadSettings();
@@ -234,5 +236,34 @@ export class OrderTypeConfigComponent implements OnInit {
   // اضافه کردن متد برای رفرش کردن دسته‌بندی‌ها
   refreshCategories() {
     this.loadCategoriesFromApi();
+  }
+
+  getAssetUrl(url: string | null | undefined): string {
+    return this.styleService.resolveAssetUrl(url || '');
+  }
+
+  onImageSelected(event: any) {
+    const file: File = event.target.files[0];
+    if (!file) return;
+
+    const settings = this.currentSettings;
+    if (!settings) return;
+
+    this.styleService.uploadOrderTypeImage(file).subscribe({
+      next: (res) => {
+        settings.imageUrl = res.url;
+      },
+      error: (err) => {
+        console.error('Error uploading order type image:', err);
+        alert('خطا در آپلود تصویر');
+      }
+    });
+  }
+
+  removeImage() {
+    const settings = this.currentSettings;
+    if (settings) {
+      settings.imageUrl = '';
+    }
   }
 }

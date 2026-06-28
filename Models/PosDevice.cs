@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using KioskCenter.Services;
 
 namespace KioskCenter.Models
 {
@@ -7,7 +8,7 @@ namespace KioskCenter.Models
         [Key]
         public int Id { get; set; }
         public string Name { get; set; } = ""; // مثلاً "پارسیان", "پرداخت نوین"
-        public string Type { get; set; } = ""; // "Parsian" یا "PardakhtNovin"
+        public PosType Type { get; set; }  // "Parsian" یا "PardakhtNovin"
         public string IpAddress { get; set; } = "";
         public int Port { get; set; } = 1362;
         public bool IsActive { get; set; } = true;

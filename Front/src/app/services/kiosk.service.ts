@@ -178,7 +178,7 @@ export class KioskService {
     });
   }
 
-  createFullOrder(): Observable<any> {
+  createFullOrder(paymentMethodId?: number | null): Observable<any> {
     const current = this.state.value;
     const orderData: CreateOrderDto = {
       orderType: current.orderType,
@@ -189,7 +189,8 @@ export class KioskService {
         price: item.price
       })),
       totalAmount: this.getTotal(),
-      paymentMethod: ''
+      paymentMethod: '',
+      paymentMethodId: paymentMethodId ?? null
     };
     return this.createOrder(orderData);
   }

@@ -122,7 +122,7 @@
     </div>
 
     <div class="footer-logo">
-      <img src="assets/logo.png" alt="Aghaveh Center" class="logo-image">
+      <img [src]="getLogoUrl()" alt="Aghaveh Center" class="logo-image" (error)="onLogoError($event)">
     </div>
   </div>
 </div>

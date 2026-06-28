@@ -19,7 +19,7 @@
       <div class="form-group">
         <label>لوگو:</label>
         <div class="logo-section">
-          <img [src]="style.logoUrl" class="logo-preview" (error)="style.logoUrl='/images/logo.png'">
+          <img [src]="previewUrl || getAssetUrl(style.logoUrl)" class="logo-preview" (error)="style.logoUrl='/images/logo.png'">
           <input type="file" (change)="onFileSelected($event)" accept="image/*">
           <button class="btn-upload" (click)="uploadLogo()" [disabled]="!selectedFile">آپلود لوگو</button>
         </div>
@@ -28,6 +28,7 @@
       <div class="form-group">
         <label>تصویر بک‌گراند:</label>
         <div class="logo-section">
+          <img *ngIf="style.backgroundImage" [src]="getAssetUrl(style.backgroundImage)" class="logo-preview">
           <input type="file" (change)="onBackgroundSelected($event)" accept="image/*">
           <button class="btn-upload" (click)="uploadBackground()" [disabled]="!selectedBackgroundFile">آپلود بک‌گراند</button>
           <button *ngIf="style.backgroundImage" class="btn-remove" (click)="removeBackground()">❌ حذف</button>

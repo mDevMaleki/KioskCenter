@@ -5,6 +5,7 @@ interface OrderTypeSetting {
   name: string;
   persianName: string;
   icon: string;
+  imageUrl?: string;
   active: boolean;
   priceFactor: number;
   visibleCategoryIds: string[];

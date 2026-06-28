@@ -9,6 +9,9 @@ public class LicenseManager
 
     private readonly LicenseValidator _validator;
 
+    public bool IsLicensed { get; private set; }
+    public string StatusMessage { get; private set; } = "License not checked yet.";
+
     public LicenseManager(LicenseValidator validator)
     {
         _validator = validator;
@@ -65,6 +68,8 @@ public class LicenseManager
         if (!result.IsValid)
         {
             Console.WriteLine(result.Message);
+            IsLicensed = false;
+            StatusMessage = result.Message;
             return false;
         }
 
@@ -77,10 +82,14 @@ public class LicenseManager
         if (!ok)
         {
             Console.WriteLine("License revoked by server");
+            IsLicensed = false;
+            StatusMessage = "لایسنس توسط سرور غیرفعال شده است.";
             return false;
         }
 
         Console.WriteLine("License OK ✅");
+        IsLicensed = true;
+        StatusMessage = "License OK";
         return true;
     }
 

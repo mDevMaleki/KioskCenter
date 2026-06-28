@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace KioskCenter.Models
 {
@@ -15,5 +17,12 @@ namespace KioskCenter.Models
         public bool RequiresPosDevice { get; set; } = false; // آیا به دستگاه POS نیاز دارد
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime? UpdatedAt { get; set; }
+
+        // صندوق/بانکی که با این روش پرداخت در سند حسابداری بدهکار می‌شود
+        public int? CashAccountId { get; set; }
+
+        [ForeignKey("CashAccountId")]
+        [JsonIgnore]
+        public virtual CashAccount? CashAccount { get; set; }
     }
 }

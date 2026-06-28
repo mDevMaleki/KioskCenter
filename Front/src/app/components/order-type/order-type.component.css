@@ -20,7 +20,7 @@
 }
 
 .card {
-  width: 300px;
+  max-width: 300px;
   background: var(--order-type-card-bg, #0084fb);
   border-radius: var(--card-radius, 20px);
   padding: 15px;

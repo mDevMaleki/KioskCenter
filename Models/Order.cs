@@ -27,6 +27,12 @@ namespace KioskCenter.Models
         public string? CustomerName { get; set; } // مانند "یعقوب پر"
         public int? TableNumber { get; set; }
 
+        // روش پرداخت انتخاب شده برای این سفارش
+        public int? PaymentMethodId { get; set; }
+
+        [ForeignKey("PaymentMethodId")]
+        public virtual PaymentMethod? PaymentMethod { get; set; }
+
         // رابطه یک به چند با آیتم‌های سفارش
         public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
     }

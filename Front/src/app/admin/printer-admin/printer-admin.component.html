@@ -49,7 +49,9 @@
   </div>
 
   <!-- لیست پرینترها -->
-  <table class="printers-table">
+  <h3>لیست پرینترها <button class="print-btn" (click)="printSection('پرینترها')">🖨️ چاپ</button></h3>
+  <input type="text" [(ngModel)]="searchPrinter" placeholder="جستجوی پرینتر..." class="search-input" />
+  <table class="printers-table" #printArea>
     <thead>
       <tr>
         <th>نام</th>
@@ -61,7 +63,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let printer of printers">
+      <tr *ngFor="let printer of filteredPrinters">
         <td>{{printer.name}}</td>
         <td>{{printer.printerName}}</td>
         <td>{{printer.printerType === 'Receipt' ? 'فیش' : printer.printerType === 'Kitchen' ? 'آشپزخانه' : 'برچسب'}}</td>

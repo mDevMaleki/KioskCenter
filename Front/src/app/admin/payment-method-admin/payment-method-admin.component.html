@@ -52,6 +52,15 @@
         </label>
       </div>
 
+      <div class="form-group">
+        <label>صندوق/بانک مرتبط:</label>
+        <select [(ngModel)]="editingMethod.cashAccountId">
+          <option [ngValue]="null">— انتخاب نشده —</option>
+          <option *ngFor="let acc of cashAccounts" [ngValue]="acc.id">{{acc.name}}</option>
+        </select>
+        <small class="help-text">با ثبت سفارش با این روش پرداخت، مبلغ سفارش به این صندوق/بانک واریز می‌شود</small>
+      </div>
+
       <div class="form-actions">
         <button class="btn-save" (click)="saveMethod()">💾 ذخیره</button>
         <button class="btn-cancel" (click)="cancelForm()">❌ انصراف</button>
@@ -61,6 +70,7 @@
 
   <!-- لیست روش‌های پرداخت -->
   <div class="methods-list">
+    <h3>لیست روش‌های پرداخت <button class="print-btn" (click)="printSection('روش‌های پرداخت')">🖨️ چاپ</button></h3>
     <div class="list-header">
       <div class="col-icon">آیکون</div>
       <div class="col-title">عنوان</div>
@@ -68,16 +78,20 @@
       <div class="col-desc">توضیحات</div>
       <div class="col-sort">ترتیب</div>
       <div class="col-pos">نیاز به POS</div>
+      <div class="col-cash">صندوق/بانک</div>
       <div class="col-status">وضعیت</div>
       <div class="col-actions">عملیات</div>
     </div>
+
+    <input type="text" [(ngModel)]="searchPayment" placeholder="جستجوی روش پرداخت..." class="search-input" />
 
     <div class="loading-state" *ngIf="isLoading">
       <div class="spinner"></div>
       <p>در حال بارگذاری...</p>
     </div>
 
-    <div class="method-item" *ngFor="let method of paymentMethods">
+    <div #printArea>
+    <div class="method-item" *ngFor="let method of filteredPaymentMethods">
       <div class="col-icon">
         <span class="method-icon">{{method.icon}}</span>
       </div>
@@ -98,6 +112,9 @@
           {{method.requiresPosDevice ? '✅ نیاز دارد' : '❌ نیاز ندارد'}}
         </span>
       </div>
+      <div class="col-cash">
+        <span>{{cashAccountName(method.cashAccountId)}}</span>
+      </div>
       <div class="col-status">
         <button class="status-toggle" 
                 [class.active]="method.isActive" 
@@ -116,6 +133,7 @@
       <div class="empty-icon">💳</div>
       <p>هیچ روش پرداختی یافت نشد</p>
       <button class="btn-add-empty" (click)="addMethod()">➕ افزودن روش جدید</button>
+    </div>
     </div>
   </div>
 

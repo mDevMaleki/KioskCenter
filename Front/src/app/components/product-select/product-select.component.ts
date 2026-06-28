@@ -234,4 +234,13 @@ updateQuantity(productId: number, delta: number): void {
   getTextColor(): string {
     return this.currentStyle?.textColor || '#ffffff';
   }
+
+  getLogoUrl(): string {
+    const url = this.currentStyle?.logoUrl;
+    return url ? this.styleService.resolveAssetUrl(url) : 'assets/logo.png';
+  }
+
+  onLogoError(event: Event): void {
+    (event.target as HTMLImageElement).src = 'assets/logo.png';
+  }
 }

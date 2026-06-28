@@ -1,0 +1,602 @@
+<div class="ps-container">
+
+  <!-- ===================== طرف‌های حساب ===================== -->
+  <div *ngIf="activeSection === 'parties'">
+
+    <div class="ps-box">
+      <h2>{{ editingPartyId ? 'ویرایش طرف حساب' : 'افزودن طرف حساب جدید' }}</h2>
+
+      <div class="ps-row">
+        <input type="text" [(ngModel)]="partyForm.name" placeholder="نام طرف حساب" />
+        <select [(ngModel)]="partyForm.type">
+          <option [ngValue]="PartyType.Both">تامین‌کننده و مشتری</option>
+          <option [ngValue]="PartyType.Supplier">تامین‌کننده</option>
+          <option [ngValue]="PartyType.Customer">مشتری</option>
+        </select>
+        <input type="text" [(ngModel)]="partyForm.phone" placeholder="تلفن (اختیاری)" />
+      </div>
+      <div class="ps-row">
+        <input type="text" [(ngModel)]="partyForm.address" placeholder="آدرس (اختیاری)" />
+      </div>
+
+      <div class="error-message" *ngIf="partyError">{{ partyError }}</div>
+
+      <div class="form-buttons">
+        <button (click)="saveParty()">{{ editingPartyId ? 'ذخیره تغییرات' : 'افزودن' }}</button>
+        <button class="cancel-btn" *ngIf="editingPartyId" (click)="cancelEditParty()">انصراف</button>
+      </div>
+    </div>
+
+    <div class="ps-box">
+      <h2>لیست طرف‌های حساب <button class="print-btn" (click)="printSection('طرف‌های حساب')">🖨️ چاپ</button></h2>
+      <input class="search-input" type="text" [(ngModel)]="searchParty" placeholder="جستجو در طرف‌های حساب..." />
+      <div class="material-list" #printArea>
+        <div class="material-card" *ngFor="let p of filteredParties" [class.selected]="selectedPartyId === p.id">
+          <div class="info" (click)="selectParty(p.id)">
+            <div class="name">{{ p.name }}</div>
+            <div class="meta">
+              <span>{{ partyTypeLabel(p.type) }}</span>
+              <span *ngIf="p.phone">{{ p.phone }}</span>
+              <span [class.warn]="p.balance < 0" [class.positive]="p.balance > 0">
+                مانده: {{ p.balance | number }} تومان
+                <ng-container *ngIf="p.balance > 0">(بدهکار به ما)</ng-container>
+                <ng-container *ngIf="p.balance < 0">(بستانکار از ما)</ng-container>
+              </span>
+            </div>
+          </div>
+          <div class="buttons">
+            <button (click)="selectParty(p.id)">دفتر حساب</button>
+            <button (click)="editParty(p)">ویرایش</button>
+            <button class="cancel-btn" (click)="deleteParty(p.id)">حذف</button>
+          </div>
+        </div>
+        <div class="empty" *ngIf="filteredParties.length === 0">موردی یافت نشد</div>
+      </div>
+    </div>
+
+    <div class="ps-box" *ngIf="selectedPartyId">
+      <h2>دفتر حساب: {{ selectedPartyName }}</h2>
+      <div class="balance-line">
+        مانده فعلی:
+        <strong [class.warn]="partyLedgerBalance < 0" [class.positive]="partyLedgerBalance > 0">
+          {{ partyLedgerBalance | number }} تومان
+          <ng-container *ngIf="partyLedgerBalance > 0">(بدهکار به ما)</ng-container>
+          <ng-container *ngIf="partyLedgerBalance < 0">(بستانکار از ما)</ng-container>
+          <ng-container *ngIf="partyLedgerBalance === 0">(تسویه)</ng-container>
+        </strong>
+      </div>
+
+      <div class="ps-row">
+        <input type="number" [(ngModel)]="cashForm.amount" placeholder="مقدار (تومان)" />
+        <input type="text" [(ngModel)]="cashForm.description" placeholder="توضیحات" />
+        <select [(ngModel)]="cashForm.cashAccountId">
+          <option [ngValue]="0">انتخاب صندوق/بانک</option>
+          <option *ngFor="let c of cashAccounts" [ngValue]="c.id">{{ c.name }}</option>
+        </select>
+      </div>
+
+      <div class="error-message" *ngIf="cashError">{{ cashError }}</div>
+
+      <div class="form-buttons">
+        <button (click)="submitPayment()">ثبت پرداخت (ما به طرف حساب)</button>
+        <button (click)="submitReceipt()">ثبت دریافت (از طرف حساب)</button>
+      </div>
+
+      <div class="tx-table">
+        <div class="tx-row tx-row-5 tx-header">
+          <span>تاریخ</span>
+          <span>نوع</span>
+          <span>مقدار</span>
+          <span>مانده پس از تراکنش</span>
+          <span>توضیحات</span>
+        </div>
+        <div class="tx-row tx-row-5" *ngFor="let t of partyLedger">
+          <span>{{ t.createdAt | date:'yyyy/MM/dd HH:mm' }}</span>
+          <span>{{ partyTransactionTypeLabel(t.type) }}</span>
+          <span [class.warn]="t.amount < 0" [class.positive]="t.amount > 0">{{ t.amount | number }}</span>
+          <span>{{ t.balanceAfter | number }}</span>
+          <span>{{ t.description || '-' }}</span>
+        </div>
+        <div class="empty" *ngIf="partyLedger.length === 0">تراکنشی ثبت نشده است</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===================== واحدها ===================== -->
+  <div *ngIf="activeSection === 'units'">
+
+    <div class="ps-box">
+      <h2>{{ editingUnitId ? 'ویرایش واحد' : 'افزودن واحد جدید' }}</h2>
+
+      <div class="ps-row">
+        <input type="text" [(ngModel)]="unitForm.name" placeholder="نام واحد (مثلاً کیلوگرم)" />
+        <select [(ngModel)]="unitForm.baseUnitId">
+          <option [ngValue]="null">واحد پایه (مستقل)</option>
+          <option *ngFor="let u of baseUnits" [ngValue]="u.id">زیرمجموعه «{{ u.name }}»</option>
+        </select>
+        <input type="number" [(ngModel)]="unitForm.conversionFactor" placeholder="ضریب تبدیل به واحد پایه" *ngIf="unitForm.baseUnitId" />
+      </div>
+
+      <div class="error-message" *ngIf="unitError">{{ unitError }}</div>
+
+      <div class="form-buttons">
+        <button (click)="saveUnit()">{{ editingUnitId ? 'ذخیره تغییرات' : 'افزودن' }}</button>
+        <button class="cancel-btn" *ngIf="editingUnitId" (click)="cancelEditUnit()">انصراف</button>
+      </div>
+    </div>
+
+    <div class="ps-box">
+      <h2>لیست واحدها <button class="print-btn" (click)="printSection('واحدها')">🖨️ چاپ</button></h2>
+      <input class="search-input" type="text" [(ngModel)]="searchUnit" placeholder="جستجو در واحدها..." />
+      <div class="material-list" #printArea>
+        <div class="material-card" *ngFor="let u of filteredUnits">
+          <div class="info">
+            <div class="name">{{ u.name }}</div>
+            <div class="meta">
+              <span *ngIf="u.baseUnitId">۱ {{ u.name }} = {{ u.conversionFactor }} {{ u.baseUnitName }}</span>
+              <span *ngIf="!u.baseUnitId">واحد پایه</span>
+            </div>
+          </div>
+          <div class="buttons">
+            <button (click)="editUnit(u)">ویرایش</button>
+            <button class="cancel-btn" (click)="deleteUnit(u.id)">حذف</button>
+          </div>
+        </div>
+        <div class="empty" *ngIf="filteredUnits.length === 0">موردی یافت نشد</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===================== مواد اولیه ===================== -->
+  <div *ngIf="activeSection === 'materials'">
+
+    <div class="ps-box">
+      <h2>{{ editingMaterialId ? 'ویرایش ماده اولیه' : 'افزودن ماده اولیه جدید' }}</h2>
+
+      <div class="ps-row">
+        <input type="text" [(ngModel)]="materialForm.name" placeholder="نام ماده اولیه (مثلاً دون قهوه)" />
+        <select [(ngModel)]="materialForm.unitId">
+          <option [ngValue]="0">انتخاب واحد ذخیره (پایه)</option>
+          <option *ngFor="let u of baseUnitOptions" [ngValue]="u.id">{{ u.name }}</option>
+        </select>
+        <input type="number" [(ngModel)]="materialForm.minStockLevel" placeholder="حد آستانه هشدار" />
+      </div>
+
+      <div class="error-message" *ngIf="materialError">{{ materialError }}</div>
+
+      <div class="form-buttons">
+        <button (click)="saveMaterial()">{{ editingMaterialId ? 'ذخیره تغییرات' : 'افزودن' }}</button>
+        <button class="cancel-btn" *ngIf="editingMaterialId" (click)="cancelEditMaterial()">انصراف</button>
+      </div>
+    </div>
+
+    <div class="ps-box">
+      <h2>لیست مواد اولیه <button class="print-btn" (click)="printSection('مواد اولیه')">🖨️ چاپ</button></h2>
+      <input class="search-input" type="text" [(ngModel)]="searchMaterial" placeholder="جستجو در مواد اولیه..." />
+      <div class="material-list" #printArea>
+        <div class="material-card" *ngFor="let m of filteredMaterials" [class.low-stock]="m.stockQuantity <= m.minStockLevel">
+          <div class="info">
+            <div class="name">{{ m.name }}</div>
+            <div class="meta">
+              <span>موجودی: {{ m.stockQuantity }} {{ m.unitName }}</span>
+              <span>حد آستانه: {{ m.minStockLevel }} {{ m.unitName }}</span>
+              <span *ngIf="m.stockQuantity <= m.minStockLevel" class="warn">موجودی کم!</span>
+            </div>
+          </div>
+          <div class="buttons">
+            <button (click)="editMaterial(m)">ویرایش</button>
+            <button class="cancel-btn" (click)="deleteMaterial(m.id)">حذف</button>
+          </div>
+        </div>
+        <div class="empty" *ngIf="filteredMaterials.length === 0">موردی یافت نشد</div>
+      </div>
+    </div>
+
+    <div class="ps-box">
+      <h2>ثبت خروج / مصرف دستی</h2>
+      <div class="ps-row">
+        <select [(ngModel)]="consumeForm.rawMaterialId">
+          <option [ngValue]="0">انتخاب ماده اولیه</option>
+          <option *ngFor="let m of materials" [ngValue]="m.id">{{ m.name }} ({{ m.unitName }})</option>
+        </select>
+        <input type="number" [(ngModel)]="consumeForm.quantity" placeholder="مقدار (بر اساس واحد پایه)" />
+        <input type="text" [(ngModel)]="consumeForm.note" placeholder="توضیحات" />
+      </div>
+
+      <div class="error-message" *ngIf="consumeError">{{ consumeError }}</div>
+
+      <div class="form-buttons">
+        <button (click)="submitConsume()">ثبت خروج</button>
+      </div>
+    </div>
+
+    <div class="ps-box">
+      <h2>تاریخچه تراکنش‌های مواد اولیه <button class="print-btn" (click)="printSection2('تراکنش‌های مواد اولیه')">🖨️ چاپ</button></h2>
+      <div class="tx-table" #printArea2>
+        <div class="tx-row tx-row-7 tx-header">
+          <span>تاریخ</span>
+          <span>ماده اولیه</span>
+          <span>نوع</span>
+          <span>مقدار</span>
+          <span>موجودی بعد</span>
+          <span>قیمت کل</span>
+          <span>طرف حساب</span>
+        </div>
+        <div class="tx-row tx-row-7" *ngFor="let t of materialTransactions">
+          <span>{{ t.createdAt | date:'yyyy/MM/dd HH:mm' }}</span>
+          <span>{{ t.rawMaterialName }}</span>
+          <span>{{ materialTransactionTypeLabel(t.type) }}</span>
+          <span>{{ t.quantity }} {{ t.unit }}</span>
+          <span>{{ t.stockAfter }} {{ t.unit }}</span>
+          <span>{{ t.totalPrice ? (t.totalPrice + ' تومان') : '-' }}</span>
+          <span>{{ t.partyName || '-' }}</span>
+        </div>
+        <div class="empty" *ngIf="materialTransactions.length === 0">تراکنشی ثبت نشده است</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===================== فاکتور خرید ===================== -->
+  <div *ngIf="activeSection === 'purchaseInvoices'">
+
+    <div class="ps-box">
+      <h2>ثبت فاکتور خرید جدید</h2>
+
+      <div class="ps-row">
+        <div class="material-select-wrap">
+          <select [(ngModel)]="purchaseForm.partyId">
+            <option [ngValue]="0">انتخاب طرف حساب (تامین‌کننده)</option>
+            <option *ngFor="let p of parties" [ngValue]="p.id">{{ p.name }}</option>
+          </select>
+          <button class="quick-add-btn" type="button" (click)="openQuickAddParty()" title="افزودن طرف حساب جدید">+ جدید</button>
+        </div>
+        <input type="text" [(ngModel)]="purchaseForm.note" placeholder="توضیحات فاکتور (اختیاری)" />
+        <input type="number" [(ngModel)]="purchaseForm.vatRate" placeholder="درصد مالیات بر ارزش افزوده" style="width:160px" />
+      </div>
+
+      <div class="ps-row purchase-item-row">
+        <div class="material-select-wrap">
+          <select [(ngModel)]="newPurchaseItem.rawMaterialId" (ngModelChange)="onPurchaseMaterialChange()">
+            <option [ngValue]="0">انتخاب ماده اولیه</option>
+            <option *ngFor="let m of materials" [ngValue]="m.id">{{ m.name }}</option>
+          </select>
+          <button class="quick-add-btn" type="button" (click)="openQuickAddMaterial()" title="افزودن ماده اولیه جدید">+ جدید</button>
+        </div>
+        <select [(ngModel)]="newPurchaseItem.unitId">
+          <option [ngValue]="0">واحد</option>
+          <option *ngFor="let u of unitsForMaterial(newPurchaseItem.rawMaterialId)" [ngValue]="u.id">{{ u.name }}</option>
+        </select>
+        <input type="number" [(ngModel)]="newPurchaseItem.quantity" placeholder="مقدار" />
+        <input type="number" [(ngModel)]="newPurchaseItem.unitPrice" placeholder="قیمت واحد (تومان)" />
+        <button (click)="addPurchaseItem()">افزودن قلم</button>
+      </div>
+
+
+      <div class="error-message" *ngIf="purchaseError">{{ purchaseError }}</div>
+
+      <div class="recipe-list" *ngIf="purchaseItems.length > 0">
+        <div class="recipe-row invoice-row invoice-header">
+          <span>ماده اولیه</span>
+          <span>واحد</span>
+          <span>مقدار</span>
+          <span>قیمت واحد</span>
+          <span>قیمت کل</span>
+          <span></span>
+        </div>
+        <div class="recipe-row invoice-row" *ngFor="let item of purchaseItems; let i = index">
+          <span>{{ purchaseItemMaterialName(item.rawMaterialId) }}</span>
+          <span>{{ purchaseItemUnitName(item.unitId) }}</span>
+          <span>{{ item.quantity }}</span>
+          <span>{{ item.unitPrice | number }}</span>
+          <span>{{ (item.quantity * item.unitPrice) | number }}</span>
+          <button class="cancel-btn" (click)="removePurchaseItem(i)">حذف</button>
+        </div>
+        <div class="invoice-total">جمع جزء: {{ purchaseTotal | number }} تومان</div>
+        <div class="invoice-total" *ngIf="purchaseForm.vatRate">مالیات بر ارزش افزوده ({{ purchaseForm.vatRate }}%): {{ purchaseVatAmount | number }} تومان</div>
+        <div class="invoice-total">جمع کل فاکتور: {{ purchaseGrandTotal | number }} تومان</div>
+      </div>
+
+      <div class="form-buttons">
+        <button (click)="submitPurchaseInvoice()">ثبت فاکتور خرید</button>
+      </div>
+    </div>
+
+    <div class="ps-box">
+      <h2>لیست فاکتورهای خرید <button class="print-btn" (click)="printSection('فاکتورهای خرید')">🖨️ چاپ همه</button></h2>
+      <input class="search-input" type="text" [(ngModel)]="searchPurchaseInvoice" placeholder="جستجو بر اساس تامین‌کننده یا تاریخ..." />
+      <div class="tx-table" #printArea>
+        <div class="tx-row tx-row-4 tx-header">
+          <span>تاریخ</span>
+          <span>تامین‌کننده</span>
+          <span>جمع کل</span>
+          <span></span>
+        </div>
+        <div class="tx-row tx-row-4" *ngFor="let inv of filteredPurchaseInvoices">
+          <span>{{ inv.createdAt | date:'yyyy/MM/dd HH:mm' }}</span>
+          <span>{{ inv.partyName }}</span>
+          <span>{{ inv.totalAmount | number }} تومان</span>
+          <span class="buttons">
+            <button (click)="viewPurchaseInvoice(inv.id)">جزئیات</button>
+            <button (click)="printPurchaseInvoice(inv.id)">چاپ</button>
+          </span>
+        </div>
+        <div class="empty" *ngIf="filteredPurchaseInvoices.length === 0">موردی یافت نشد</div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" *ngIf="purchaseInvoiceDetail" (click)="closePurchaseInvoiceDetail()">
+      <div class="modal-box" (click)="$event.stopPropagation()">
+        <h2>فاکتور خرید #{{ purchaseInvoiceDetail.id }}</h2>
+        <div class="meta">
+          <span>تامین‌کننده: {{ purchaseInvoiceDetail.partyName }}</span>
+          <span>تاریخ: {{ purchaseInvoiceDetail.createdAt | date:'yyyy/MM/dd HH:mm' }}</span>
+        </div>
+        <div class="recipe-list">
+          <div class="recipe-row invoice-row invoice-header">
+            <span>ماده اولیه</span>
+            <span>واحد</span>
+            <span>مقدار</span>
+            <span>قیمت واحد</span>
+            <span>قیمت کل</span>
+          </div>
+          <div class="recipe-row invoice-row" *ngFor="let item of purchaseInvoiceDetail.items">
+            <span>{{ item.rawMaterialName }}</span>
+            <span>{{ item.unitName }}</span>
+            <span>{{ item.quantity }}</span>
+            <span>{{ item.unitPrice | number }}</span>
+            <span>{{ item.totalPrice | number }}</span>
+          </div>
+        </div>
+        <div class="invoice-total">جمع کل: {{ purchaseInvoiceDetail.totalAmount | number }} تومان</div>
+        <div class="form-buttons">
+          <button (click)="printPurchaseInvoice(purchaseInvoiceDetail.id)">چاپ</button>
+          <button class="cancel-btn" (click)="closePurchaseInvoiceDetail()">بستن</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===================== محصولات (فرمول) ===================== -->
+  <div *ngIf="activeSection === 'products'">
+
+    <div class="ps-box">
+      <h2>فرمول (رسپی) محصول</h2>
+
+      <div class="ps-row">
+        <input class="search-input" style="flex:1" type="text" [(ngModel)]="searchProduct" placeholder="جستجوی محصول..." />
+        <select [(ngModel)]="selectedProductId" (ngModelChange)="onProductSelect()">
+          <option [ngValue]="null">انتخاب محصول</option>
+          <option *ngFor="let p of filteredProducts" [ngValue]="p.id">{{ p.name }}</option>
+        </select>
+      </div>
+
+      <div *ngIf="selectedProductId">
+        <div class="recipe-list">
+          <div class="recipe-row recipe-header">
+            <span>ماده اولیه</span>
+            <span>مقدار مصرفی برای ۱ واحد</span>
+            <span></span>
+          </div>
+          <div class="recipe-row" *ngFor="let item of recipeItems; let i = index">
+            <span>{{ item.rawMaterialName }}</span>
+            <span>{{ item.quantity }} {{ item.unit }}</span>
+            <button class="cancel-btn" (click)="removeRecipeItem(i)">حذف</button>
+          </div>
+          <div class="empty" *ngIf="recipeItems.length === 0">فرمولی برای این محصول تعریف نشده است</div>
+        </div>
+
+        <div class="ps-row">
+          <select [(ngModel)]="newRecipeItem.rawMaterialId">
+            <option [ngValue]="0">انتخاب ماده اولیه</option>
+            <option *ngFor="let m of materials" [ngValue]="m.id">{{ m.name }} ({{ m.unitName }})</option>
+          </select>
+          <input type="number" [(ngModel)]="newRecipeItem.quantity" placeholder="مقدار مصرفی" />
+          <button (click)="addRecipeItem()">افزودن به فرمول</button>
+        </div>
+
+        <div class="error-message" *ngIf="recipeError">{{ recipeError }}</div>
+
+        <div class="form-buttons">
+          <button (click)="saveRecipe()">ذخیره فرمول</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===================== فاکتور فروش ===================== -->
+  <div *ngIf="activeSection === 'saleInvoices'">
+
+    <div class="ps-box">
+      <h2>ثبت فاکتور فروش جدید</h2>
+
+      <div class="ps-row">
+        <div class="material-select-wrap">
+          <select [(ngModel)]="saleForm.partyId">
+            <option [ngValue]="0">انتخاب طرف حساب (مشتری)</option>
+            <option *ngFor="let p of parties" [ngValue]="p.id">{{ p.name }}</option>
+          </select>
+          <button class="quick-add-btn" type="button" (click)="openQuickAddParty('sale')" title="افزودن طرف حساب جدید">+ جدید</button>
+        </div>
+        <input type="text" [(ngModel)]="saleForm.note" placeholder="توضیحات فاکتور (اختیاری)" />
+        <input type="number" [(ngModel)]="saleForm.vatRate" placeholder="درصد مالیات بر ارزش افزوده" style="width:160px" />
+      </div>
+
+      <div class="ps-row purchase-item-row">
+        <div class="material-select-wrap">
+          <select [(ngModel)]="newSaleItem.productId">
+            <option [ngValue]="0">انتخاب محصول</option>
+            <option *ngFor="let p of products" [ngValue]="p.id">{{ p.name }}</option>
+          </select>
+          <button class="quick-add-btn" type="button" (click)="openQuickAddProduct()" title="افزودن محصول جدید">+ جدید</button>
+        </div>
+        <input type="number" [(ngModel)]="newSaleItem.quantity" placeholder="تعداد" />
+        <input type="number" [(ngModel)]="newSaleItem.unitPrice" placeholder="قیمت واحد (تومان)" />
+        <button (click)="addSaleItem()">افزودن قلم</button>
+      </div>
+
+      <div class="error-message" *ngIf="saleError">{{ saleError }}</div>
+
+      <div class="recipe-list" *ngIf="saleItems.length > 0">
+        <div class="recipe-row invoice-row-4 invoice-header">
+          <span>محصول</span>
+          <span>تعداد</span>
+          <span>قیمت واحد</span>
+          <span>قیمت کل</span>
+          <span></span>
+        </div>
+        <div class="recipe-row invoice-row-4" *ngFor="let item of saleItems; let i = index">
+          <span>{{ saleItemProductName(item.productId) }}</span>
+          <span>{{ item.quantity }}</span>
+          <span>{{ item.unitPrice | number }}</span>
+          <span>{{ (item.quantity * item.unitPrice) | number }}</span>
+          <button class="cancel-btn" (click)="removeSaleItem(i)">حذف</button>
+        </div>
+        <div class="invoice-total">جمع جزء: {{ saleTotal | number }} تومان</div>
+        <div class="invoice-total" *ngIf="saleForm.vatRate">مالیات بر ارزش افزوده ({{ saleForm.vatRate }}%): {{ saleVatAmount | number }} تومان</div>
+        <div class="invoice-total">جمع کل فاکتور: {{ saleGrandTotal | number }} تومان</div>
+      </div>
+
+      <div class="form-buttons">
+        <button (click)="submitSaleInvoice()">ثبت فاکتور فروش</button>
+      </div>
+    </div>
+
+    <div class="ps-box">
+      <h2>لیست فاکتورهای فروش <button class="print-btn" (click)="printSection('فاکتورهای فروش')">🖨️ چاپ همه</button></h2>
+      <input class="search-input" type="text" [(ngModel)]="searchSaleInvoice" placeholder="جستجو بر اساس مشتری یا تاریخ..." />
+      <div class="tx-table" #printArea>
+        <div class="tx-row tx-row-4 tx-header">
+          <span>تاریخ</span>
+          <span>مشتری</span>
+          <span>جمع کل</span>
+          <span></span>
+        </div>
+        <div class="tx-row tx-row-4" *ngFor="let inv of filteredSaleInvoices">
+          <span>{{ inv.createdAt | date:'yyyy/MM/dd HH:mm' }}</span>
+          <span>{{ inv.partyName }}</span>
+          <span>{{ inv.totalAmount | number }} تومان</span>
+          <span class="buttons">
+            <button (click)="viewSaleInvoice(inv.id)">جزئیات</button>
+            <button (click)="printSaleInvoice(inv.id)">چاپ</button>
+          </span>
+        </div>
+        <div class="empty" *ngIf="filteredSaleInvoices.length === 0">موردی یافت نشد</div>
+      </div>
+    </div>
+
+    <div class="modal-overlay" *ngIf="saleInvoiceDetail" (click)="closeSaleInvoiceDetail()">
+      <div class="modal-box" (click)="$event.stopPropagation()">
+        <h2>فاکتور فروش #{{ saleInvoiceDetail.id }}</h2>
+        <div class="meta">
+          <span>مشتری: {{ saleInvoiceDetail.partyName }}</span>
+          <span>تاریخ: {{ saleInvoiceDetail.createdAt | date:'yyyy/MM/dd HH:mm' }}</span>
+        </div>
+        <div class="recipe-list">
+          <div class="recipe-row invoice-row-4 invoice-header">
+            <span>محصول</span>
+            <span>تعداد</span>
+            <span>قیمت واحد</span>
+            <span>قیمت کل</span>
+          </div>
+          <div class="recipe-row invoice-row-4" *ngFor="let item of saleInvoiceDetail.items">
+            <span>{{ item.productName }}</span>
+            <span>{{ item.quantity }}</span>
+            <span>{{ item.unitPrice | number }}</span>
+            <span>{{ item.totalPrice | number }}</span>
+          </div>
+        </div>
+        <div class="invoice-total">جمع کل: {{ saleInvoiceDetail.totalAmount | number }} تومان</div>
+        <div class="form-buttons">
+          <button (click)="printSaleInvoice(saleInvoiceDetail.id)">چاپ</button>
+          <button class="cancel-btn" (click)="closeSaleInvoiceDetail()">بستن</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <app-invoice-print></app-invoice-print>
+
+  <!-- ===================== پنل‌های سریع (خارج از همه section ها) ===================== -->
+
+  <!-- پنل طرف حساب -->
+  <div class="quick-add-overlay" *ngIf="showQuickAddParty" (click)="closeQuickAddParty()"></div>
+  <div class="quick-add-panel" [class.open]="showQuickAddParty">
+    <div class="quick-add-header">
+      <span>افزودن طرف حساب جدید</span>
+      <button class="close-btn" type="button" (click)="closeQuickAddParty()">✕</button>
+    </div>
+    <div class="quick-add-body">
+      <input id="quickAddPartyName" type="text" [(ngModel)]="quickAddPartyForm.name" placeholder="نام طرف حساب" />
+      <select [(ngModel)]="quickAddPartyForm.type">
+        <option [ngValue]="PartyType.Both">تامین‌کننده و مشتری</option>
+        <option [ngValue]="PartyType.Supplier">تامین‌کننده</option>
+        <option [ngValue]="PartyType.Customer">مشتری</option>
+      </select>
+      <input type="text" [(ngModel)]="quickAddPartyForm.phone" placeholder="تلفن (اختیاری)" />
+      <input type="text" [(ngModel)]="quickAddPartyForm.address" placeholder="آدرس (اختیاری)" />
+      <div class="error-message" *ngIf="quickAddPartyError">{{ quickAddPartyError }}</div>
+      <div class="quick-add-actions">
+        <button (click)="saveQuickAddParty()" [disabled]="quickAddPartySaving">
+          {{ quickAddPartySaving ? 'در حال ثبت...' : 'ثبت و انتخاب' }}
+        </button>
+        <button class="cancel-btn" type="button" (click)="closeQuickAddParty()">انصراف</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- پنل ماده اولیه -->
+  <div class="quick-add-overlay" *ngIf="showQuickAddMaterial" (click)="closeQuickAddMaterial()"></div>
+  <div class="quick-add-panel" [class.open]="showQuickAddMaterial">
+    <div class="quick-add-header">
+      <span>افزودن ماده اولیه جدید</span>
+      <button class="close-btn" type="button" (click)="closeQuickAddMaterial()">✕</button>
+    </div>
+    <div class="quick-add-body">
+      <input id="quickAddMaterialName" type="text" [(ngModel)]="quickAddForm.name" placeholder="نام ماده اولیه (مثلاً دون قهوه)" />
+      <select [(ngModel)]="quickAddForm.unitId">
+        <option [ngValue]="0">واحد پایه ذخیره‌سازی</option>
+        <option *ngFor="let u of baseUnitOptions" [ngValue]="u.id">{{ u.name }}</option>
+      </select>
+      <input type="number" [(ngModel)]="quickAddForm.minStockLevel" placeholder="حد هشدار موجودی (اختیاری)" />
+      <div class="error-message" *ngIf="quickAddError">{{ quickAddError }}</div>
+      <div class="quick-add-actions">
+        <button (click)="saveQuickAddMaterial()" [disabled]="quickAddSaving">
+          {{ quickAddSaving ? 'در حال ثبت...' : 'ثبت و انتخاب' }}
+        </button>
+        <button class="cancel-btn" type="button" (click)="closeQuickAddMaterial()">انصراف</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- پنل محصول -->
+  <div class="quick-add-overlay" *ngIf="showQuickAddProduct" (click)="closeQuickAddProduct()"></div>
+  <div class="quick-add-panel" [class.open]="showQuickAddProduct">
+    <div class="quick-add-header">
+      <span>افزودن محصول جدید</span>
+      <button class="close-btn" type="button" (click)="closeQuickAddProduct()">✕</button>
+    </div>
+    <div class="quick-add-body">
+      <input id="quickAddProductName" type="text" [(ngModel)]="quickAddProductForm.name" placeholder="نام محصول" />
+      <input type="number" [(ngModel)]="quickAddProductForm.price" placeholder="قیمت (تومان)" />
+      <select [(ngModel)]="quickAddProductForm.categoryId">
+        <option [ngValue]="0">انتخاب دسته‌بندی</option>
+        <option *ngFor="let c of categories" [ngValue]="c.id">{{ c.name }}</option>
+      </select>
+      <input type="text" [(ngModel)]="quickAddProductForm.description" placeholder="توضیحات (اختیاری)" />
+      <div class="error-message" *ngIf="quickAddProductError">{{ quickAddProductError }}</div>
+      <div class="quick-add-actions">
+        <button (click)="saveQuickAddProduct()" [disabled]="quickAddProductSaving">
+          {{ quickAddProductSaving ? 'در حال ثبت...' : 'ثبت و انتخاب' }}
+        </button>
+        <button class="cancel-btn" type="button" (click)="closeQuickAddProduct()">انصراف</button>
+      </div>
+    </div>
+  </div>
+
+</div>

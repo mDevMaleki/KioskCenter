@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { KioskService } from '../../services/kiosk.service';
+import { PrintService } from '../../services/print.service';
 
 @Component({
   selector: 'app-product-admin',
@@ -28,8 +29,24 @@ export class ProductAdminComponent implements OnInit {
   };
 
   editingProductId: number | null = null;
+  searchProduct = '';
+  filterCategoryId = '';
 
-  constructor(private kioskService: KioskService) {}
+  get filteredProducts(): any[] {
+    return this.products.filter(p => {
+      const matchName = !this.searchProduct || p.name.toLowerCase().includes(this.searchProduct.toLowerCase());
+      const matchCat = !this.filterCategoryId || String(p.categoryId) === String(this.filterCategoryId);
+      return matchName && matchCat;
+    });
+  }
+
+  constructor(private kioskService: KioskService, private printService: PrintService) {}
+
+  @ViewChild('printArea') printAreaRef?: ElementRef<HTMLElement>;
+
+  printSection(title: string): void {
+    if (this.printAreaRef) this.printService.print(title, this.printAreaRef.nativeElement);
+  }
 
   ngOnInit(): void {
     this.loadProducts();

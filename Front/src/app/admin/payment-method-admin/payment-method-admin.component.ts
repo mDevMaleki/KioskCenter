@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PaymentMethodService, PaymentMethod } from '../../services/payment-method.service';
+import { CashAccountService, CashAccount } from '../../services/cash-account.service';
+import { PrintService } from '../../services/print.service';
 
 @Component({
   selector: 'app-payment-method-admin',
@@ -12,10 +14,20 @@ import { PaymentMethodService, PaymentMethod } from '../../services/payment-meth
 })
 export class PaymentMethodAdminComponent implements OnInit {
   paymentMethods: PaymentMethod[] = [];
+  cashAccounts: CashAccount[] = [];
   editingMethod: PaymentMethod | null = null;
   showForm = false;
   isEditing = false;
   isLoading = false;
+  searchPayment = '';
+
+  get filteredPaymentMethods(): PaymentMethod[] {
+    const q = this.searchPayment.trim().toLowerCase();
+    return q ? this.paymentMethods.filter(m =>
+      m.name.toLowerCase().includes(q) ||
+      m.title.toLowerCase().includes(q)
+    ) : this.paymentMethods;
+  }
 
   // گزینه‌های آیکون
   iconOptions = [
@@ -28,10 +40,38 @@ export class PaymentMethodAdminComponent implements OnInit {
     { value: '💸', label: '💸 انتقال' }
   ];
 
-  constructor(private paymentMethodService: PaymentMethodService) {}
+  constructor(
+    private paymentMethodService: PaymentMethodService,
+    private cashAccountService: CashAccountService,
+    private printService: PrintService
+  ) {}
+
+  @ViewChild('printArea') printAreaRef?: ElementRef<HTMLElement>;
+
+  printSection(title: string): void {
+    if (this.printAreaRef) this.printService.print(title, this.printAreaRef.nativeElement);
+  }
 
   ngOnInit() {
     this.loadPaymentMethods();
+    this.loadCashAccounts();
+  }
+
+  loadCashAccounts() {
+    this.cashAccountService.getAll(true).subscribe({
+      next: (res) => {
+        this.cashAccounts = res;
+      },
+      error: (err) => {
+        console.error('Error loading cash accounts:', err);
+      }
+    });
+  }
+
+  cashAccountName(id?: number | null): string {
+    if (!id) return '—';
+    const acc = this.cashAccounts.find(a => a.id === id);
+    return acc ? acc.name : '—';
   }
 
   loadPaymentMethods() {
@@ -57,7 +97,8 @@ export class PaymentMethodAdminComponent implements OnInit {
       description: '',
       isActive: true,
       sortOrder: this.paymentMethods.length,
-      requiresPosDevice: false
+      requiresPosDevice: false,
+      cashAccountId: null
       // createdAt و updatedAt حذف شدند
     };
     this.isEditing = false;

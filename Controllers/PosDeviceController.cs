@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using KioskCenter.Authorization;
 using KioskCenter.Interfaces;
 using KioskCenter.Models;
 
@@ -36,6 +38,7 @@ namespace KioskCenter.Controllers
         }
 
         // اضافه کردن دستگاه POS جدید
+        [Authorize, RequirePermission("pos-devices")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] PosDevice device)
         {
@@ -51,6 +54,7 @@ namespace KioskCenter.Controllers
         }
 
         // ویرایش دستگاه POS
+        [Authorize, RequirePermission("pos-devices")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] PosDevice device)
         {
@@ -69,6 +73,7 @@ namespace KioskCenter.Controllers
         }
 
         // حذف دستگاه POS
+        [Authorize, RequirePermission("pos-devices")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

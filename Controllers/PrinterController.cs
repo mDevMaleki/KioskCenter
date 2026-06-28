@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using KioskCenter.Authorization;
 using KioskCenter.Data;
 using KioskCenter.Interfaces;
 using KioskCenter.Models;
@@ -66,6 +68,7 @@ namespace KioskCenter.Controllers
         }
 
         // ایجاد پرینتر جدید
+        [Authorize, RequirePermission("printers")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] PrinterSetting printer)
         {
@@ -83,6 +86,7 @@ namespace KioskCenter.Controllers
         }
 
         // ویرایش پرینتر
+        [Authorize, RequirePermission("printers")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] PrinterSetting printer)
         {
@@ -107,6 +111,7 @@ namespace KioskCenter.Controllers
         }
 
         // حذف پرینتر
+        [Authorize, RequirePermission("printers")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -120,6 +125,7 @@ namespace KioskCenter.Controllers
         }
 
         // تست پرینتر
+        [Authorize, RequirePermission("printers")]
         [HttpPost("test/{id}")]
         public async Task<IActionResult> TestPrinter(int id)
         {
@@ -132,6 +138,7 @@ namespace KioskCenter.Controllers
         }
 
         // دریافت لیست پرینترهای نصب شده در ویندوز
+        [Authorize, RequirePermission("printers")]
         [HttpGet("installed")]
         public IActionResult GetInstalledPrinters()
         {

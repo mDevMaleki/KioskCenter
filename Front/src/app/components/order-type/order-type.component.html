@@ -1,9 +1,10 @@
 <div class="kiosk-container">
   <div class="order-grid">
-    <div class="card" 
+    <div class="card"
          *ngFor="let type of activeOrderTypes"
          (click)="selectOrderType(type.id)">
-      <div class="card-icon">{{type.icon}}</div>
+      <img *ngIf="type.imageUrl" [src]="getOrderTypeImage(type.imageUrl)" class="card-image" [alt]="type.persianName">
+      <div *ngIf="!type.imageUrl" class="card-icon">{{type.icon}}</div>
       <div class="card-title">{{type.persianName}}</div>
     </div>
   </div>
@@ -11,6 +12,6 @@
     🍽️ بازگشت
   </button>
   <div class="footer-logo">
-    <img src="assets/logo.png" alt="Aghadoon Logo" (click)="goToAdmin()">
+    <img [src]="getLogoUrl()" alt="Aghadoon Logo" (click)="goToAdmin()" (error)="onLogoError($event)">
   </div>
 </div>

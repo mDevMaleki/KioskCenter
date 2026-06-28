@@ -11,6 +11,8 @@ export interface PaymentMethod {
   isActive: boolean;
   sortOrder: number;
   requiresPosDevice: boolean;
+  // صندوق/بانکی که با این روش پرداخت بدهکار می‌شود
+  cashAccountId?: number | null;
   // این فیلدها از سرور می‌آیند ولی در زمان ایجاد نیازی به مقداردهی ندارند
   createdAt?: Date;
   updatedAt?: Date;

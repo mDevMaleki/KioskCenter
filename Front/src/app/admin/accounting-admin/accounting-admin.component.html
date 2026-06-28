@@ -1,0 +1,859 @@
+<div class="ps-container">
+
+  <!-- ===================== کدینگ حساب‌ها ===================== -->
+  <div *ngIf="activeSection === 'accounts'">
+
+    <div class="ps-box">
+      <h2>{{ editingAccountId ? 'ویرایش حساب' : 'افزودن حساب جدید' }}</h2>
+
+      <div class="ps-row">
+        <input type="text" [(ngModel)]="accountForm.code" placeholder="کد حساب (مثلاً 1101)" />
+        <input type="text" [(ngModel)]="accountForm.name" placeholder="نام حساب" />
+        <select [(ngModel)]="accountForm.type">
+          <option [ngValue]="AccountType.Asset">دارایی</option>
+          <option [ngValue]="AccountType.Liability">بدهی</option>
+          <option [ngValue]="AccountType.Equity">حقوق صاحبان سرمایه</option>
+          <option [ngValue]="AccountType.Revenue">درآمد</option>
+          <option [ngValue]="AccountType.Expense">هزینه</option>
+        </select>
+      </div>
+      <div class="ps-row">
+        <select [(ngModel)]="accountForm.parentId">
+          <option [ngValue]="null">بدون والد (سطح اول)</option>
+          <option *ngFor="let a of groupAccounts" [ngValue]="a.id" [disabled]="a.id === editingAccountId">{{ a.code }} - {{ a.name }}</option>
+        </select>
+        <label class="checkbox-label">
+          <input type="checkbox" [(ngModel)]="accountForm.isGroup" />
+          حساب گروه (کل) - بدون ثبت سند مستقیم
+        </label>
+        <label class="checkbox-label" *ngIf="editingAccountId">
+          <input type="checkbox" [(ngModel)]="accountForm.isActive" />
+          فعال
+        </label>
+      </div>
+
+      <div class="error-message" *ngIf="accountError">{{ accountError }}</div>
+
+      <div class="form-buttons">
+        <button (click)="saveAccount()">{{ editingAccountId ? 'ذخیره تغییرات' : 'افزودن' }}</button>
+        <button class="cancel-btn" *ngIf="editingAccountId" (click)="cancelEditAccount()">انصراف</button>
+      </div>
+    </div>
+
+    <div class="ps-box">
+      <h2>کدینگ حساب‌ها <button class="print-btn" (click)="printSection('کدینگ حساب‌ها')">🖨️ چاپ</button></h2>
+      <input class="search-input" type="text" [(ngModel)]="searchAccount" placeholder="جستجو بر اساس کد یا نام حساب..." />
+      <div class="tx-table" #printArea>
+        <div class="tx-row acc-row tx-header">
+          <span>کد</span>
+          <span>نام حساب</span>
+          <span>نوع</span>
+          <span>والد</span>
+          <span>وضعیت</span>
+          <span>مانده</span>
+          <span></span>
+        </div>
+        <div class="tx-row acc-row" *ngFor="let a of filteredAccounts" [class.selected]="selectedAccountId === a.id">
+          <span>{{ a.code }}</span>
+          <span [class.group-account]="a.isGroup">{{ a.name }}</span>
+          <span>{{ accountTypeLabel(a.type) }}</span>
+          <span>{{ accountName(a.parentId) }}</span>
+          <span>{{ a.isActive ? 'فعال' : 'غیرفعال' }}</span>
+          <span [class.warn]="a.balance < 0" [class.positive]="a.balance > 0">{{ a.balance | number }}</span>
+          <span class="buttons">
+            <button *ngIf="!a.isGroup" (click)="selectAccount(a.id)">دفتر</button>
+            <button (click)="editAccount(a)">ویرایش</button>
+            <button class="cancel-btn" (click)="deleteAccount(a.id)">حذف</button>
+          </span>
+        </div>
+        <div class="empty" *ngIf="filteredAccounts.length === 0">موردی یافت نشد</div>
+      </div>
+    </div>
+
+    <div class="ps-box" *ngIf="selectedAccountId">
+      <h2>دفتر حساب: {{ selectedAccountName }}</h2>
+      <div class="balance-line">
+        مانده فعلی:
+        <strong [class.warn]="accountLedgerBalance < 0" [class.positive]="accountLedgerBalance > 0">
+          {{ accountLedgerBalance | number }}
+        </strong>
+      </div>
+
+      <div class="tx-table">
+        <div class="tx-row tx-row-7 tx-header">
+          <span>تاریخ</span>
+          <span>شماره سند</span>
+          <span>نوع سند</span>
+          <span>بدهکار</span>
+          <span>بستانکار</span>
+          <span>طرف حساب / صندوق</span>
+          <span>توضیحات</span>
+        </div>
+        <div class="tx-row tx-row-7" *ngFor="let l of accountLedger">
+          <span>{{ l.entryDate | date:'yyyy/MM/dd' }}</span>
+          <span>{{ l.journalEntryNumber }}</span>
+          <span>{{ refTypeLabel(l.refType) }}</span>
+          <span>{{ l.debit | number }}</span>
+          <span>{{ l.credit | number }}</span>
+          <span>{{ l.partyName || l.cashAccountName || '-' }}</span>
+          <span>{{ l.description || '-' }}</span>
+        </div>
+        <div class="empty" *ngIf="accountLedger.length === 0">گردشی ثبت نشده است</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===================== صندوق و بانک ===================== -->
+  <div *ngIf="activeSection === 'cashAccounts'">
+
+    <div class="ps-box">
+      <h2>{{ editingCashAccountId ? 'ویرایش صندوق/بانک' : 'افزودن صندوق/بانک جدید' }}</h2>
+
+      <div class="ps-row">
+        <input type="text" [(ngModel)]="cashAccountForm.name" placeholder="نام (مثلاً صندوق اصلی)" />
+        <select [(ngModel)]="cashAccountForm.type">
+          <option [ngValue]="CashAccountType.Cash">صندوق</option>
+          <option [ngValue]="CashAccountType.Bank">بانک</option>
+        </select>
+        <input type="text" [(ngModel)]="cashAccountForm.accountNumber" placeholder="شماره حساب (اختیاری)" />
+      </div>
+      <div class="ps-row">
+        <select [(ngModel)]="cashAccountForm.accountId">
+          <option [ngValue]="0">انتخاب حساب معین مرتبط</option>
+          <option *ngFor="let a of nonGroupAccounts" [ngValue]="a.id">{{ a.code }} - {{ a.name }}</option>
+        </select>
+        <label class="checkbox-label" *ngIf="editingCashAccountId">
+          <input type="checkbox" [(ngModel)]="cashAccountForm.isActive" />
+          فعال
+        </label>
+      </div>
+
+      <div class="error-message" *ngIf="cashAccountError">{{ cashAccountError }}</div>
+
+      <div class="form-buttons">
+        <button (click)="saveCashAccount()">{{ editingCashAccountId ? 'ذخیره تغییرات' : 'افزودن' }}</button>
+        <button class="cancel-btn" *ngIf="editingCashAccountId" (click)="cancelEditCashAccount()">انصراف</button>
+      </div>
+    </div>
+
+    <div class="ps-box">
+      <h2>لیست صندوق و بانک <button class="print-btn" (click)="printSection('صندوق و بانک')">🖨️ چاپ</button></h2>
+      <input class="search-input" type="text" [(ngModel)]="searchCashAccount" placeholder="جستجوی صندوق/بانک..." />
+      <div class="material-list" #printArea>
+        <div class="material-card" *ngFor="let c of filteredCashAccounts" [class.selected]="selectedCashAccountId === c.id">
+          <div class="info" (click)="selectCashAccount(c.id)">
+            <div class="name">{{ c.name }} ({{ cashAccountTypeLabel(c.type) }})</div>
+            <div class="meta">
+              <span *ngIf="c.accountNumber">شماره حساب: {{ c.accountNumber }}</span>
+              <span>حساب معین: {{ accountName(c.accountId) }}</span>
+              <span [class.warn]="c.balance < 0" [class.positive]="c.balance > 0">مانده: {{ c.balance | number }}</span>
+              <span *ngIf="!c.isActive">(غیرفعال)</span>
+            </div>
+          </div>
+          <div class="buttons">
+            <button (click)="selectCashAccount(c.id)">گردش</button>
+            <button (click)="editCashAccount(c)">ویرایش</button>
+            <button class="cancel-btn" (click)="deleteCashAccount(c.id)">حذف</button>
+          </div>
+        </div>
+        <div class="empty" *ngIf="filteredCashAccounts.length === 0">موردی یافت نشد</div>
+      </div>
+    </div>
+
+    <div class="ps-box" *ngIf="selectedCashAccountId">
+      <h2>گردش: {{ selectedCashAccountName }}</h2>
+      <div class="balance-line">
+        مانده فعلی:
+        <strong [class.warn]="cashAccountLedgerBalance < 0" [class.positive]="cashAccountLedgerBalance > 0">
+          {{ cashAccountLedgerBalance | number }}
+        </strong>
+      </div>
+
+      <div class="tx-table">
+        <div class="tx-row tx-row-6 tx-header">
+          <span>تاریخ</span>
+          <span>شماره سند</span>
+          <span>نوع سند</span>
+          <span>واریز</span>
+          <span>برداشت</span>
+          <span>توضیحات</span>
+        </div>
+        <div class="tx-row tx-row-6" *ngFor="let l of cashAccountLedger">
+          <span>{{ l.entryDate | date:'yyyy/MM/dd' }}</span>
+          <span>{{ l.journalEntryNumber }}</span>
+          <span>{{ refTypeLabel(l.refType) }}</span>
+          <span class="positive">{{ l.debit | number }}</span>
+          <span class="warn">{{ l.credit | number }}</span>
+          <span>{{ l.description || l.partyName || '-' }}</span>
+        </div>
+        <div class="empty" *ngIf="cashAccountLedger.length === 0">گردشی ثبت نشده است</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===================== اسناد حسابداری ===================== -->
+  <div *ngIf="activeSection === 'journalEntries'">
+
+    <div class="ps-box">
+      <h2>ثبت سند حسابداری دستی</h2>
+
+      <div class="ps-row">
+        <input type="date" [(ngModel)]="journalForm.entryDate" />
+        <input type="text" [(ngModel)]="journalForm.description" placeholder="شرح سند" />
+      </div>
+
+      <div class="ps-row">
+        <select [(ngModel)]="newLine.accountId">
+          <option [ngValue]="0">انتخاب حساب</option>
+          <option *ngFor="let a of nonGroupAccounts" [ngValue]="a.id">{{ a.code }} - {{ a.name }}</option>
+        </select>
+        <input type="number" [(ngModel)]="newLine.debit" placeholder="بدهکار" />
+        <input type="number" [(ngModel)]="newLine.credit" placeholder="بستانکار" />
+        <input type="text" [(ngModel)]="newLine.description" placeholder="شرح ردیف (اختیاری)" />
+        <button (click)="addJournalLine()">افزودن ردیف</button>
+      </div>
+
+      <div class="tx-table" *ngIf="journalLines.length > 0">
+        <div class="tx-row tx-row-4 tx-header">
+          <span>حساب</span>
+          <span>بدهکار</span>
+          <span>بستانکار</span>
+          <span></span>
+        </div>
+        <div class="tx-row tx-row-4" *ngFor="let l of journalLines; let i = index">
+          <span>{{ accountName(l.accountId) }} {{ l.description ? '- ' + l.description : '' }}</span>
+          <span>{{ l.debit | number }}</span>
+          <span>{{ l.credit | number }}</span>
+          <span class="buttons"><button class="cancel-btn" (click)="removeJournalLine(i)">حذف</button></span>
+        </div>
+        <div class="tx-row tx-row-4 tx-header">
+          <span>جمع</span>
+          <span [class.warn]="journalTotalDebit !== journalTotalCredit">{{ journalTotalDebit | number }}</span>
+          <span [class.warn]="journalTotalDebit !== journalTotalCredit">{{ journalTotalCredit | number }}</span>
+          <span></span>
+        </div>
+      </div>
+
+      <div class="error-message" *ngIf="journalError">{{ journalError }}</div>
+
+      <div class="form-buttons">
+        <button (click)="submitJournalEntry()">ثبت سند</button>
+      </div>
+    </div>
+
+    <div class="ps-box">
+      <h2>لیست اسناد حسابداری <button class="print-btn" (click)="printSection('اسناد حسابداری')">🖨️ چاپ</button></h2>
+      <input class="search-input" type="text" [(ngModel)]="searchJournal" placeholder="جستجو بر اساس شرح، نوع یا شماره سند..." />
+      <div class="tx-table" #printArea>
+        <div class="tx-row tx-row-6 tx-header">
+          <span>شماره</span>
+          <span>تاریخ</span>
+          <span>نوع</span>
+          <span>شرح</span>
+          <span>جمع</span>
+          <span></span>
+        </div>
+        <div class="tx-row tx-row-6" *ngFor="let e of filteredJournalEntries">
+          <span>{{ e.number }}</span>
+          <span>{{ e.entryDate | date:'yyyy/MM/dd' }}</span>
+          <span>{{ refTypeLabel(e.refType) }}</span>
+          <span>{{ e.description || '-' }}</span>
+          <span>{{ e.totalDebit | number }}</span>
+          <span class="buttons"><button (click)="viewJournalEntry(e.id)">جزئیات</button></span>
+        </div>
+        <div class="empty" *ngIf="filteredJournalEntries.length === 0">موردی یافت نشد</div>
+      </div>
+    </div>
+
+    <div class="ps-box" *ngIf="journalEntryDetail">
+      <h2>سند شماره {{ journalEntryDetail.number }} - {{ journalEntryDetail.entryDate | date:'yyyy/MM/dd' }}</h2>
+      <div *ngIf="journalEntryDetail.description">شرح: {{ journalEntryDetail.description }}</div>
+
+      <div class="tx-table">
+        <div class="tx-row tx-row-5 tx-header">
+          <span>کد حساب</span>
+          <span>نام حساب</span>
+          <span>بدهکار</span>
+          <span>بستانکار</span>
+          <span>توضیحات</span>
+        </div>
+        <div class="tx-row tx-row-5" *ngFor="let l of journalEntryDetail.lines">
+          <span>{{ l.accountCode }}</span>
+          <span>{{ l.accountName }}</span>
+          <span>{{ l.debit | number }}</span>
+          <span>{{ l.credit | number }}</span>
+          <span>{{ l.description || l.partyName || l.cashAccountName || '-' }}</span>
+        </div>
+      </div>
+
+      <div class="form-buttons">
+        <button class="cancel-btn" *ngIf="journalEntryDetail.refType === JournalEntryRefType.Manual" (click)="deleteJournalEntry(journalEntryDetail.id)">حذف سند</button>
+        <button class="cancel-btn" (click)="closeJournalEntryDetail()">بستن</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===================== هزینه‌ها ===================== -->
+  <div *ngIf="activeSection === 'expenses'">
+
+    <div class="ps-box">
+      <h2>ثبت هزینه جدید</h2>
+
+      <div class="ps-row">
+        <input type="date" [(ngModel)]="expenseForm.date" />
+        <select [(ngModel)]="expenseForm.accountId">
+          <option [ngValue]="0">انتخاب حساب هزینه</option>
+          <option *ngFor="let a of expenseAccounts" [ngValue]="a.id">{{ a.code }} - {{ a.name }}</option>
+        </select>
+        <select [(ngModel)]="expenseForm.cashAccountId">
+          <option [ngValue]="0">پرداخت از صندوق/بانک</option>
+          <option *ngFor="let c of cashAccounts" [ngValue]="c.id">{{ c.name }}</option>
+        </select>
+      </div>
+      <div class="ps-row">
+        <input type="number" [(ngModel)]="expenseForm.amount" placeholder="مبلغ" />
+        <input type="text" [(ngModel)]="expenseForm.description" placeholder="شرح هزینه" />
+      </div>
+
+      <div class="error-message" *ngIf="expenseError">{{ expenseError }}</div>
+
+      <div class="form-buttons">
+        <button (click)="submitExpense()">ثبت هزینه</button>
+      </div>
+    </div>
+
+    <div class="ps-box">
+      <h2>لیست هزینه‌ها <button class="print-btn" (click)="printSection('هزینه‌ها')">🖨️ چاپ</button></h2>
+      <div class="balance-line">
+        جمع هزینه‌ها: <strong class="warn">{{ expensesTotal | number }}</strong>
+      </div>
+      <input class="search-input" type="text" [(ngModel)]="searchExpense" placeholder="جستجو بر اساس شرح، حساب یا صندوق..." />
+      <div class="tx-table" #printArea>
+        <div class="tx-row tx-row-6 tx-header">
+          <span>تاریخ</span>
+          <span>حساب هزینه</span>
+          <span>صندوق/بانک</span>
+          <span>مبلغ</span>
+          <span>شرح</span>
+          <span></span>
+        </div>
+        <div class="tx-row tx-row-6" *ngFor="let e of filteredExpenses">
+          <span>{{ e.date | date:'yyyy/MM/dd' }}</span>
+          <span>{{ e.accountName || '-' }}</span>
+          <span>{{ e.cashAccountName || '-' }}</span>
+          <span class="warn">{{ e.amount | number }}</span>
+          <span>{{ e.description || '-' }}</span>
+          <span class="buttons"><button class="cancel-btn" (click)="deleteExpense(e.id)">حذف</button></span>
+        </div>
+        <div class="empty" *ngIf="filteredExpenses.length === 0">موردی یافت نشد</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===================== تراز آزمایشی ===================== -->
+  <div *ngIf="activeSection === 'trialBalance'">
+
+    <div class="ps-box" *ngIf="trialBalance">
+      <h2>تراز آزمایشی <button class="print-btn" (click)="printSection('تراز آزمایشی')">🖨️ چاپ</button></h2>
+      <div class="tx-table" #printArea>
+        <div class="tx-row acc-row-4 tx-header">
+          <span>کد</span>
+          <span>نام حساب</span>
+          <span>بدهکار</span>
+          <span>بستانکار</span>
+        </div>
+        <div class="tx-row acc-row-4" *ngFor="let a of trialBalance.items">
+          <span>{{ a.code }}</span>
+          <span [class.group-account]="a.isGroup">{{ a.name }}</span>
+          <span>{{ a.debit | number }}</span>
+          <span>{{ a.credit | number }}</span>
+        </div>
+        <div class="tx-row acc-row-4 tx-header">
+          <span></span>
+          <span>جمع کل</span>
+          <span [class.warn]="trialBalance.totalDebit !== trialBalance.totalCredit">{{ trialBalance.totalDebit | number }}</span>
+          <span [class.warn]="trialBalance.totalDebit !== trialBalance.totalCredit">{{ trialBalance.totalCredit | number }}</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===================== دفتر روزنامه ===================== -->
+  <div *ngIf="activeSection === 'journalBook'">
+    <div class="ps-box">
+      <h2>دفتر روزنامه <button class="print-btn" (click)="printSection('دفتر روزنامه')">🖨️ چاپ</button></h2>
+      <div class="filters-row">
+        <label>از تاریخ: <input type="date" [(ngModel)]="reportFrom" /></label>
+        <label>تا تاریخ: <input type="date" [(ngModel)]="reportTo" /></label>
+        <button class="btn-primary" (click)="loadJournalBook()">اعمال فیلتر</button>
+      </div>
+
+      <div #printArea>
+      <div *ngFor="let entry of journalBook" class="journal-entry-card">
+        <div class="journal-entry-head">
+          <span>سند شماره {{ entry.number }}</span>
+          <span>{{ entry.entryDate | date:'yyyy/MM/dd' }}</span>
+          <span>{{ entry.description }}</span>
+        </div>
+        <div class="tx-table">
+          <div class="tx-row acc-row-4 tx-header">
+            <span>کد</span>
+            <span>نام حساب</span>
+            <span>بدهکار</span>
+            <span>بستانکار</span>
+          </div>
+          <div class="tx-row acc-row-4" *ngFor="let l of entry.lines">
+            <span>{{ l.accountCode }}</span>
+            <span>{{ l.accountName }}</span>
+            <span>{{ l.debit | number }}</span>
+            <span>{{ l.credit | number }}</span>
+          </div>
+        </div>
+      </div>
+
+      <p *ngIf="journalBook.length === 0">موردی یافت نشد</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== سود و زیان ===================== -->
+  <div *ngIf="activeSection === 'profitLoss'">
+    <div class="ps-box" *ngIf="profitLoss">
+      <h2>صورت سود و زیان <button class="print-btn" (click)="printSection('صورت سود و زیان')">🖨️ چاپ</button></h2>
+      <div class="filters-row">
+        <label>از تاریخ: <input type="date" [(ngModel)]="reportFrom" /></label>
+        <label>تا تاریخ: <input type="date" [(ngModel)]="reportTo" /></label>
+        <button class="btn-primary" (click)="loadProfitLoss()">اعمال فیلتر</button>
+      </div>
+
+      <div #printArea>
+      <h3>درآمدها</h3>
+      <div class="tx-table">
+        <div class="tx-row acc-row-3 tx-header">
+          <span>کد</span><span>نام حساب</span><span>مبلغ</span>
+        </div>
+        <div class="tx-row acc-row-3" *ngFor="let r of profitLoss.revenues">
+          <span>{{ r.accountCode }}</span><span>{{ r.accountName }}</span><span>{{ -r.balance | number }}</span>
+        </div>
+        <div class="tx-row acc-row-3 tx-header"><span></span><span>جمع درآمد</span><span>{{ profitLoss.totalRevenue | number }}</span></div>
+      </div>
+
+      <h3>هزینه‌ها</h3>
+      <div class="tx-table">
+        <div class="tx-row acc-row-3 tx-header">
+          <span>کد</span><span>نام حساب</span><span>مبلغ</span>
+        </div>
+        <div class="tx-row acc-row-3" *ngFor="let e of profitLoss.expenses">
+          <span>{{ e.accountCode }}</span><span>{{ e.accountName }}</span><span>{{ e.balance | number }}</span>
+        </div>
+        <div class="tx-row acc-row-3 tx-header"><span></span><span>جمع هزینه</span><span>{{ profitLoss.totalExpense | number }}</span></div>
+      </div>
+
+      <div class="net-profit-box" [class.loss]="profitLoss.netProfit < 0">
+        سود (زیان) خالص: {{ profitLoss.netProfit | number }}
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== ترازنامه ===================== -->
+  <div *ngIf="activeSection === 'balanceSheet'">
+    <div class="ps-box" *ngIf="balanceSheet">
+      <h2>ترازنامه <button class="print-btn" (click)="printSection('ترازنامه')">🖨️ چاپ</button></h2>
+      <div class="filters-row">
+        <label>تا تاریخ: <input type="date" [(ngModel)]="balanceSheetAsOf" /></label>
+        <button class="btn-primary" (click)="loadBalanceSheet()">اعمال فیلتر</button>
+      </div>
+
+      <div class="balance-sheet-grid" #printArea>
+        <div>
+          <h3>دارایی‌ها</h3>
+          <div class="tx-table">
+            <div class="tx-row acc-row-3 tx-header"><span>کد</span><span>نام</span><span>مانده</span></div>
+            <div class="tx-row acc-row-3" *ngFor="let a of balanceSheet.assets">
+              <span>{{ a.accountCode }}</span><span>{{ a.accountName }}</span><span>{{ a.balance | number }}</span>
+            </div>
+            <div class="tx-row acc-row-3 tx-header"><span></span><span>جمع دارایی‌ها</span><span>{{ balanceSheet.totalAssets | number }}</span></div>
+          </div>
+        </div>
+
+        <div>
+          <h3>بدهی‌ها</h3>
+          <div class="tx-table">
+            <div class="tx-row acc-row-3 tx-header"><span>کد</span><span>نام</span><span>مانده</span></div>
+            <div class="tx-row acc-row-3" *ngFor="let l of balanceSheet.liabilities">
+              <span>{{ l.accountCode }}</span><span>{{ l.accountName }}</span><span>{{ -l.balance | number }}</span>
+            </div>
+            <div class="tx-row acc-row-3 tx-header"><span></span><span>جمع بدهی‌ها</span><span>{{ balanceSheet.totalLiabilities | number }}</span></div>
+          </div>
+
+          <h3>حقوق صاحبان سرمایه</h3>
+          <div class="tx-table">
+            <div class="tx-row acc-row-3 tx-header"><span>کد</span><span>نام</span><span>مانده</span></div>
+            <div class="tx-row acc-row-3" *ngFor="let e of balanceSheet.equity">
+              <span>{{ e.accountCode }}</span><span>{{ e.accountName }}</span><span>{{ -e.balance | number }}</span>
+            </div>
+            <div class="tx-row acc-row-3 tx-header"><span></span><span>جمع حقوق صاحبان سرمایه</span><span>{{ balanceSheet.totalEquity | number }}</span></div>
+            <div class="tx-row acc-row-3"><span></span><span>سود (زیان) انباشته دوره</span><span>{{ balanceSheet.netProfitToDate | number }}</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== مدیریت چک ===================== -->
+  <div *ngIf="activeSection === 'cheques'">
+    <div class="ps-box">
+      <h2>ثبت چک جدید</h2>
+      <div *ngIf="chequeError" class="error-msg">{{ chequeError }}</div>
+      <div class="form-grid">
+        <select [(ngModel)]="chequeForm.direction">
+          <option [ngValue]="ChequeDirection.Received">دریافتی</option>
+          <option [ngValue]="ChequeDirection.Paid">پرداختی</option>
+        </select>
+        <input type="text" [(ngModel)]="chequeForm.number" placeholder="شماره چک" />
+        <input type="text" [(ngModel)]="chequeForm.bankName" placeholder="نام بانک" />
+        <select [(ngModel)]="chequeForm.partyId">
+          <option [ngValue]="0">انتخاب طرف حساب</option>
+          <option *ngFor="let p of parties" [ngValue]="p.id">{{ p.name }}</option>
+        </select>
+        <input type="date" [(ngModel)]="chequeForm.issueDate" />
+        <input type="date" [(ngModel)]="chequeForm.dueDate" />
+        <input type="number" [(ngModel)]="chequeForm.amount" placeholder="مبلغ" />
+        <input type="text" [(ngModel)]="chequeForm.description" placeholder="توضیحات" />
+        <button class="btn-primary" (click)="saveCheque()">ثبت چک</button>
+      </div>
+    </div>
+
+    <div class="ps-box">
+      <h2>فهرست چک‌ها <button class="print-btn" (click)="printSection('فهرست چک‌ها')">🖨️ چاپ</button></h2>
+      <div class="filters-row">
+        <select [(ngModel)]="chequeFilterDirection" (change)="loadCheques()">
+          <option value="">همه (دریافتی/پرداختی)</option>
+          <option [ngValue]="ChequeDirection.Received">دریافتی</option>
+          <option [ngValue]="ChequeDirection.Paid">پرداختی</option>
+        </select>
+        <select [(ngModel)]="chequeFilterStatus" (change)="loadCheques()">
+          <option value="">همه وضعیت‌ها</option>
+          <option [ngValue]="ChequeStatus.InHand">نزد ما</option>
+          <option [ngValue]="ChequeStatus.Deposited">سپرده به بانک</option>
+          <option [ngValue]="ChequeStatus.Cleared">وصول‌شده</option>
+          <option [ngValue]="ChequeStatus.Bounced">برگشتی</option>
+          <option [ngValue]="ChequeStatus.Returned">مرجوع‌شده</option>
+        </select>
+      </div>
+
+      <div #printArea>
+      <div class="cheque-card" *ngFor="let c of cheques">
+        <div class="cheque-head">
+          <span>شماره: {{ c.number }}</span>
+          <span>{{ chequeDirectionLabel(c.direction) }}</span>
+          <span class="status-badge" [ngClass]="c.status">{{ chequeStatusLabel(c.status) }}</span>
+        </div>
+        <div class="cheque-body">
+          <span>طرف حساب: {{ c.partyName }}</span>
+          <span>بانک: {{ c.bankName }}</span>
+          <span>سررسید: {{ c.dueDate | date:'yyyy/MM/dd' }}</span>
+          <span>مبلغ: {{ c.amount | number }}</span>
+        </div>
+        <div class="cheque-actions" *ngIf="c.status !== 'Cleared' && c.status !== 'Returned'">
+          <select [(ngModel)]="chequeActionCashAccountId[c.id]">
+            <option [ngValue]="0">انتخاب صندوق/بانک</option>
+            <option *ngFor="let ca of cashAccounts" [ngValue]="ca.id">{{ ca.name }}</option>
+          </select>
+          <button *ngIf="c.direction === 'Received' && c.status === 'InHand'" (click)="depositCheque(c)">سپردن به بانک</button>
+          <button *ngIf="c.status !== 'Bounced'" (click)="clearCheque(c)">وصول/پرداخت نهایی</button>
+          <button *ngIf="c.direction === 'Received'" class="btn-warn" (click)="bounceCheque(c)">برگشت خورد</button>
+          <button class="btn-danger" (click)="returnCheque(c)">مرجوع کردن</button>
+        </div>
+      </div>
+
+      <p *ngIf="cheques.length === 0">موردی یافت نشد</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== دارایی ثابت ===================== -->
+  <div *ngIf="activeSection === 'fixedAssets'">
+    <div class="ps-box">
+      <h2>ثبت دارایی ثابت جدید</h2>
+      <div *ngIf="fixedAssetError" class="error-msg">{{ fixedAssetError }}</div>
+      <div class="form-grid">
+        <input type="text" [(ngModel)]="fixedAssetForm.name" placeholder="نام دارایی" />
+        <input type="date" [(ngModel)]="fixedAssetForm.purchaseDate" />
+        <input type="number" [(ngModel)]="fixedAssetForm.purchaseValue" placeholder="ارزش خرید" />
+        <input type="number" [(ngModel)]="fixedAssetForm.salvageValue" placeholder="ارزش اسقاط" />
+        <input type="number" [(ngModel)]="fixedAssetForm.usefulLifeMonths" placeholder="عمر مفید (ماه)" />
+        <select [(ngModel)]="fixedAssetForm.assetAccountId">
+          <option [ngValue]="0">حساب دارایی</option>
+          <option *ngFor="let a of nonGroupAccounts" [ngValue]="a.id">{{ a.code }} - {{ a.name }}</option>
+        </select>
+        <select [(ngModel)]="fixedAssetForm.depreciationExpenseAccountId">
+          <option [ngValue]="0">حساب هزینه استهلاک</option>
+          <option *ngFor="let a of nonGroupAccounts" [ngValue]="a.id">{{ a.code }} - {{ a.name }}</option>
+        </select>
+        <select [(ngModel)]="fixedAssetForm.accumulatedDepreciationAccountId">
+          <option [ngValue]="0">حساب استهلاک انباشته</option>
+          <option *ngFor="let a of nonGroupAccounts" [ngValue]="a.id">{{ a.code }} - {{ a.name }}</option>
+        </select>
+        <button class="btn-primary" (click)="saveFixedAsset()">ثبت دارایی</button>
+      </div>
+    </div>
+
+    <div class="ps-box">
+      <h2>فهرست دارایی‌های ثابت <button class="print-btn" (click)="printSection('دارایی‌های ثابت')">🖨️ چاپ</button></h2>
+      <div class="filters-row">
+        <label>تاریخ دوره استهلاک: <input type="date" [(ngModel)]="depreciationPeriodDate" /></label>
+        <button class="btn-primary" (click)="runDepreciationAll()">ثبت استهلاک همه دارایی‌ها</button>
+      </div>
+
+      <div #printArea>
+      <div class="cheque-card" *ngFor="let asset of fixedAssets">
+        <div class="cheque-head">
+          <span>{{ asset.name }}</span>
+          <span>ارزش دفتری: {{ asset.bookValue | number }}</span>
+        </div>
+        <div class="cheque-body">
+          <span>ارزش خرید: {{ asset.purchaseValue | number }}</span>
+          <span>استهلاک انباشته: {{ asset.accumulatedDepreciation | number }}</span>
+          <span>عمر مفید: {{ asset.usefulLifeMonths }} ماه</span>
+        </div>
+        <div class="cheque-actions">
+          <button (click)="runDepreciation(asset)">ثبت استهلاک این دوره</button>
+          <button (click)="toggleFixedAssetHistory(asset)">تاریخچه استهلاک</button>
+          <button class="btn-danger" (click)="deleteFixedAsset(asset.id)">حذف</button>
+        </div>
+        <div class="tx-table" *ngIf="fixedAssetHistory[asset.id]">
+          <div class="tx-row acc-row-3 tx-header"><span>تاریخ</span><span>مبلغ</span><span></span></div>
+          <div class="tx-row acc-row-3" *ngFor="let h of fixedAssetHistory[asset.id]">
+            <span>{{ h.periodDate | date:'yyyy/MM/dd' }}</span><span>{{ h.amount | number }}</span><span></span>
+          </div>
+        </div>
+      </div>
+
+      <p *ngIf="fixedAssets.length === 0">موردی یافت نشد</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== تنخواه‌گردان ===================== -->
+  <div *ngIf="activeSection === 'pettyCash'">
+    <div class="ps-box">
+      <h2>ایجاد تنخواه‌گردان جدید</h2>
+      <div *ngIf="pettyCashError" class="error-msg">{{ pettyCashError }}</div>
+      <div class="form-grid">
+        <input type="text" [(ngModel)]="pettyCashFundForm.name" placeholder="نام تنخواه" />
+        <input type="text" [(ngModel)]="pettyCashFundForm.custodian" placeholder="مسئول تنخواه" />
+        <select [(ngModel)]="pettyCashFundForm.sourceCashAccountId">
+          <option [ngValue]="0">صندوق/بانک منبع</option>
+          <option *ngFor="let ca of cashAccounts" [ngValue]="ca.id">{{ ca.name }}</option>
+        </select>
+        <button class="btn-primary" (click)="savePettyCashFund()">ایجاد</button>
+      </div>
+    </div>
+
+    <div class="ps-box">
+      <h2>تنخواه‌گردان‌ها <button class="print-btn" (click)="printSection('تنخواه‌گردان‌ها')">🖨️ چاپ</button></h2>
+      <div #printArea>
+      <div class="cheque-card" *ngFor="let fund of pettyCashFunds">
+        <div class="cheque-head">
+          <span>{{ fund.name }}</span>
+          <span>موجودی: {{ fund.balance | number }}</span>
+        </div>
+        <div class="cheque-body">
+          <span>مسئول: {{ fund.custodian }}</span>
+          <span>منبع: {{ fund.sourceCashAccountName }}</span>
+        </div>
+        <div class="cheque-actions">
+          <input type="number" [(ngModel)]="pettyCashReplenishAmount[fund.id]" placeholder="مبلغ شارژ" style="width:120px" />
+          <button (click)="replenishPettyCash(fund)">شارژ تنخواه</button>
+        </div>
+        <div class="cheque-actions">
+          <input type="number" [(ngModel)]="pettyCashSpendAmount[fund.id]" placeholder="مبلغ مصرف" style="width:120px" />
+          <select [(ngModel)]="pettyCashSpendAccountId[fund.id]">
+            <option [ngValue]="0">حساب هزینه</option>
+            <option *ngFor="let a of nonGroupAccounts" [ngValue]="a.id">{{ a.code }} - {{ a.name }}</option>
+          </select>
+          <input type="text" [(ngModel)]="pettyCashSpendDescription[fund.id]" placeholder="توضیحات" style="width:140px" />
+          <button (click)="spendPettyCash(fund)">ثبت مصرف</button>
+          <button (click)="togglePettyCashTransactions(fund)">تراکنش‌ها</button>
+        </div>
+        <div class="tx-table" *ngIf="pettyCashTransactions[fund.id]">
+          <div class="tx-row acc-row-4 tx-header"><span>تاریخ</span><span>نوع</span><span>مبلغ</span><span>توضیحات</span></div>
+          <div class="tx-row acc-row-4" *ngFor="let t of pettyCashTransactions[fund.id]">
+            <span>{{ t.transactionDate | date:'yyyy/MM/dd' }}</span>
+            <span>{{ t.type === 'Replenish' ? 'شارژ' : 'مصرف' }}</span>
+            <span>{{ t.amount | number }}</span>
+            <span>{{ t.description }}</span>
+          </div>
+        </div>
+      </div>
+
+      <p *ngIf="pettyCashFunds.length === 0">موردی یافت نشد</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== بودجه ===================== -->
+  <div *ngIf="activeSection === 'budget'">
+    <div class="ps-box">
+      <h2>تعریف بودجه</h2>
+      <div *ngIf="budgetError" class="error-msg">{{ budgetError }}</div>
+      <div class="form-grid">
+        <select [(ngModel)]="budgetForm.accountId">
+          <option [ngValue]="0">حساب</option>
+          <option *ngFor="let a of nonGroupAccounts" [ngValue]="a.id">{{ a.code }} - {{ a.name }}</option>
+        </select>
+        <input type="date" [(ngModel)]="budgetForm.periodStart" />
+        <input type="date" [(ngModel)]="budgetForm.periodEnd" />
+        <input type="number" [(ngModel)]="budgetForm.budgetedAmount" placeholder="مبلغ بودجه" />
+        <input type="text" [(ngModel)]="budgetForm.note" placeholder="یادداشت" />
+        <button class="btn-primary" (click)="saveBudget()">ثبت بودجه</button>
+      </div>
+    </div>
+
+    <div class="ps-box">
+      <h2>فهرست بودجه‌ها <button class="print-btn" (click)="printSection('فهرست بودجه‌ها')">🖨️ چاپ</button></h2>
+      <div class="tx-table" #printArea>
+        <div class="tx-row acc-row-4 tx-header"><span>حساب</span><span>بازه</span><span>مبلغ بودجه</span><span></span></div>
+        <div class="tx-row acc-row-4" *ngFor="let b of budgets">
+          <span>{{ b.accountCode }} - {{ b.accountName }}</span>
+          <span>{{ b.periodStart | date:'yyyy/MM/dd' }} تا {{ b.periodEnd | date:'yyyy/MM/dd' }}</span>
+          <span>{{ b.budgetedAmount | number }}</span>
+          <span><button class="btn-danger" (click)="deleteBudget(b.id)">حذف</button></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="ps-box">
+      <h2>بودجه در مقابل واقعی <button class="print-btn" (click)="printSection2('بودجه در مقابل واقعی')">🖨️ چاپ</button></h2>
+      <div class="filters-row">
+        <label>از: <input type="date" [(ngModel)]="budgetReportFrom" /></label>
+        <label>تا: <input type="date" [(ngModel)]="budgetReportTo" /></label>
+        <button class="btn-primary" (click)="loadBudgetVsActual()">نمایش گزارش</button>
+      </div>
+      <div class="tx-table" #printArea2 *ngIf="budgetVsActual.length > 0">
+        <div class="tx-row acc-row-4 tx-header"><span>حساب</span><span>بودجه</span><span>واقعی</span><span>انحراف</span></div>
+        <div class="tx-row acc-row-4" *ngFor="let v of budgetVsActual">
+          <span>{{ v.accountCode }} - {{ v.accountName }}</span>
+          <span>{{ v.budgetedAmount | number }}</span>
+          <span>{{ v.actualAmount | number }}</span>
+          <span [class.warn]="v.variance < 0">{{ v.variance | number }} ({{ v.variancePercent }}%)</span>
+        </div>
+      </div>
+      <p *ngIf="budgetVsActual.length === 0">گزارشی نمایش داده نشده است</p>
+    </div>
+  </div>
+
+  <!-- ===================== سال مالی و تنظیمات مالیات ===================== -->
+  <div *ngIf="activeSection === 'fiscalYear'">
+    <div class="ps-box" *ngIf="taxSetting">
+      <h2>تنظیمات مالیات بر ارزش افزوده</h2>
+      <div *ngIf="taxSettingError" class="error-msg">{{ taxSettingError }}</div>
+      <div class="form-grid">
+        <label>
+          <input type="checkbox" [(ngModel)]="taxSetting.isEnabled" /> فعال‌سازی مالیات بر ارزش افزوده
+        </label>
+        <input type="number" [(ngModel)]="taxSetting.vatRate" placeholder="درصد مالیات (مثلاً 9)" step="0.5" />
+        <button class="btn-primary" (click)="saveTaxSetting()">ذخیره تنظیمات</button>
+      </div>
+    </div>
+
+    <div class="ps-box">
+      <h2>تعریف سال مالی جدید</h2>
+      <div *ngIf="fiscalYearError" class="error-msg">{{ fiscalYearError }}</div>
+      <div class="form-grid">
+        <input type="text" [(ngModel)]="fiscalYearForm.name" placeholder="نام سال مالی (مثلاً 1404)" />
+        <input type="date" [(ngModel)]="fiscalYearForm.startDate" />
+        <input type="date" [(ngModel)]="fiscalYearForm.endDate" />
+        <button class="btn-primary" (click)="saveFiscalYear()">ثبت سال مالی</button>
+      </div>
+    </div>
+
+    <div class="ps-box">
+      <h2>فهرست سال‌های مالی <button class="print-btn" (click)="printSection('سال‌های مالی')">🖨️ چاپ</button></h2>
+      <div #printArea>
+      <div class="cheque-card" *ngFor="let fy of fiscalYears">
+        <div class="cheque-head">
+          <span>{{ fy.name }}</span>
+          <span class="status-badge" [ngClass]="fy.isClosed ? 'Cleared' : 'InHand'">{{ fy.isClosed ? 'بسته' : 'باز' }}</span>
+        </div>
+        <div class="cheque-body">
+          <span>از {{ fy.startDate | date:'yyyy/MM/dd' }} تا {{ fy.endDate | date:'yyyy/MM/dd' }}</span>
+          <span *ngIf="fy.closedAt">تاریخ بستن: {{ fy.closedAt | date:'yyyy/MM/dd' }}</span>
+        </div>
+        <div class="cheque-actions">
+          <button *ngIf="!fy.isClosed" class="btn-warn" (click)="closeFiscalYear(fy)">بستن سال مالی</button>
+          <button *ngIf="fy.isClosed" (click)="reopenFiscalYear(fy)">بازگشایی</button>
+          <button *ngIf="!fy.isClosed" class="btn-danger" (click)="deleteFiscalYear(fy)">حذف</button>
+        </div>
+      </div>
+      <p *ngIf="fiscalYears.length === 0">موردی یافت نشد</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== گزارش ارزش افزوده ===================== -->
+  <div *ngIf="activeSection === 'vatReport'">
+    <div class="ps-box">
+      <h2>گزارش مالیات بر ارزش افزوده <button class="print-btn" (click)="printSection('گزارش مالیات بر ارزش افزوده')">🖨️ چاپ</button></h2>
+      <div class="filters-row">
+        <label>از تاریخ: <input type="date" [(ngModel)]="vatReportFrom" /></label>
+        <label>تا تاریخ: <input type="date" [(ngModel)]="vatReportTo" /></label>
+        <button class="btn-primary" (click)="loadVatReport()">اعمال فیلتر</button>
+      </div>
+
+      <div class="tx-table" #printArea *ngIf="vatReport">
+        <div class="tx-row acc-row-3 tx-header"><span></span><span>عنوان</span><span>مبلغ</span></div>
+        <div class="tx-row acc-row-3"><span></span><span>مالیات خرید (قابل کسر)</span><span>{{ vatReport.inputVat | number }}</span></div>
+        <div class="tx-row acc-row-3"><span></span><span>مالیات فروش (قابل پرداخت)</span><span>{{ vatReport.outputVat | number }}</span></div>
+        <div class="tx-row acc-row-3 tx-header">
+          <span></span>
+          <span>{{ vatReport.netVat >= 0 ? 'مالیات قابل پرداخت به سازمان امور مالیاتی' : 'مالیات قابل استرداد' }}</span>
+          <span [class.warn]="vatReport.netVat >= 0">{{ vatReport.netVat | number }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== اتصال به سامانه مودیان ===================== -->
+  <div *ngIf="activeSection === 'moadian'">
+    <div class="ps-box">
+      <h2>اتصال به سامانه مودیان (سازمان امور مالیاتی)</h2>
+      <p style="color:#777; font-size:14px; line-height:1.8;">
+        با فعال‌سازی این گزینه، فاکتورهای فروش به‌صورت خودکار برای سامانه مودیان ارسال می‌شوند.
+        این اتصال نیازمند کلیدهای دیجیتال و شناسه‌های ثبت‌شده نزد سازمان امور مالیاتی است.
+        تا زمانی که گزینه زیر را خودتان فعال نکنید، هیچ داده‌ای ارسال نخواهد شد.
+      </p>
+
+      <div *ngIf="moadianError" class="error-msg">{{ moadianError }}</div>
+      <div *ngIf="moadianSuccessMsg" class="net-profit-box">{{ moadianSuccessMsg }}</div>
+
+      <div class="form-grid" style="grid-template-columns: 1fr;">
+        <label style="display:flex; align-items:center; gap:8px; font-weight:600;">
+          <input type="checkbox" [(ngModel)]="moadianForm.isEnabled" />
+          فعال‌سازی ارسال خودکار فاکتورها به سامانه مودیان (با مسئولیت خودم)
+        </label>
+      </div>
+
+      <div class="form-grid" *ngIf="moadianForm.isEnabled">
+        <input type="text" [(ngModel)]="moadianForm.username" placeholder="نام کاربری / کد اقتصادی نزد سامانه مودیان" />
+        <input type="text" [(ngModel)]="moadianForm.orgKeyId" placeholder="شناسه کلید سازمانی (Org Key Id)" />
+        <input type="text" [(ngModel)]="moadianForm.baseUrl" placeholder="آدرس پایه سرویس" />
+        <textarea [(ngModel)]="moadianForm.publicKeyPem" placeholder="کلید عمومی (Public Key PEM)" rows="4"></textarea>
+        <textarea [(ngModel)]="moadianForm.privateKeyPem" placeholder="کلید خصوصی (Private Key PEM)" rows="4"></textarea>
+        <p style="color:#999; font-size:12px;" *ngIf="moadianSettings?.hasKeys">
+          کلیدها قبلاً ذخیره شده‌اند. برای تغییر، مقدار جدید وارد کنید؛ در غیر این صورت خالی بگذارید.
+        </p>
+      </div>
+
+      <button class="btn-primary" (click)="saveMoadianSettings()">ذخیره تنظیمات</button>
+    </div>
+  </div>
+
+</div>

@@ -23,6 +23,7 @@ export interface OrderTypeSetting {
   name: string;
   persianName: string;
   icon: string;
+  imageUrl?: string;
   active: boolean;
   priceFactor: number;
   visibleCategoryIds: string[];
@@ -79,7 +80,7 @@ export interface CreateOrderDto {
   items: CreateOrderItemDto[];  // از نوع CreateOrderItemDto استفاده می‌کنیم
   totalAmount: number;
   paymentMethod?: string;
-  
+  paymentMethodId?: number | null;
 }
 
 // اضافه کردن اینترفیس‌های جدید برای پرداخت

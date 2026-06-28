@@ -1,1 +1,2 @@
-<router-outlet></router-outlet>
+<app-license-activation *ngIf="licenseChecked && !licensed"></app-license-activation>
+<router-outlet *ngIf="licenseChecked && licensed"></router-outlet>

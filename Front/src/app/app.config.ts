@@ -1,14 +1,15 @@
 import { ApplicationConfig, APP_INITIALIZER } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { take } from 'rxjs/operators';
 import { routes } from './app.routes';
 import { StyleService } from './services/style.service';
+import { authInterceptor } from './services/auth.interceptor';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';  // <-- اضافه کنید
 export function initializeApp(styleService: StyleService) {
   return (): Promise<void> => {
     return new Promise((resolve) => {
-      styleService.loadStyle();
-      styleService.style$.subscribe({
+      styleService.style$.pipe(take(1)).subscribe({
         next: (style) => {
           if (style) {
             // اعمال استایل و فونت
@@ -50,6 +51,9 @@ export function initializeApp(styleService: StyleService) {
         },
         error: () => resolve()
       });
+
+      // به‌روزرسانی استایل از سرور در پس‌زمینه
+      styleService.loadStyle().subscribe();
     });
   };
 }
@@ -58,7 +62,7 @@ export const appConfig: ApplicationConfig = {
      provideRouter(routes),
     { provide: LocationStrategy, useClass: HashLocationStrategy },  // <-- این خط را اضافه کنید
   
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([authInterceptor])),
     {
       provide: APP_INITIALIZER,
       useFactory: initializeApp,

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PrinterService } from '../../services/printer.service';
 import { PrinterSetting } from '../../models/printer.model';
+import { PrintService } from '../../services/print.service';
 
 @Component({
   selector: 'app-printer-admin',
@@ -17,6 +18,15 @@ export class PrinterAdminComponent implements OnInit {
   editingPrinter: PrinterSetting | null = null;
   showForm = false;
   isEditing = false;
+  searchPrinter = '';
+
+  get filteredPrinters(): PrinterSetting[] {
+    const q = this.searchPrinter.trim().toLowerCase();
+    return q ? this.printers.filter(p =>
+      p.name.toLowerCase().includes(q) ||
+      p.printerName.toLowerCase().includes(q)
+    ) : this.printers;
+  }
   
   printerTypes = [
     { value: 'Receipt', label: 'پرینتر فیش' },
@@ -24,7 +34,13 @@ export class PrinterAdminComponent implements OnInit {
     { value: 'Label', label: 'پرینتر برچسب' }
   ];
 
-  constructor(private printerService: PrinterService) {}
+  constructor(private printerService: PrinterService, private printService: PrintService) {}
+
+  @ViewChild('printArea') printAreaRef?: ElementRef<HTMLElement>;
+
+  printSection(title: string): void {
+    if (this.printAreaRef) this.printService.print(title, this.printAreaRef.nativeElement);
+  }
 
   ngOnInit() {
     this.loadPrinters();

@@ -1,4 +1,5 @@
-﻿using KioskCenter.Services;
+﻿using System.Text.Json;
+using KioskCenter.Services;
 
 namespace KioskCenter.Middleware
 {
@@ -11,6 +12,8 @@ namespace KioskCenter.Middleware
         "/swagger",
         "/openapi/v1.json",
         "/api/info/hardware-id",
+        "/api/info/license-status",
+        "/api/info/upload-license",
         "/health"
     };
 
@@ -19,7 +22,7 @@ namespace KioskCenter.Middleware
             _next = next;
         }
 
-        public async Task Invoke(HttpContext context, LicenseValidator validator)
+        public async Task Invoke(HttpContext context, LicenseManager licenseManager)
         {
             var path = context.Request.Path.Value?.ToLower() ?? "";
 
@@ -29,18 +32,20 @@ namespace KioskCenter.Middleware
                 return;
             }
 
-            try
-            {
-                validator.Validate("license.dat");
-
-
-                await _next(context);
-            }
-            catch (Exception ex)
+            if (!licenseManager.IsLicensed)
             {
                 context.Response.StatusCode = 403;
-                await context.Response.WriteAsync($"License Error: {ex.Message}");
+                context.Response.ContentType = "application/json; charset=utf-8";
+                await context.Response.WriteAsync(JsonSerializer.Serialize(new
+                {
+                    success = false,
+                    licensed = false,
+                    message = licenseManager.StatusMessage
+                }));
+                return;
             }
+
+            await _next(context);
         }
     }
 

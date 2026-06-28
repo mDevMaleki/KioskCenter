@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using KioskCenter.Authorization;
 using KioskCenter.Data;
 using KioskCenter.Models;
 
@@ -30,6 +32,7 @@ namespace KioskCenter.Controllers
         }
 
         // دریافت همه روش‌های پرداخت
+        [Authorize, RequirePermission("payment-methods")]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -50,6 +53,7 @@ namespace KioskCenter.Controllers
         }
 
         // ایجاد روش پرداخت جدید
+        [Authorize, RequirePermission("payment-methods")]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] PaymentMethod method)
         {
@@ -67,6 +71,7 @@ namespace KioskCenter.Controllers
         }
 
         // ویرایش روش پرداخت
+        [Authorize, RequirePermission("payment-methods")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] PaymentMethod method)
         {
@@ -84,6 +89,7 @@ namespace KioskCenter.Controllers
             existing.IsActive = method.IsActive;
             existing.SortOrder = method.SortOrder;
             existing.RequiresPosDevice = method.RequiresPosDevice;
+            existing.CashAccountId = method.CashAccountId;
             existing.UpdatedAt = DateTime.Now;
 
             await _context.SaveChangesAsync();
@@ -91,6 +97,7 @@ namespace KioskCenter.Controllers
         }
 
         // حذف روش پرداخت
+        [Authorize, RequirePermission("payment-methods")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -104,14 +111,15 @@ namespace KioskCenter.Controllers
         }
 
         // مقداردهی اولیه روش‌های پرداخت پیش‌فرض
+        [Authorize, RequirePermission("payment-methods")]
         [HttpPost("seed")]
         public async Task<IActionResult> Seed()
         {
             var defaultMethods = new List<PaymentMethod>
             {
-                new PaymentMethod { Name = "Cash", Title = "پرداخت نقدی", Icon = "💵", Description = "پرداخت با پول نقد", IsActive = true, SortOrder = 1, RequiresPosDevice = false },
-                new PaymentMethod { Name = "Pos", Title = "کارت خوان (POS)", Icon = "💳", Description = "پرداخت با کارت بانکی", IsActive = true, SortOrder = 2, RequiresPosDevice = true },
-                new PaymentMethod { Name = "Online", Title = "پرداخت آنلاین", Icon = "📱", Description = "پرداخت از طریق درگاه اینترنتی", IsActive = true, SortOrder = 3, RequiresPosDevice = false }
+                new PaymentMethod { Name = "Cash", Title = "پرداخت نقدی", Icon = "💵", Description = "پرداخت با پول نقد", IsActive = true, SortOrder = 1, RequiresPosDevice = false, CashAccountId = AccountingConstants.DefaultCashAccount },
+                new PaymentMethod { Name = "Pos", Title = "کارت خوان (POS)", Icon = "💳", Description = "پرداخت با کارت بانکی", IsActive = true, SortOrder = 2, RequiresPosDevice = true, CashAccountId = AccountingConstants.DefaultBankAccount },
+                new PaymentMethod { Name = "Online", Title = "پرداخت آنلاین", Icon = "📱", Description = "پرداخت از طریق درگاه اینترنتی", IsActive = true, SortOrder = 3, RequiresPosDevice = false, CashAccountId = AccountingConstants.DefaultBankAccount }
             };
 
             foreach (var method in defaultMethods)

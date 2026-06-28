@@ -75,6 +75,20 @@
           <input type="text" [(ngModel)]="currentSettings.icon" maxlength="2" class="form-input small" placeholder="🏠">
         </div>
       </div>
+
+      <div class="form-group">
+        <label>تصویر کارت:</label>
+        <div class="image-upload-row">
+          <img *ngIf="currentSettings.imageUrl" [src]="getAssetUrl(currentSettings.imageUrl)" class="order-type-image-preview">
+          <input type="file" accept="image/*" (change)="onImageSelected($event)">
+          <button *ngIf="currentSettings.imageUrl" class="btn-remove" type="button" (click)="removeImage()" title="حذف تصویر">
+            🗑️ حذف تصویر
+          </button>
+        </div>
+        <div class="section-hint">
+          در صورت آپلود تصویر، به‌جای آیکون در کیوسک نمایش داده می‌شود.
+        </div>
+      </div>
     </div>
 
     <!-- بخش تنظیمات قیمت -->

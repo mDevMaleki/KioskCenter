@@ -3,7 +3,7 @@ using System.Text;
 
 namespace KioskCenter.Services
 {
-    public  class PosParsianService
+    public class PosParsianService
     {
         readonly   string publicKeyModule = "be8eece2b435b413efd8648076cbee8c20c2308da90c3624b589a8d399e85fa694e2ba619a501995a7f4d84120e4c001274eeac01ed1e3b2687a0e3e98634fb92f2ba425c22e1336c56b9e31d89b9000c51874f38f537d2a4ba4b2b5449bea2cf5be774440657bb9bd064523c38136ef93a3f8aa7ef8e712d25be3851f546582122a895636e903acab93361adce9d17e330512892dfa773ac75a47df6c95460207290401a9b6c19cbea90e400a06efaa25b161af1906339eb68e08de447c2d7c8476500820d532fd6b5ec53a2c958b2164c4dab89571ab41edbaa7f22197dae8ce25ef35851380785b816d6d1a2a627be945f14fb566a5c4d7359f69d80cb141";
         readonly  string publicKeyExp = "25";
@@ -17,12 +17,14 @@ namespace KioskCenter.Services
         readonly  string qInv = "cd0b59bd3792821c91f39d8d482463aaa334ab92b8990933cce997ea378cffebbda982b1d4c271385b6036c899296fe424ee682f3ecdc4c7e81a5bedc18344c0dc65034d0462311c0a1579c4e291bc11e8c1aae7199e029efbbe4600a872aa75397a352856579f2227410556c0a954e51e285169073698eb6df4bdbff68877eb";
         readonly  string d = "1207e7c3f3b818135903628f7950990ec8a346d7f2523f56e23128b5a40db8432725797b296182af631fbed3dda2779c65a9b122babb76b40eaefc268c2133ce044ceee3607e8a7a4a27b07882a4edcebc74686fbb9b9597965c5c832d585ffd3047673c8a84b04725448743f897fe99de031128664931317e832bbc3b9be0119e06cbd9de86c9040b84136329747ce6afd0a3ae511853a75c82e05b9fdc97219438e2ebef5b6be01a38c9b11d8a928dd981bb45f1bd966537691102758ad6c45a4c218af8219840c759ea063c10c17d37efcb2ea4984d13d713ca49951298da16237f499ee9c83a61bf6105bfb3df0453df1ff8d1dc95885fca2df5540ca69d";
 
-        
+       
+
+      
 
         private  string errMsg = "";
         private  Thread tReader;
         private  TcpClient client = null;
-        public  string sendToLan(decimal Amount)
+        public  async Task<string> sendToLan(decimal Amount,string IpAddress, int Port)
         {
             string msg = "{\"cmd\":10,\"amount\":"+Amount.ToString()+", \"service\":\"000000\",\"sign\":\"899|123456789\"}";
             try
@@ -32,7 +34,7 @@ namespace KioskCenter.Services
                 errMsg = "Closing Client Error";
                 if (client != null) { client.Close(); }
                 errMsg = "Creating Client Error";
-                client = new TcpClient("192.168.123.105", 1362);
+                client = new TcpClient(IpAddress, Port);
                 errMsg = "Creating NetworkStream Error";
                 NetworkStream nwStream = client.GetStream();
                 errMsg = "Creating Message Error";

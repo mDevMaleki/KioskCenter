@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
+using KioskCenter.Authorization;
 using KioskCenter.Data;
 using KioskCenter.Models;
 
@@ -65,6 +67,7 @@ namespace KioskCenter.Controllers
         }
 
         // POST: api/OrderTypeSettings
+        [Authorize, RequirePermission("order-type")]
         [HttpPost]
         public async Task<IActionResult> SaveSettings([FromBody] List<OrderTypeSettingDto> settings)
         {

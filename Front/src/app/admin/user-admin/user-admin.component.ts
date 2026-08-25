@@ -16,6 +16,7 @@ const SECTION_LABELS: Record<string, string> = {
   'reports': 'گزارشات',
   'users': 'مدیریت کاربران',
   'purchase-sale': 'خرید و فروش',
+  'cashier': 'صندوق فروشگاهی',
 };
 
 @Component({

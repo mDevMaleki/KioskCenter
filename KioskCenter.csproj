@@ -16,7 +16,6 @@
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.2.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -25,12 +24,14 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="OpenHtmlToPdf" Version="1.12.0" />
     <PackageReference Include="PdfiumViewer" Version="2.13.0" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="9.0.0" />
     <PackageReference Include="PuppeteerSharp" Version="25.0.4" />
     <PackageReference Include="QRCoder" Version="1.8.0" />
     <PackageReference Include="Select.HtmlToPdf" Version="26.2.0" />
     <PackageReference Include="Spire.PDF" Version="12.5.8" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="7.0.0" />
     <PackageReference Include="System.Management" Version="10.0.9" />
+    <PackageReference Include="TaxCollectData.Library" Version="2.0.32" />
   </ItemGroup>
 
   <ItemGroup>

@@ -7,6 +7,13 @@
 # خروجی‌های پکیج‌های ناگت (NuGet)
 packages/
 *.nupkg
+# استثنا: پکیج رسمی SDK سامانه مودیان که در nuget.org عمومی نیست و باید commit شود
+!LocalNuGet/*.nupkg
+
+# کلید خصوصی و گواهی امضای سامانه مودیان - هرگز نباید commit شود
+Keys/*.pem
+Keys/*.cer
+Keys/*.crt
 
 # تنظیمات کاربر و فایل‌های مخفی
 *.user

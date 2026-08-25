@@ -30,11 +30,11 @@ namespace KioskCenter.Controllers
             {
                 setting.Id,
                 setting.IsEnabled,
-                setting.OrgKeyId,
-                setting.Username,
-                setting.BaseUrl,
+                setting.MemoryId,
+                setting.SellerEconomicCode,
+                setting.ApiUrl,
                 setting.LastUpdatedAt,
-                HasKeys = !string.IsNullOrWhiteSpace(setting.PublicKeyPem) && !string.IsNullOrWhiteSpace(setting.PrivateKeyPem)
+                HasKeys = !string.IsNullOrWhiteSpace(setting.PrivateKeyPem) && !string.IsNullOrWhiteSpace(setting.CertificatePem)
             });
         }
 
@@ -51,15 +51,18 @@ namespace KioskCenter.Controllers
 
             // IsEnabled فقط مستقیماً از تیک کاربر در رابط کاربری خوانده می‌شود؛ هیچ مقدار پیش‌فرضی فعال‌سازی نمی‌کند
             setting.IsEnabled = dto.IsEnabled;
-            setting.OrgKeyId = dto.OrgKeyId;
-            setting.Username = dto.Username;
-            setting.BaseUrl = string.IsNullOrWhiteSpace(dto.BaseUrl) ? "https://tp.tax.gov.ir" : dto.BaseUrl;
-
-            if (!string.IsNullOrWhiteSpace(dto.PublicKeyPem))
-                setting.PublicKeyPem = dto.PublicKeyPem;
+            setting.MemoryId = dto.MemoryId;
+            setting.SellerEconomicCode = dto.SellerEconomicCode;
+            setting.ApiUrl = string.IsNullOrWhiteSpace(dto.ApiUrl) ? "https://tp.tax.gov.ir/requestsmanager" : dto.ApiUrl;
 
             if (!string.IsNullOrWhiteSpace(dto.PrivateKeyPem))
                 setting.PrivateKeyPem = dto.PrivateKeyPem;
+
+            if (!string.IsNullOrWhiteSpace(dto.CertificatePem))
+                setting.CertificatePem = dto.CertificatePem;
+
+            // ذخیره کلیدها روی دیسک - SDK رسمی این مقادیر را به‌صورت مسیر فایل می‌خواهد نه متن خام
+            _moadianService.PersistKeyFiles(dto.PrivateKeyPem, dto.CertificatePem);
 
             setting.LastUpdatedAt = DateTime.Now;
 
@@ -90,10 +93,10 @@ namespace KioskCenter.Controllers
     public class MoadianSettingDto
     {
         public bool IsEnabled { get; set; }
-        public string? PublicKeyPem { get; set; }
+        public string? MemoryId { get; set; }
+        public string? SellerEconomicCode { get; set; }
         public string? PrivateKeyPem { get; set; }
-        public string? OrgKeyId { get; set; }
-        public string? Username { get; set; }
-        public string? BaseUrl { get; set; }
+        public string? CertificatePem { get; set; }
+        public string? ApiUrl { get; set; }
     }
 }

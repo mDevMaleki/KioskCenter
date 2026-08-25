@@ -25,9 +25,16 @@ builder.Services.AddControllers()
 // اضافه کردن Swagger برای دات نت 9
 builder.Services.AddOpenApi();
 
-// تنظیم اتصال به SQL Server
+// تنظیم اتصال به MySQL
 builder.Services.AddDbContext<CoffeeShopContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+{
+    var connectionString =
+        builder.Configuration.GetConnectionString("DefaultConnection");
+
+    options.UseMySql(
+        connectionString,
+        ServerVersion.AutoDetect(connectionString));
+});
 
 // اضافه کنید
 builder.Services.AddScoped<IPosManagerService, PosManagerService>();

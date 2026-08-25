@@ -90,7 +90,7 @@
           <span>توضیحات</span>
         </div>
         <div class="tx-row tx-row-7" *ngFor="let l of accountLedger">
-          <span>{{ l.entryDate | date:'yyyy/MM/dd' }}</span>
+          <span>{{ l.entryDate | jalaliDate }}</span>
           <span>{{ l.journalEntryNumber }}</span>
           <span>{{ refTypeLabel(l.refType) }}</span>
           <span>{{ l.debit | number }}</span>
@@ -180,7 +180,7 @@
           <span>توضیحات</span>
         </div>
         <div class="tx-row tx-row-6" *ngFor="let l of cashAccountLedger">
-          <span>{{ l.entryDate | date:'yyyy/MM/dd' }}</span>
+          <span>{{ l.entryDate | jalaliDate }}</span>
           <span>{{ l.journalEntryNumber }}</span>
           <span>{{ refTypeLabel(l.refType) }}</span>
           <span class="positive">{{ l.debit | number }}</span>
@@ -257,7 +257,7 @@
         </div>
         <div class="tx-row tx-row-6" *ngFor="let e of filteredJournalEntries">
           <span>{{ e.number }}</span>
-          <span>{{ e.entryDate | date:'yyyy/MM/dd' }}</span>
+          <span>{{ e.entryDate | jalaliDate }}</span>
           <span>{{ refTypeLabel(e.refType) }}</span>
           <span>{{ e.description || '-' }}</span>
           <span>{{ e.totalDebit | number }}</span>
@@ -268,7 +268,7 @@
     </div>
 
     <div class="ps-box" *ngIf="journalEntryDetail">
-      <h2>سند شماره {{ journalEntryDetail.number }} - {{ journalEntryDetail.entryDate | date:'yyyy/MM/dd' }}</h2>
+      <h2>سند شماره {{ journalEntryDetail.number }} - {{ journalEntryDetail.entryDate | jalaliDate }}</h2>
       <div *ngIf="journalEntryDetail.description">شرح: {{ journalEntryDetail.description }}</div>
 
       <div class="tx-table">
@@ -341,7 +341,7 @@
           <span></span>
         </div>
         <div class="tx-row tx-row-6" *ngFor="let e of filteredExpenses">
-          <span>{{ e.date | date:'yyyy/MM/dd' }}</span>
+          <span>{{ e.date | jalaliDate }}</span>
           <span>{{ e.accountName || '-' }}</span>
           <span>{{ e.cashAccountName || '-' }}</span>
           <span class="warn">{{ e.amount | number }}</span>
@@ -397,7 +397,7 @@
       <div *ngFor="let entry of journalBook" class="journal-entry-card">
         <div class="journal-entry-head">
           <span>سند شماره {{ entry.number }}</span>
-          <span>{{ entry.entryDate | date:'yyyy/MM/dd' }}</span>
+          <span>{{ entry.entryDate | jalaliDate }}</span>
           <span>{{ entry.description }}</span>
         </div>
         <div class="tx-table">
@@ -558,7 +558,7 @@
         <div class="cheque-body">
           <span>طرف حساب: {{ c.partyName }}</span>
           <span>بانک: {{ c.bankName }}</span>
-          <span>سررسید: {{ c.dueDate | date:'yyyy/MM/dd' }}</span>
+          <span>سررسید: {{ c.dueDate | jalaliDate }}</span>
           <span>مبلغ: {{ c.amount | number }}</span>
         </div>
         <div class="cheque-actions" *ngIf="c.status !== 'Cleared' && c.status !== 'Returned'">
@@ -631,7 +631,7 @@
         <div class="tx-table" *ngIf="fixedAssetHistory[asset.id]">
           <div class="tx-row acc-row-3 tx-header"><span>تاریخ</span><span>مبلغ</span><span></span></div>
           <div class="tx-row acc-row-3" *ngFor="let h of fixedAssetHistory[asset.id]">
-            <span>{{ h.periodDate | date:'yyyy/MM/dd' }}</span><span>{{ h.amount | number }}</span><span></span>
+            <span>{{ h.periodDate | jalaliDate }}</span><span>{{ h.amount | number }}</span><span></span>
           </div>
         </div>
       </div>
@@ -686,7 +686,7 @@
         <div class="tx-table" *ngIf="pettyCashTransactions[fund.id]">
           <div class="tx-row acc-row-4 tx-header"><span>تاریخ</span><span>نوع</span><span>مبلغ</span><span>توضیحات</span></div>
           <div class="tx-row acc-row-4" *ngFor="let t of pettyCashTransactions[fund.id]">
-            <span>{{ t.transactionDate | date:'yyyy/MM/dd' }}</span>
+            <span>{{ t.transactionDate | jalaliDate }}</span>
             <span>{{ t.type === 'Replenish' ? 'شارژ' : 'مصرف' }}</span>
             <span>{{ t.amount | number }}</span>
             <span>{{ t.description }}</span>
@@ -723,7 +723,7 @@
         <div class="tx-row acc-row-4 tx-header"><span>حساب</span><span>بازه</span><span>مبلغ بودجه</span><span></span></div>
         <div class="tx-row acc-row-4" *ngFor="let b of budgets">
           <span>{{ b.accountCode }} - {{ b.accountName }}</span>
-          <span>{{ b.periodStart | date:'yyyy/MM/dd' }} تا {{ b.periodEnd | date:'yyyy/MM/dd' }}</span>
+          <span>{{ b.periodStart | jalaliDate }} تا {{ b.periodEnd | jalaliDate }}</span>
           <span>{{ b.budgetedAmount | number }}</span>
           <span><button class="btn-danger" (click)="deleteBudget(b.id)">حذف</button></span>
         </div>
@@ -784,8 +784,8 @@
           <span class="status-badge" [ngClass]="fy.isClosed ? 'Cleared' : 'InHand'">{{ fy.isClosed ? 'بسته' : 'باز' }}</span>
         </div>
         <div class="cheque-body">
-          <span>از {{ fy.startDate | date:'yyyy/MM/dd' }} تا {{ fy.endDate | date:'yyyy/MM/dd' }}</span>
-          <span *ngIf="fy.closedAt">تاریخ بستن: {{ fy.closedAt | date:'yyyy/MM/dd' }}</span>
+          <span>از {{ fy.startDate | jalaliDate }} تا {{ fy.endDate | jalaliDate }}</span>
+          <span *ngIf="fy.closedAt">تاریخ بستن: {{ fy.closedAt | jalaliDate }}</span>
         </div>
         <div class="cheque-actions">
           <button *ngIf="!fy.isClosed" class="btn-warn" (click)="closeFiscalYear(fy)">بستن سال مالی</button>
@@ -824,10 +824,11 @@
   <!-- ===================== اتصال به سامانه مودیان ===================== -->
   <div *ngIf="activeSection === 'moadian'">
     <div class="ps-box">
-      <h2>اتصال به سامانه مودیان (سازمان امور مالیاتی)</h2>
+      <h2>اتصال به سامانه مودیان (SDK رسمی سازمان امور مالیاتی)</h2>
       <p style="color:#777; font-size:14px; line-height:1.8;">
-        با فعال‌سازی این گزینه، فاکتورهای فروش به‌صورت خودکار برای سامانه مودیان ارسال می‌شوند.
-        این اتصال نیازمند کلیدهای دیجیتال و شناسه‌های ثبت‌شده نزد سازمان امور مالیاتی است.
+        با فعال‌سازی این گزینه، فاکتورهای فروش به‌صورت خودکار از طریق کیت رسمی توسعه‌ی سازمان امور مالیاتی
+        (TaxCollectData.Library) برای سامانه مودیان ارسال می‌شوند. این اتصال نیازمند گواهی امضای دیجیتال معتبر
+        (صادرشده توسط مراکز میانی کشور) و کلید خصوصی متناظر آن به فرمت PKCS#8 PEM است.
         تا زمانی که گزینه زیر را خودتان فعال نکنید، هیچ داده‌ای ارسال نخواهد شد.
       </p>
 
@@ -842,13 +843,16 @@
       </div>
 
       <div class="form-grid" *ngIf="moadianForm.isEnabled">
-        <input type="text" [(ngModel)]="moadianForm.username" placeholder="نام کاربری / کد اقتصادی نزد سامانه مودیان" />
-        <input type="text" [(ngModel)]="moadianForm.orgKeyId" placeholder="شناسه کلید سازمانی (Org Key Id)" />
-        <input type="text" [(ngModel)]="moadianForm.baseUrl" placeholder="آدرس پایه سرویس" />
-        <textarea [(ngModel)]="moadianForm.publicKeyPem" placeholder="کلید عمومی (Public Key PEM)" rows="4"></textarea>
-        <textarea [(ngModel)]="moadianForm.privateKeyPem" placeholder="کلید خصوصی (Private Key PEM)" rows="4"></textarea>
+        <input type="text" [(ngModel)]="moadianForm.memoryId" placeholder="شناسه یکتای حافظه مالیاتی (Memory Id) - مثال: A11216" />
+        <input type="text" [(ngModel)]="moadianForm.sellerEconomicCode" placeholder="شماره اقتصادی فروشنده" />
+        <input type="text" [(ngModel)]="moadianForm.apiUrl" placeholder="آدرس API سامانه مودیان" />
+        <textarea [(ngModel)]="moadianForm.privateKeyPem" placeholder="کلید خصوصی امضا (PKCS#8 PEM Encoded - محتوای فایل private_key.pem)" rows="5"></textarea>
+        <textarea [(ngModel)]="moadianForm.certificatePem" placeholder="گواهی امضای دیجیتال (Base64 - محتوای فایل certificate.cer)" rows="5"></textarea>
         <p style="color:#999; font-size:12px;" *ngIf="moadianSettings?.hasKeys">
-          کلیدها قبلاً ذخیره شده‌اند. برای تغییر، مقدار جدید وارد کنید؛ در غیر این صورت خالی بگذارید.
+          کلید و گواهی قبلاً ذخیره شده‌اند. برای تغییر، مقدار جدید وارد کنید؛ در غیر این صورت خالی بگذارید.
+        </p>
+        <p style="color:#999; font-size:12px;">
+          توجه: فعلاً فقط گواهی نرم‌افزاری (فایل) پشتیبانی می‌شود. توکن سخت‌افزاری ePass3003 در این نسخه پیاده‌سازی نشده است.
         </p>
       </div>
 

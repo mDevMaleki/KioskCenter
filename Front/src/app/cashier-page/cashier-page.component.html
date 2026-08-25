@@ -1,0 +1,18 @@
+<app-admin-login *ngIf="!authService.isLoggedIn()" (loggedIn)="onLoggedIn()"></app-admin-login>
+
+<div class="cashier-page" *ngIf="authService.isLoggedIn()">
+  <header class="cashier-header">
+    <div class="cashier-header-title">
+      <span class="cashier-logo">🧮</span>
+      <span>صندوق فروشگاهی</span>
+    </div>
+    <div class="cashier-header-actions">
+      <button class="header-btn" (click)="goToAdmin()">⚙️ پنل مدیریت</button>
+      <button class="header-btn header-btn-logout" (click)="logout()">خروج</button>
+    </div>
+  </header>
+
+  <main class="cashier-body">
+    <app-cashier-admin></app-cashier-admin>
+  </main>
+</div>

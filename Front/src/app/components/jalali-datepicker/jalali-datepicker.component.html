@@ -1,0 +1,35 @@
+<div class="jdp-wrapper">
+  <div class="jdp-input" [class.disabled]="disabled" (click)="toggle()">
+    <span class="jdp-text">{{ displayText || 'انتخاب تاریخ' }}</span>
+    <button type="button" class="jdp-clear" *ngIf="displayText" (click)="clear($event)">×</button>
+    <span class="jdp-icon">📅</span>
+  </div>
+
+  <div class="jdp-panel" *ngIf="open" (click)="$event.stopPropagation()">
+    <div class="jdp-panel-header">
+      <button type="button" (click)="nextMonth()">›</button>
+      <div class="jdp-panel-title">{{ monthNames[viewMonth - 1] }} {{ viewYear }}</div>
+      <button type="button" (click)="prevMonth()">‹</button>
+    </div>
+
+    <div class="jdp-weekdays">
+      <span *ngFor="let w of weekdayNames">{{ w }}</span>
+    </div>
+
+    <div class="jdp-days">
+      <span
+        *ngFor="let cell of days"
+        class="jdp-day"
+        [class.empty]="!cell.inCurrentMonth"
+        [class.today]="cell.isToday"
+        [class.selected]="cell.isSelected"
+        (click)="selectDay(cell)">
+        {{ cell.inCurrentMonth ? cell.jd : '' }}
+      </span>
+    </div>
+
+    <div class="jdp-panel-footer">
+      <button type="button" (click)="selectToday()">امروز</button>
+    </div>
+  </div>
+</div>

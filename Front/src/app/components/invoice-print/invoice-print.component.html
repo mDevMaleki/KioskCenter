@@ -16,7 +16,7 @@
         <div class="invoice-title">{{ invoiceTypeLabel }}</div>
         <div class="invoice-meta">
           <span>شماره: {{ invoiceNumber }}</span>
-          <span>تاریخ: {{ date | date:'yyyy/MM/dd' }}</span>
+          <span>تاریخ: {{ date | jalaliDate }}</span>
         </div>
       </div>
 

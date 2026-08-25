@@ -1,0 +1,71 @@
+:host {
+  display: block;
+  height: 100vh;
+  background: linear-gradient(135deg, #f4f6fb 0%, #eef1fa 100%);
+  font-family: 'Vazirmatn', 'IRANSans', Tahoma, sans-serif;
+}
+
+.cashier-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.cashier-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 28px;
+  background: linear-gradient(120deg, #1f2640 0%, #2d3559 100%);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(20, 24, 45, 0.25);
+  z-index: 5;
+}
+
+.cashier-header-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+
+.cashier-logo {
+  font-size: 26px;
+}
+
+.cashier-header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.header-btn {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  padding: 9px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 13.5px;
+  font-weight: 600;
+  transition: 0.15s;
+}
+.header-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+.header-btn-logout {
+  background: rgba(214, 69, 69, 0.85);
+  border-color: transparent;
+}
+.header-btn-logout:hover {
+  background: rgba(214, 69, 69, 1);
+}
+
+.cashier-body {
+  flex: 1;
+  padding: 18px 24px;
+  overflow: hidden;
+  min-height: 0;
+}

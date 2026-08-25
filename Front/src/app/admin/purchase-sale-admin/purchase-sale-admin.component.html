@@ -91,7 +91,7 @@
           <span>توضیحات</span>
         </div>
         <div class="tx-row tx-row-5" *ngFor="let t of partyLedger">
-          <span>{{ t.createdAt | date:'yyyy/MM/dd HH:mm' }}</span>
+          <span>{{ t.createdAt | jalaliDate:true }}</span>
           <span>{{ partyTransactionTypeLabel(t.type) }}</span>
           <span [class.warn]="t.amount < 0" [class.positive]="t.amount > 0">{{ t.amount | number }}</span>
           <span>{{ t.balanceAfter | number }}</span>
@@ -225,7 +225,7 @@
           <span>طرف حساب</span>
         </div>
         <div class="tx-row tx-row-7" *ngFor="let t of materialTransactions">
-          <span>{{ t.createdAt | date:'yyyy/MM/dd HH:mm' }}</span>
+          <span>{{ t.createdAt | jalaliDate:true }}</span>
           <span>{{ t.rawMaterialName }}</span>
           <span>{{ materialTransactionTypeLabel(t.type) }}</span>
           <span>{{ t.quantity }} {{ t.unit }}</span>
@@ -315,7 +315,7 @@
           <span></span>
         </div>
         <div class="tx-row tx-row-4" *ngFor="let inv of filteredPurchaseInvoices">
-          <span>{{ inv.createdAt | date:'yyyy/MM/dd HH:mm' }}</span>
+          <span>{{ inv.createdAt | jalaliDate:true }}</span>
           <span>{{ inv.partyName }}</span>
           <span>{{ inv.totalAmount | number }} تومان</span>
           <span class="buttons">
@@ -332,7 +332,7 @@
         <h2>فاکتور خرید #{{ purchaseInvoiceDetail.id }}</h2>
         <div class="meta">
           <span>تامین‌کننده: {{ purchaseInvoiceDetail.partyName }}</span>
-          <span>تاریخ: {{ purchaseInvoiceDetail.createdAt | date:'yyyy/MM/dd HH:mm' }}</span>
+          <span>تاریخ: {{ purchaseInvoiceDetail.createdAt | jalaliDate:true }}</span>
         </div>
         <div class="recipe-list">
           <div class="recipe-row invoice-row invoice-header">
@@ -477,7 +477,7 @@
           <span></span>
         </div>
         <div class="tx-row tx-row-4" *ngFor="let inv of filteredSaleInvoices">
-          <span>{{ inv.createdAt | date:'yyyy/MM/dd HH:mm' }}</span>
+          <span>{{ inv.createdAt | jalaliDate:true }}</span>
           <span>{{ inv.partyName }}</span>
           <span>{{ inv.totalAmount | number }} تومان</span>
           <span class="buttons">
@@ -494,7 +494,7 @@
         <h2>فاکتور فروش #{{ saleInvoiceDetail.id }}</h2>
         <div class="meta">
           <span>مشتری: {{ saleInvoiceDetail.partyName }}</span>
-          <span>تاریخ: {{ saleInvoiceDetail.createdAt | date:'yyyy/MM/dd HH:mm' }}</span>
+          <span>تاریخ: {{ saleInvoiceDetail.createdAt | jalaliDate:true }}</span>
         </div>
         <div class="recipe-list">
           <div class="recipe-row invoice-row-4 invoice-header">

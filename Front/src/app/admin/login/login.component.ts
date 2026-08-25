@@ -21,7 +21,7 @@ export class LoginComponent {
   constructor(private authService: AuthService) {}
 
   submit(): void {
-    if (!this.username || !this.password) {
+    if (!this.username) {
       this.error = 'نام کاربری و رمز عبور را وارد کنید';
       return;
     }

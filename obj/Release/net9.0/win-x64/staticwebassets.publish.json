@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "wN7ud0i8roggUjQN/aSB+cMm7U/rTW0hGLmXoTa9yHk=",
+  "Hash": "A0k/ref5WoBZWc1edkaqRyXTsZKwpLAo3qpHY39aKrI=",
   "Source": "KioskCenter",
   "BasePath": "_content/KioskCenter",
   "Mode": "Default",
@@ -16,27 +16,6 @@
     }
   ],
   "Assets": [
-    {
-      "Identity": "C:\\Users\\mdevm\\OneDrive\\Documents\\GitHub\\KioskCenter\\wwwroot\\fonts\\YekanBakh-Fat.ttf",
-      "SourceId": "KioskCenter",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\mdevm\\OneDrive\\Documents\\GitHub\\KioskCenter\\wwwroot\\",
-      "BasePath": "_content/KioskCenter",
-      "RelativePath": "fonts/YekanBakh-Fat#[.{fingerprint}]?.ttf",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "Fingerprint": "5wfrjgp9no",
-      "Integrity": "y3MLNjNHVqHtOWiBblI1hexWE9pRaaGjHyPaVuEuR0o=",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\fonts\\YekanBakh-Fat.ttf"
-    },
     {
       "Identity": "C:\\Users\\mdevm\\OneDrive\\Documents\\GitHub\\KioskCenter\\wwwroot\\fonts\\YEKANBAKHBOLD.TTF",
       "SourceId": "KioskCenter",
@@ -57,6 +36,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\fonts\\YEKANBAKHBOLD.TTF"
+    },
+    {
+      "Identity": "C:\\Users\\mdevm\\OneDrive\\Documents\\GitHub\\KioskCenter\\wwwroot\\fonts\\YekanBakh-Fat.ttf",
+      "SourceId": "KioskCenter",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\mdevm\\OneDrive\\Documents\\GitHub\\KioskCenter\\wwwroot\\",
+      "BasePath": "_content/KioskCenter",
+      "RelativePath": "fonts/YekanBakh-Fat#[.{fingerprint}]?.ttf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "5wfrjgp9no",
+      "Integrity": "y3MLNjNHVqHtOWiBblI1hexWE9pRaaGjHyPaVuEuR0o=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\fonts\\YekanBakh-Fat.ttf"
     },
     {
       "Identity": "C:\\Users\\mdevm\\OneDrive\\Documents\\GitHub\\KioskCenter\\wwwroot\\fonts\\YEKANBAKHHEAVY.TTF",
@@ -628,88 +628,6 @@
   ],
   "Endpoints": [
     {
-      "Route": "fonts/YekanBakh-Fat.5wfrjgp9no.ttf",
-      "AssetFile": "C:\\Users\\mdevm\\OneDrive\\Documents\\GitHub\\KioskCenter\\wwwroot\\fonts\\YekanBakh-Fat.ttf",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "64048"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "application/x-font-ttf"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"y3MLNjNHVqHtOWiBblI1hexWE9pRaaGjHyPaVuEuR0o=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Fri, 30 Jan 2026 20:05:09 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "5wfrjgp9no"
-        },
-        {
-          "Name": "label",
-          "Value": "fonts/YekanBakh-Fat.ttf"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-y3MLNjNHVqHtOWiBblI1hexWE9pRaaGjHyPaVuEuR0o="
-        }
-      ]
-    },
-    {
-      "Route": "fonts/YekanBakh-Fat.ttf",
-      "AssetFile": "C:\\Users\\mdevm\\OneDrive\\Documents\\GitHub\\KioskCenter\\wwwroot\\fonts\\YekanBakh-Fat.ttf",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "64048"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "application/x-font-ttf"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"y3MLNjNHVqHtOWiBblI1hexWE9pRaaGjHyPaVuEuR0o=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Fri, 30 Jan 2026 20:05:09 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "no-cache"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-y3MLNjNHVqHtOWiBblI1hexWE9pRaaGjHyPaVuEuR0o="
-        }
-      ]
-    },
-    {
       "Route": "fonts/YEKANBAKHBOLD.kntx8phvq9.TTF",
       "AssetFile": "C:\\Users\\mdevm\\OneDrive\\Documents\\GitHub\\KioskCenter\\wwwroot\\fonts\\YEKANBAKHBOLD.TTF",
       "Selectors": [],
@@ -788,6 +706,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-YPBmVFblfEl7+lJGG4LiUyI4cMwbeWE5qUBRgFKU6z8="
+        }
+      ]
+    },
+    {
+      "Route": "fonts/YekanBakh-Fat.5wfrjgp9no.ttf",
+      "AssetFile": "C:\\Users\\mdevm\\OneDrive\\Documents\\GitHub\\KioskCenter\\wwwroot\\fonts\\YekanBakh-Fat.ttf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "64048"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/x-font-ttf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"y3MLNjNHVqHtOWiBblI1hexWE9pRaaGjHyPaVuEuR0o=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 30 Jan 2026 20:05:09 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5wfrjgp9no"
+        },
+        {
+          "Name": "label",
+          "Value": "fonts/YekanBakh-Fat.ttf"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-y3MLNjNHVqHtOWiBblI1hexWE9pRaaGjHyPaVuEuR0o="
+        }
+      ]
+    },
+    {
+      "Route": "fonts/YekanBakh-Fat.ttf",
+      "AssetFile": "C:\\Users\\mdevm\\OneDrive\\Documents\\GitHub\\KioskCenter\\wwwroot\\fonts\\YekanBakh-Fat.ttf",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "64048"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "application/x-font-ttf"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"y3MLNjNHVqHtOWiBblI1hexWE9pRaaGjHyPaVuEuR0o=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 30 Jan 2026 20:05:09 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-y3MLNjNHVqHtOWiBblI1hexWE9pRaaGjHyPaVuEuR0o="
         }
       ]
     },

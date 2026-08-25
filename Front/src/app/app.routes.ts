@@ -6,16 +6,20 @@ import { PaymentComponent } from './components/payment/payment.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 // کامپوننت مادر ادمین که تب‌ها داخل آن هستند
-import { AdminPanelComponent } from './admin/admin-panel.component'; 
+import { AdminPanelComponent } from './admin/admin-panel.component';
+import { CashierPageComponent } from './cashier-page/cashier-page.component';
 
 export const routes: Routes = [
   { path: '', component: CategorySelectComponent },
   { path: 'products', component: ProductSelectComponent },
   { path: 'order-type', component: OrderTypeComponent },
   { path: 'payment', component: PaymentComponent },
-  
+
   // مسیر جدید برای پنل ادمین
   { path: 'admin', component: AdminPanelComponent },
-  
+
+  // صفحه جداگانه صندوق فروشگاهی
+  { path: 'cashier', component: CashierPageComponent },
+
   { path: '**', redirectTo: '' }
 ];

@@ -1,0 +1,120 @@
+<div class="cashier-wrap">
+
+  <div *ngIf="message" class="cashier-toast" [class.error]="messageType === 'error'">{{ message }}</div>
+
+  <!-- دکمه شناور سفارش‌های پارک‌شده -->
+  <button class="parked-fab" (click)="toggleParkedDrawer()">
+    🅿️ پارک‌شده‌ها
+    <span class="fab-badge" *ngIf="parkedOrders.length > 0">{{ parkedOrders.length }}</span>
+  </button>
+
+  <div class="cashier-main">
+
+    <!-- ستون محصولات -->
+    <div class="cashier-products">
+      <div class="cashier-toolbar">
+        <input type="text" class="cashier-search" placeholder="🔍 جستجوی محصول..." [(ngModel)]="searchTerm" />
+        <div class="cashier-categories">
+          <button class="cat-btn" [class.active]="selectedCategoryId === null" (click)="selectedCategoryId = null">همه</button>
+          <button class="cat-btn" *ngFor="let cat of categories" [class.active]="selectedCategoryId === cat.id" (click)="selectedCategoryId = cat.id">
+            {{ cat.icon }} {{ cat.name }}
+          </button>
+        </div>
+      </div>
+
+      <div class="product-grid">
+        <div class="product-card" *ngFor="let p of filteredProducts" (click)="addToCart(p)">
+          <img *ngIf="p.imageUrl" [src]="p.imageUrl" class="product-img" />
+          <div class="product-name">{{ p.name }}</div>
+          <div class="product-price">{{ p.price | number }} تومان</div>
+        </div>
+        <div *ngIf="filteredProducts.length === 0" class="empty-hint">محصولی یافت نشد</div>
+      </div>
+    </div>
+
+    <!-- ستون سبد فعلی -->
+    <div class="cashier-cart">
+      <h3>سبد فعلی</h3>
+      <input type="text" class="customer-input" placeholder="نام مشتری / میز (اختیاری)" [(ngModel)]="customerName" />
+
+      <div class="cart-lines">
+        <div class="cart-line" *ngFor="let line of cart">
+          <div class="line-name">{{ line.productName }}</div>
+          <div class="line-qty">
+            <button (click)="decreaseQty(line)">−</button>
+            <span>{{ line.quantity }}</span>
+            <button (click)="increaseQty(line)">+</button>
+          </div>
+          <div class="line-price">{{ (line.unitPrice * line.quantity) | number }}</div>
+          <button class="line-remove" (click)="removeLine(line)">✕</button>
+        </div>
+        <div *ngIf="cart.length === 0" class="empty-hint">سبد خالی است</div>
+      </div>
+
+      <div class="cart-summary">
+        <div class="summary-row"><span>تعداد کل:</span><strong>{{ cartCount }}</strong></div>
+        <div class="summary-row total"><span>مجموع:</span><strong>{{ cartTotal | number }} تومان</strong></div>
+      </div>
+
+      <div class="cart-actions">
+        <div class="cart-actions-row">
+          <button class="btn btn-park" [disabled]="busy" (click)="openParkPrompt()">🅿️ پارک</button>
+          <button class="btn btn-clear" [disabled]="busy" (click)="clearCart()">🗑️ پاک کردن</button>
+        </div>
+        <button class="btn btn-checkout" [disabled]="busy" (click)="openCheckoutForCart()">💰 تسویه</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- درارر سفارش‌های پارک‌شده -->
+  <div class="drawer-overlay" *ngIf="showParkedDrawer" (click)="toggleParkedDrawer()">
+    <div class="parked-drawer" (click)="$event.stopPropagation()">
+      <div class="drawer-header">
+        <h3>سفارش‌های پارک‌شده ({{ parkedOrders.length }})</h3>
+        <button class="drawer-close" (click)="toggleParkedDrawer()">✕</button>
+      </div>
+      <div class="parked-list">
+        <div class="parked-card" *ngFor="let order of parkedOrders">
+          <div class="parked-label">{{ order.parkedLabel || order.customerName || ('سفارش #' + order.orderNumber) }}</div>
+          <div class="parked-meta">{{ order.orderItems.length }} قلم — {{ order.totalAmount | number }} تومان</div>
+          <div class="parked-actions">
+            <button class="btn-sm" (click)="resumeOrder(order)">ادامه ویرایش</button>
+            <button class="btn-sm btn-sm-primary" (click)="openCheckoutForParked(order)">تسویه</button>
+            <button class="btn-sm btn-sm-danger" (click)="removeParkedOrder(order)">حذف</button>
+          </div>
+        </div>
+        <div *ngIf="parkedOrders.length === 0" class="empty-hint">سفارش پارک‌شده‌ای وجود ندارد</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- پاپ‌آپ پارک کردن -->
+  <div class="modal-overlay" *ngIf="showParkPrompt" (click)="cancelPark()">
+    <div class="modal-box" (click)="$event.stopPropagation()">
+      <h4>پارک کردن سفارش</h4>
+      <input type="text" placeholder="برچسب (مثلاً میز ۳ یا نام مشتری)" [(ngModel)]="parkLabel" />
+      <div class="modal-actions">
+        <button class="btn btn-checkout" [disabled]="busy" (click)="confirmPark()">تأیید</button>
+        <button class="btn btn-clear" (click)="cancelPark()">انصراف</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- پاپ‌آپ انتخاب روش پرداخت -->
+  <div class="modal-overlay" *ngIf="showPaymentPicker" (click)="cancelPaymentPicker()">
+    <div class="modal-box" (click)="$event.stopPropagation()">
+      <h4>انتخاب روش پرداخت</h4>
+      <div class="payment-methods">
+        <button class="payment-btn" *ngFor="let m of paymentMethods" [disabled]="busy" (click)="selectPaymentMethod(m)">
+          <span class="pm-icon">{{ m.icon }}</span>
+          <span>{{ m.title }}</span>
+        </button>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-clear" (click)="cancelPaymentPicker()">انصراف</button>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -44,7 +44,7 @@ namespace KioskCenter.Services
                 _logger.LogInformation($"Found {allPrinters.Count} active printers in database");
 
                 // جدا کردن پرینترها بر اساس نوع
-                var receiptPrinters = allPrinters.Where(p => p.PrinterType == "Receipt" && p.IsActive).ToList();
+                var receiptPrinters = ResolveReceiptPrintersForSource(allPrinters, order.Source);
                 var kitchenPrinters = allPrinters.Where(p => p.PrinterType == "Kitchen" && p.IsActive).ToList();
                 var labelPrinters = allPrinters.Where(p => p.PrinterType == "Label" && p.IsActive).ToList();
 
@@ -218,6 +218,33 @@ namespace KioskCenter.Services
             }
 
             return printers;
+        }
+
+        // انتخاب پرینترهای فیش متناسب با منبع سفارش (کیوسک یا صندوق)
+        // اگر برای منبع موردنظر هیچ پرینتر اختصاصی/مشترک تعریف نشده باشد، به‌صورت خودکار از پرینتر کیوسک استفاده می‌شود
+        private List<PrinterSetting> ResolveReceiptPrintersForSource(List<PrinterSetting> allPrinters, string? orderSource)
+        {
+            var source = string.IsNullOrWhiteSpace(orderSource) ? "Kiosk" : orderSource;
+
+            var receiptPrinters = allPrinters
+                .Where(p => p.PrinterType == "Receipt" && p.IsActive)
+                .ToList();
+
+            var matching = receiptPrinters
+                .Where(p => string.IsNullOrWhiteSpace(p.Source) || p.Source == "Both" || p.Source == source)
+                .ToList();
+
+            if (matching.Any())
+                return matching;
+
+            // نبود پرینتر مخصوص صندوق: استفاده از پرینتر کیوسک به‌عنوان جایگزین
+            if (source == "Cashier")
+            {
+                _logger.LogInformation("No dedicated Cashier receipt printer found - falling back to Kiosk printer(s)");
+                return receiptPrinters.Where(p => p.Source == "Kiosk").ToList();
+            }
+
+            return matching;
         }
 
         private List<OrderItem> FilterItemsForPrinter(List<OrderItem> items, PrinterSetting printer)

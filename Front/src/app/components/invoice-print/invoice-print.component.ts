@@ -1,6 +1,7 @@
 import { Component, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { JalaliDatePipe } from '../../pipes/jalali-date.pipe';
 
 export type InvoicePrintTemplate = 'A4' | 'A5' | 'Thermal80';
 
@@ -17,7 +18,7 @@ const TEMPLATE_STORAGE_KEY = 'invoicePrintTemplate';
 @Component({
   selector: 'app-invoice-print',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, JalaliDatePipe],
   templateUrl: './invoice-print.component.html',
   styleUrls: ['./invoice-print.component.css']
 })

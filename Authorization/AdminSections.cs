@@ -16,7 +16,8 @@ namespace KioskCenter.Authorization
             "reports",
             "users",
             "purchase-sale",
-            "accounting"
+            "accounting",
+            "cashier"
         };
     }
 }

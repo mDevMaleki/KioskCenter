@@ -30,6 +30,16 @@ namespace KioskCenter.Models
         // روش پرداخت انتخاب شده برای این سفارش
         public int? PaymentMethodId { get; set; }
 
+        // منبع ثبت سفارش: Kiosk (دستگاه خودسرویس مشتری) یا Cashier (صندوق فروشگاهی) - برای انتخاب پرینتر مناسب
+        [MaxLength(20)]
+        public string Source { get; set; } = "Kiosk";
+
+        // سفارش پارک‌شده در صندوق فروشگاهی (هنوز تسویه نشده، کنار گذاشته شده برای ادامه بعدی)
+        public bool IsParked { get; set; } = false;
+
+        [MaxLength(100)]
+        public string? ParkedLabel { get; set; } // مثلاً "میز ۳" یا نام مشتری
+
         [ForeignKey("PaymentMethodId")]
         public virtual PaymentMethod? PaymentMethod { get; set; }
 

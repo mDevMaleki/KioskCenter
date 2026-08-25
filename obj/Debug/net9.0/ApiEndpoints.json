@@ -1341,6 +1341,11 @@
         "Name": "orderId",
         "Type": "System.Int32",
         "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "KioskCenter.Controllers.ConfirmPaymentRequest",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -1433,6 +1438,16 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "KioskCenter.Controllers.OrderController",
+    "Method": "GetParkedOrders",
+    "RelativePath": "api/Order/parked",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {

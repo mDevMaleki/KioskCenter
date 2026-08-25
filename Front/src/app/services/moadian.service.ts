@@ -5,20 +5,20 @@ import { Observable } from 'rxjs';
 export interface MoadianSettings {
   id: number;
   isEnabled: boolean;
-  orgKeyId?: string | null;
-  username?: string | null;
-  baseUrl: string;
+  memoryId?: string | null;
+  sellerEconomicCode?: string | null;
+  apiUrl: string;
   lastUpdatedAt?: string | null;
   hasKeys: boolean;
 }
 
 export interface MoadianSettingsDto {
   isEnabled: boolean;
-  publicKeyPem?: string;
+  memoryId?: string;
+  sellerEconomicCode?: string;
   privateKeyPem?: string;
-  orgKeyId?: string;
-  username?: string;
-  baseUrl?: string;
+  certificatePem?: string;
+  apiUrl?: string;
 }
 
 @Injectable({ providedIn: 'root' })

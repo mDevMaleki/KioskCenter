@@ -34,6 +34,12 @@ export class PrinterAdminComponent implements OnInit {
     { value: 'Label', label: 'پرینتر برچسب' }
   ];
 
+  printerSources = [
+    { value: 'Both', label: 'هر دو (کیوسک و صندوق)' },
+    { value: 'Kiosk', label: 'فقط کیوسک' },
+    { value: 'Cashier', label: 'فقط صندوق فروشگاهی' }
+  ];
+
   constructor(private printerService: PrinterService, private printService: PrintService) {}
 
   @ViewChild('printArea') printAreaRef?: ElementRef<HTMLElement>;
@@ -67,6 +73,7 @@ export class PrinterAdminComponent implements OnInit {
       name: '',
       printerName: '',
       printerType: 'Receipt',
+      source: 'Both',
       isActive: true,
       priority: this.printers.length,
       categories: [],

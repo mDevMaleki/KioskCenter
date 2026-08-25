@@ -10,6 +10,10 @@ namespace KioskCenter.Models
         public string Name { get; set; } = ""; // مثلاً "آشپزخانه", "صندوق", "کیوسک"
         public string PrinterName { get; set; } = ""; // نام واقعی پرینتر در ویندوز
         public string PrinterType { get; set; } = "Receipt"; // Receipt, Kitchen, Label
+
+        // این پرینتر برای کدام منبع سفارش فعال است: Kiosk، Cashier یا Both (هر دو)
+        // اگر برای صندوق پرینتر مخصوصی تعریف نشده باشد (هیچ Cashier/Both)، به‌صورت خودکار از پرینتر Kiosk استفاده می‌شود
+        public string Source { get; set; } = "Both";
         public bool IsActive { get; set; } = true;
         public int Priority { get; set; } = 0;
         public List<string> Categories { get; set; } = new(); // برای پرینتر آشپزخانه - کدام دسته‌ها

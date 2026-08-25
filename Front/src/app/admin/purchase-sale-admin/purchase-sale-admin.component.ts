@@ -4,6 +4,7 @@ import { PrintService } from '../../services/print.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { KioskService } from '../../services/kiosk.service';
+import { JalaliDatePipe } from '../../pipes/jalali-date.pipe';
 import { Product, Category } from '../../models/kiosk.models';
 import {
   RawMaterialService,
@@ -24,7 +25,7 @@ type Section = 'parties' | 'units' | 'materials' | 'purchaseInvoices' | 'product
 @Component({
   selector: 'app-purchase-sale-admin',
   standalone: true,
-  imports: [CommonModule, FormsModule, InvoicePrintComponent],
+  imports: [CommonModule, FormsModule, InvoicePrintComponent, JalaliDatePipe],
   templateUrl: './purchase-sale-admin.component.html',
   styleUrls: ['./purchase-sale-admin.component.css']
 })

@@ -73,6 +73,25 @@ namespace KioskCenter.Controllers
             return Ok(order);
         }
 
+        // GET: api/order/parked - فهرست سفارش‌های پارک‌شده در صندوق فروشگاهی
+        [HttpGet("parked")]
+        public async Task<IActionResult> GetParkedOrders()
+        {
+            var orders = await _context.Orders
+                .Include(o => o.OrderItems)
+                .ThenInclude(oi => oi.Product)
+                .Where(o => o.IsParked)
+                .OrderByDescending(o => o.OrderDate)
+                .ToListAsync();
+
+            foreach (var order in orders)
+            {
+                await RecalculateOrderPrices(order);
+            }
+
+            return Ok(orders);
+        }
+
         [HttpGet("status/{status}")]
         public async Task<IActionResult> GetByStatus(string status)
         {
@@ -125,7 +144,10 @@ namespace KioskCenter.Controllers
                     PaymentStatus = "در انتظار پرداخت",
                     CustomerName = request.CustomerName,
                     TotalAmount = 0,
-                    TaxAmount = 0
+                    TaxAmount = 0,
+                    Source = string.IsNullOrWhiteSpace(request.Source) ? "Kiosk" : request.Source,
+                    IsParked = request.Park,
+                    ParkedLabel = request.Park ? request.ParkedLabel : null
                 };
 
                 _context.Orders.Add(order);
@@ -185,12 +207,13 @@ namespace KioskCenter.Controllers
 
                 order.TotalAmount = total;
                 order.TaxAmount = tax;
-                order.PaymentMethodId = request.PaymentMethodId;
+                order.PaymentMethodId = request.Park ? null : request.PaymentMethodId;
 
                 await _context.SaveChangesAsync();
 
                 // ثبت سند حسابداری بر اساس روش پرداخت (صندوق برای نقدی، بانک برای کارت/آنلاین)
-                if (request.PaymentMethodId.HasValue && total > 0)
+                // سفارش پارک‌شده هنوز تسویه نشده، پس سندی ثبت نمی‌شود
+                if (!request.Park && request.PaymentMethodId.HasValue && total > 0)
                 {
                     var paymentMethod = await _context.PaymentMethods.FindAsync(request.PaymentMethodId.Value);
                     if (paymentMethod?.CashAccountId != null)
@@ -259,7 +282,7 @@ namespace KioskCenter.Controllers
         }
 
         [HttpPost("confirm/{orderId}")]
-        public async Task<IActionResult> ConfirmPayment(int orderId)
+        public async Task<IActionResult> ConfirmPayment(int orderId, [FromBody] ConfirmPaymentRequest? request = null)
         {
             var order = await _context.Orders.FindAsync(orderId);
             if (order == null)
@@ -268,7 +291,34 @@ namespace KioskCenter.Controllers
             if (order.PaymentStatus == "موفق")
                 return BadRequest(new { success = false, message = "این سفارش قبلاً پرداخت شده است" });
 
+            // فقط در صورتی سند حسابداری ثبت می‌شود که روش پرداخت صریحاً همراه این درخواست آمده باشد
+            // و سفارش قبلاً (هنگام ایجاد) روش پرداختی نداشته باشد - تا از ثبت دوباره‌ی سند جلوگیری شود
+            // (سفارش‌های عادی کیوسک از قبل روش پرداخت را هنگام ایجاد ثبت و سند را پست کرده‌اند)
+            if (request?.PaymentMethodId.HasValue == true && order.PaymentMethodId == null && order.TotalAmount > 0)
+            {
+                var paymentMethod = await _context.PaymentMethods.FindAsync(request.PaymentMethodId!.Value);
+                if (paymentMethod?.CashAccountId != null)
+                {
+                    var cashAccount = await _context.CashAccounts.FindAsync(paymentMethod.CashAccountId.Value);
+                    if (cashAccount != null)
+                    {
+                        await _journalPostingService.PostAsync(
+                            DateTime.Now,
+                            $"فروش - سفارش شماره {order.OrderNumber}",
+                            JournalEntryRefType.SaleInvoice,
+                            order.Id,
+                            new List<JournalLineInput>
+                            {
+                                new JournalLineInput { AccountId = cashAccount.AccountId, Debit = order.TotalAmount, CashAccountId = cashAccount.Id },
+                                new JournalLineInput { AccountId = AccountingConstants.SalesRevenue, Credit = order.TotalAmount }
+                            });
+                    }
+                }
+                order.PaymentMethodId = request.PaymentMethodId;
+            }
+
             order.PaymentStatus = "موفق";
+            order.IsParked = false;
             await _context.SaveChangesAsync();
 
             return Ok(new
@@ -514,6 +564,13 @@ namespace KioskCenter.Controllers
         public string OrderType { get; set; } = "EatIn";
         public List<OrderItemRequest> Items { get; set; } = new();
         public int? PaymentMethodId { get; set; }
+
+        // ثبت به‌عنوان سفارش پارک‌شده در صندوق فروشگاهی (هنوز تسویه نشده)
+        public bool Park { get; set; } = false;
+        public string? ParkedLabel { get; set; }
+
+        // منبع ثبت سفارش: Kiosk یا Cashier
+        public string? Source { get; set; }
     }
 
     public class OrderItemRequest
@@ -526,5 +583,10 @@ namespace KioskCenter.Controllers
     {
         public string? CustomerName { get; set; }
         public string? PaymentStatus { get; set; }
+    }
+
+    public class ConfirmPaymentRequest
+    {
+        public int? PaymentMethodId { get; set; }
     }
 }

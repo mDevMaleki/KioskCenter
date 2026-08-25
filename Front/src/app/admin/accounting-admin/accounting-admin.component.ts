@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { PrintService } from '../../services/print.service';
 import { CommonModule } from '@angular/common';
+import { JalaliDatePipe } from '../../pipes/jalali-date.pipe';
 import { FormsModule } from '@angular/forms';
 import {
   AccountService,
@@ -85,7 +86,7 @@ interface SectionMenuGroup {
 @Component({
   selector: 'app-accounting-admin',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, JalaliDatePipe],
   templateUrl: './accounting-admin.component.html',
   styleUrls: ['./accounting-admin.component.css']
 })
@@ -257,7 +258,7 @@ export class AccountingAdminComponent implements OnInit {
 
   // ---------- اتصال به سامانه مودیان ----------
   moadianSettings: MoadianSettings | null = null;
-  moadianForm: MoadianSettingsDto = { isEnabled: false, orgKeyId: '', username: '', baseUrl: 'https://tp.tax.gov.ir', publicKeyPem: '', privateKeyPem: '' };
+  moadianForm: MoadianSettingsDto = { isEnabled: false, memoryId: '', sellerEconomicCode: '', apiUrl: 'https://tp.tax.gov.ir/requestsmanager', privateKeyPem: '', certificatePem: '' };
   moadianError = '';
   moadianSuccessMsg = '';
 
@@ -357,11 +358,11 @@ export class AccountingAdminComponent implements OnInit {
         this.moadianSettings = res;
         this.moadianForm = {
           isEnabled: res.isEnabled,
-          orgKeyId: res.orgKeyId || '',
-          username: res.username || '',
-          baseUrl: res.baseUrl || 'https://tp.tax.gov.ir',
-          publicKeyPem: '',
-          privateKeyPem: ''
+          memoryId: res.memoryId || '',
+          sellerEconomicCode: res.sellerEconomicCode || '',
+          apiUrl: res.apiUrl || 'https://tp.tax.gov.ir/requestsmanager',
+          privateKeyPem: '',
+          certificatePem: ''
         };
       },
       error: (err) => console.error('خطا در دریافت تنظیمات مودیان', err)
@@ -372,8 +373,8 @@ export class AccountingAdminComponent implements OnInit {
     this.moadianError = '';
     this.moadianSuccessMsg = '';
 
-    if (this.moadianForm.isEnabled && (!this.moadianForm.orgKeyId || !this.moadianForm.username)) {
-      this.moadianError = 'برای فعال‌سازی، شناسه سازمانی و نام کاربری الزامی است';
+    if (this.moadianForm.isEnabled && (!this.moadianForm.memoryId || !this.moadianForm.sellerEconomicCode)) {
+      this.moadianError = 'برای فعال‌سازی، شناسه حافظه مالیاتی و شماره اقتصادی فروشنده الزامی است';
       return;
     }
 
